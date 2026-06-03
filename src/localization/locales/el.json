@@ -1,0 +1,256 @@
+{
+  "app": {
+    "name": "ScorePad",
+    "tagline": "Σκορ. Απλό. Όμορφο."
+  },
+  "common": {
+    "continue": "Συνέχεια",
+    "back": "Πίσω",
+    "cancel": "Άκυρο",
+    "save": "Αποθήκευση",
+    "delete": "Διαγραφή",
+    "confirm": "Επιβεβαίωση",
+    "ok": "OK",
+    "skip": "Παράλειψη",
+    "done": "Έτοιμο",
+    "next": "Επόμενο",
+    "start": "Έναρξη",
+    "finish": "Τέλος",
+    "loading": "Φόρτωση…",
+    "yes": "Ναι",
+    "no": "Όχι",
+    "home": "Γηπεδούχοι",
+    "away": "Φιλοξενούμενοι"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Καλώς ήρθες στο ScorePad",
+      "subtitle": "Ο πιο γρήγορος τρόπος να κρατάς σκορ σε κάθε άθλημα."
+    },
+    "sports": {
+      "title": "Πέντε αθλήματα, μία εφαρμογή",
+      "subtitle": "Μπάσκετ, ποδόσφαιρο, βόλεϊ, τένις και πινγκ-πονγκ — με τους σωστούς κανόνες."
+    },
+    "language": {
+      "title": "Διάλεξε γλώσσα",
+      "subtitle": "Μπορείς να την αλλάξεις στις Ρυθμίσεις."
+    },
+    "premium": {
+      "title": "Δωρεάν vs Premium",
+      "subtitle": "Κράτα σκορ δωρεάν, ή ξεκλείδωσε ιστορικό και αφαίρεσε διαφημίσεις με μία αγορά.",
+      "freeTitle": "Δωρεάν",
+      "freeFeatures": "Σκορ σε κάθε ματς · Με διαφημίσεις",
+      "premiumTitle": "Premium",
+      "premiumFeatures": "Ιστορικό · Στατιστικά · Χωρίς διαφημίσεις · Cloud sync"
+    },
+    "auth": {
+      "title": "Σύνδεση (προαιρετικά)",
+      "subtitle": "Συνδέσου για να σώζεις τα ματς σου σε όλες τις συσκευές.",
+      "createAccount": "Δημιουργία λογαριασμού",
+      "useGuest": "Συνέχισε ως επισκέπτης"
+    },
+    "letsGo": "Πάμε"
+  },
+  "auth": {
+    "signIn": "Σύνδεση",
+    "signUp": "Εγγραφή",
+    "email": "Email",
+    "password": "Κωδικός",
+    "forgotPassword": "Ξέχασες τον κωδικό;",
+    "signInApple": "Σύνδεση με Apple",
+    "signInGoogle": "Σύνδεση με Google",
+    "signInFacebook": "Σύνδεση με Facebook",
+    "continueGuest": "Συνέχεια ως επισκέπτης",
+    "haveAccount": "Έχεις λογαριασμό; Συνδέσου",
+    "noAccount": "Δεν έχεις λογαριασμό; Φτιάξε έναν",
+    "errors": {
+      "invalidEmail": "Μη έγκυρο email",
+      "weakPassword": "Ο κωδικός πρέπει να έχει τουλάχιστον 6 χαρακτήρες",
+      "wrongPassword": "Λάθος email ή κωδικός",
+      "generic": "Κάτι πήγε στραβά. Προσπάθησε ξανά."
+    }
+  },
+  "home": {
+    "title": "ScorePad",
+    "newMatch": "Νέο ματς",
+    "history": "Ιστορικό",
+    "settings": "Ρυθμίσεις",
+    "premiumCta": "Πάρε Premium",
+    "premiumCtaSub": "Αποθήκευση · Χωρίς διαφημίσεις",
+    "pickSport": "Διάλεξε άθλημα"
+  },
+  "setup": {
+    "title": "Στήσιμο ματς",
+    "sport": "Άθλημα",
+    "homeTeam": "Γηπεδούχοι",
+    "awayTeam": "Φιλοξενούμενοι",
+    "homeTeamPlaceholder": "Γηπεδούχος",
+    "awayTeamPlaceholder": "Φιλοξενούμενος",
+    "periods": "Περίοδοι",
+    "halves": "Ημίχρονα",
+    "sets": "Σετ",
+    "bestOf": "Στα καλύτερα",
+    "bestOf3": "Στα 3 καλύτερα",
+    "bestOf5": "Στα 5 καλύτερα",
+    "tennisFormat": "Φορμά αγώνα",
+    "periodMinutes": "Διάρκεια περιόδου (λεπτά)",
+    "allowOvertime": "Επιτρέπεται παράταση",
+    "presets": "Πρότυπα",
+    "preset": {
+      "quick": "Γρήγορο",
+      "standard": "Κανονικό",
+      "tournament": "Τουρνουά"
+    },
+    "startMatch": "Έναρξη ματς"
+  },
+  "score": {
+    "undo": "Αναίρεση",
+    "swap": "Αλλαγή πλευρών",
+    "finish": "Τέλος",
+    "endMatch": "Τέλος ματς;",
+    "endMatchBody": "Σίγουρα θες να τελειώσεις;",
+    "matchEnded": "Τέλος ματς",
+    "winner": "Νίκη για {{name}}!",
+    "draw": "Ισοπαλία",
+    "saved": "Αποθηκεύτηκε",
+    "savedToPremium": "Στο ιστορικό σου",
+    "savePromptGuest": "Εγγράψου για να αποθηκεύσεις",
+    "savePromptPremium": "Πάρε Premium για αποθήκευση",
+    "share": "Κοινοποίηση",
+    "newMatch": "Νέο ματς"
+  },
+  "history": {
+    "title": "Ιστορικό αγώνων",
+    "empty": "Καθόλου αποθηκευμένα ματς.",
+    "emptyHint": "Τελείωσε ένα για να εμφανιστεί.",
+    "filterAll": "Όλα τα αθλήματα",
+    "searchPlaceholder": "Αναζήτηση",
+    "winner": "Νικητής: {{name}}",
+    "draw": "Ισοπαλία",
+    "deleteConfirm": "Διαγραφή;",
+    "deleteConfirmBody": "Δεν αναιρείται.",
+    "lockedTitle": "Το ιστορικό είναι Premium",
+    "lockedBody": "Μία αγορά για απεριόριστο ιστορικό, στατιστικά και sync.",
+    "unlock": "Ξεκλείδωμα Premium"
+  },
+  "settings": {
+    "title": "Ρυθμίσεις",
+    "language": "Γλώσσα",
+    "theme": "Θέμα",
+    "themeLight": "Φωτεινό",
+    "themeDark": "Σκοτεινό",
+    "themeSystem": "Σύστημα",
+    "sound": "Ήχοι",
+    "haptics": "Δονήσεις",
+    "account": "Λογαριασμός",
+    "signOut": "Αποσύνδεση",
+    "premium": "Premium",
+    "restorePurchases": "Επαναφορά αγορών",
+    "support": "Υποστήριξη",
+    "contact": "Επικοινωνία",
+    "privacy": "Πολιτική απορρήτου",
+    "terms": "Όροι χρήσης",
+    "version": "Έκδοση {{version}}",
+    "rtlNotice": "Επανεκκίνηση για RTL διάταξη."
+  },
+  "premium": {
+    "title": "ScorePad Premium",
+    "subtitle": "Μία αγορά. Δική σου για πάντα.",
+    "price": "2,99 €",
+    "oneTime": "Εφάπαξ αγορά",
+    "features": {
+      "noAds": "Χωρίς διαφημίσεις",
+      "history": "Απεριόριστο ιστορικό",
+      "stats": "Λεπτομερή στατιστικά",
+      "sync": "Cloud sync"
+    },
+    "buy": "Ξεκλείδωμα Premium",
+    "restore": "Επαναφορά αγορών",
+    "alreadyPremium": "Είσαι μέλος Premium 🎉",
+    "thanks": "Ευχαριστούμε για την υποστήριξη!",
+    "purchaseFailed": "Η αγορά απέτυχε.",
+    "restoreFailed": "Δεν υπάρχουν αγορές για επαναφορά.",
+    "restoreSuccess": "Οι αγορές επαναφέρθηκαν."
+  },
+  "sport": {
+    "basketball": {
+      "name": "Μπάσκετ",
+      "actions": {
+        "freeThrow": "Ελεύθερη βολή",
+        "twoPoints": "2 πόντοι",
+        "threePoints": "3 πόντοι",
+        "foul": "Φάουλ"
+      },
+      "stats": {
+        "fouls": "Φάουλ"
+      },
+      "status": {
+        "period": "Περίοδος {{current}} / {{total}}"
+      }
+    },
+    "football": {
+      "name": "Ποδόσφαιρο",
+      "actions": {
+        "goal": "Γκολ",
+        "yellow": "Κίτρινη κάρτα",
+        "red": "Κόκκινη κάρτα",
+        "corner": "Κόρνερ"
+      },
+      "stats": {
+        "yellow": "Κίτρινες",
+        "red": "Κόκκινες",
+        "corners": "Κόρνερ"
+      },
+      "status": {
+        "half": "Ημίχρονο {{current}} / {{total}}"
+      }
+    },
+    "volleyball": {
+      "name": "Βόλεϊ",
+      "actions": {
+        "point": "Πόντος"
+      },
+      "stats": {
+        "sets": "Σετ"
+      },
+      "status": {
+        "set": "Σετ {{current}}"
+      }
+    },
+    "tennis": {
+      "name": "Τένις",
+      "actions": {
+        "point": "Πόντος"
+      },
+      "stats": {
+        "points": "Πόντοι",
+        "sets": "Σετ"
+      },
+      "status": {
+        "set": "Σετ {{current}}",
+        "tiebreak": "Tie-break"
+      }
+    },
+    "tabletennis": {
+      "name": "Πινγκ-πονγκ",
+      "actions": {
+        "point": "Πόντος",
+        "switchService": "Αλλαγή σερβίς"
+      },
+      "stats": {
+        "sets": "Σετ",
+        "serving": "Σερβίρει"
+      },
+      "status": {
+        "set": "Σετ {{current}}"
+      }
+    }
+  },
+  "ads": {
+    "removeAds": "Αφαίρεση διαφημίσεων"
+  },
+  "errors": {
+    "generic": "Κάτι πήγε στραβά.",
+    "noNetwork": "Χωρίς σύνδεση."
+  }
+}

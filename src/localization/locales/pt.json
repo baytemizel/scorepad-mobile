@@ -1,0 +1,256 @@
+{
+  "app": {
+    "name": "ScorePad",
+    "tagline": "Pontuação. Simples. Bonito."
+  },
+  "common": {
+    "continue": "Continuar",
+    "back": "Voltar",
+    "cancel": "Cancelar",
+    "save": "Salvar",
+    "delete": "Excluir",
+    "confirm": "Confirmar",
+    "ok": "OK",
+    "skip": "Pular",
+    "done": "Concluído",
+    "next": "Próximo",
+    "start": "Iniciar",
+    "finish": "Finalizar",
+    "loading": "Carregando…",
+    "yes": "Sim",
+    "no": "Não",
+    "home": "Casa",
+    "away": "Visitante"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Bem-vindo ao ScorePad",
+      "subtitle": "A forma mais rápida de marcar pontos em qualquer esporte."
+    },
+    "sports": {
+      "title": "Cinco esportes, um app",
+      "subtitle": "Basquete, futebol, vôlei, tênis e tênis de mesa — com as regras certas."
+    },
+    "language": {
+      "title": "Escolha seu idioma",
+      "subtitle": "Você pode alterar isso a qualquer momento nas Configurações."
+    },
+    "premium": {
+      "title": "Grátis vs Premium",
+      "subtitle": "Marque pontos grátis, ou desbloqueie o histórico e remova anúncios com uma compra única.",
+      "freeTitle": "Grátis",
+      "freeFeatures": "Pontuação em todas as partidas · Com anúncios",
+      "premiumTitle": "Premium",
+      "premiumFeatures": "Histórico · Estatísticas · Sem anúncios · Sync na nuvem"
+    },
+    "auth": {
+      "title": "Entrar (opcional)",
+      "subtitle": "Entre para fazer backup das partidas, ou continue anônimo.",
+      "createAccount": "Criar conta",
+      "useGuest": "Continuar como convidado"
+    },
+    "letsGo": "Vamos lá"
+  },
+  "auth": {
+    "signIn": "Entrar",
+    "signUp": "Cadastrar",
+    "email": "Email",
+    "password": "Senha",
+    "forgotPassword": "Esqueceu a senha?",
+    "signInApple": "Entrar com Apple",
+    "signInGoogle": "Entrar com Google",
+    "signInFacebook": "Entrar com o Facebook",
+    "continueGuest": "Continuar como convidado",
+    "haveAccount": "Já tem conta? Entre",
+    "noAccount": "Sem conta? Crie uma",
+    "errors": {
+      "invalidEmail": "Email inválido",
+      "weakPassword": "A senha deve ter pelo menos 6 caracteres",
+      "wrongPassword": "Email ou senha incorretos",
+      "generic": "Algo deu errado. Tente novamente."
+    }
+  },
+  "home": {
+    "title": "ScorePad",
+    "newMatch": "Nova partida",
+    "history": "Histórico",
+    "settings": "Configurações",
+    "premiumCta": "Obter Premium",
+    "premiumCtaSub": "Salvar partidas · Sem anúncios",
+    "pickSport": "Escolha um esporte"
+  },
+  "setup": {
+    "title": "Configurar partida",
+    "sport": "Esporte",
+    "homeTeam": "Time da casa",
+    "awayTeam": "Time visitante",
+    "homeTeamPlaceholder": "Casa",
+    "awayTeamPlaceholder": "Visitante",
+    "periods": "Períodos",
+    "halves": "Tempos",
+    "sets": "Sets",
+    "bestOf": "Melhor de",
+    "bestOf3": "Melhor de 3",
+    "bestOf5": "Melhor de 5",
+    "tennisFormat": "Formato",
+    "periodMinutes": "Duração do período (min)",
+    "allowOvertime": "Permitir prorrogação",
+    "presets": "Modelos",
+    "preset": {
+      "quick": "Partida rápida",
+      "standard": "Padrão",
+      "tournament": "Torneio"
+    },
+    "startMatch": "Iniciar partida"
+  },
+  "score": {
+    "undo": "Desfazer",
+    "swap": "Trocar lados",
+    "finish": "Finalizar",
+    "endMatch": "Finalizar partida?",
+    "endMatchBody": "Tem certeza?",
+    "matchEnded": "Partida finalizada",
+    "winner": "{{name}} venceu!",
+    "draw": "Empate",
+    "saved": "Partida salva",
+    "savedToPremium": "Salva no histórico",
+    "savePromptGuest": "Cadastre-se para salvar esta partida",
+    "savePromptPremium": "Vá Premium para salvar partidas",
+    "share": "Compartilhar resultado",
+    "newMatch": "Nova partida"
+  },
+  "history": {
+    "title": "Histórico de partidas",
+    "empty": "Nenhuma partida salva.",
+    "emptyHint": "Finalize uma partida para vê-la aqui.",
+    "filterAll": "Todos esportes",
+    "searchPlaceholder": "Buscar times",
+    "winner": "Vencedor: {{name}}",
+    "draw": "Empate",
+    "deleteConfirm": "Excluir esta partida?",
+    "deleteConfirmBody": "Isso não pode ser desfeito.",
+    "lockedTitle": "Histórico é Premium",
+    "lockedBody": "Compre uma vez para desbloquear histórico ilimitado, stats e sync.",
+    "unlock": "Desbloquear Premium"
+  },
+  "settings": {
+    "title": "Configurações",
+    "language": "Idioma",
+    "theme": "Tema",
+    "themeLight": "Claro",
+    "themeDark": "Escuro",
+    "themeSystem": "Sistema",
+    "sound": "Sons",
+    "haptics": "Vibração",
+    "account": "Conta",
+    "signOut": "Sair",
+    "premium": "Premium",
+    "restorePurchases": "Restaurar compras",
+    "support": "Suporte",
+    "contact": "Fale conosco",
+    "privacy": "Privacidade",
+    "terms": "Termos",
+    "version": "Versão {{version}}",
+    "rtlNotice": "Reinicie para aplicar layout direita-para-esquerda."
+  },
+  "premium": {
+    "title": "ScorePad Premium",
+    "subtitle": "Uma compra. Pra sempre.",
+    "price": "R$ 14,90",
+    "oneTime": "Compra única",
+    "features": {
+      "noAds": "Sem anúncios",
+      "history": "Histórico ilimitado",
+      "stats": "Estatísticas detalhadas",
+      "sync": "Sync na nuvem"
+    },
+    "buy": "Desbloquear Premium",
+    "restore": "Restaurar compras",
+    "alreadyPremium": "Você é Premium 🎉",
+    "thanks": "Obrigado por apoiar o ScorePad!",
+    "purchaseFailed": "Compra falhou. Tente novamente.",
+    "restoreFailed": "Sem compras para restaurar.",
+    "restoreSuccess": "Compras restauradas."
+  },
+  "sport": {
+    "basketball": {
+      "name": "Basquete",
+      "actions": {
+        "freeThrow": "Lance livre",
+        "twoPoints": "2 pontos",
+        "threePoints": "3 pontos",
+        "foul": "Falta"
+      },
+      "stats": {
+        "fouls": "Faltas"
+      },
+      "status": {
+        "period": "Período {{current}} / {{total}}"
+      }
+    },
+    "football": {
+      "name": "Futebol",
+      "actions": {
+        "goal": "Gol",
+        "yellow": "Cartão amarelo",
+        "red": "Cartão vermelho",
+        "corner": "Escanteio"
+      },
+      "stats": {
+        "yellow": "Amarelos",
+        "red": "Vermelhos",
+        "corners": "Escanteios"
+      },
+      "status": {
+        "half": "Tempo {{current}} / {{total}}"
+      }
+    },
+    "volleyball": {
+      "name": "Vôlei",
+      "actions": {
+        "point": "Ponto"
+      },
+      "stats": {
+        "sets": "Sets"
+      },
+      "status": {
+        "set": "Set {{current}}"
+      }
+    },
+    "tennis": {
+      "name": "Tênis",
+      "actions": {
+        "point": "Ponto"
+      },
+      "stats": {
+        "points": "Pontos",
+        "sets": "Sets"
+      },
+      "status": {
+        "set": "Set {{current}}",
+        "tiebreak": "Tie-break"
+      }
+    },
+    "tabletennis": {
+      "name": "Tênis de mesa",
+      "actions": {
+        "point": "Ponto",
+        "switchService": "Trocar saque"
+      },
+      "stats": {
+        "sets": "Sets",
+        "serving": "Sacando"
+      },
+      "status": {
+        "set": "Set {{current}}"
+      }
+    }
+  },
+  "ads": {
+    "removeAds": "Remover anúncios"
+  },
+  "errors": {
+    "generic": "Algo deu errado.",
+    "noNetwork": "Sem conexão."
+  }
+}

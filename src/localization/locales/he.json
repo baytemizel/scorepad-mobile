@@ -1,0 +1,256 @@
+{
+  "app": {
+    "name": "ScorePad",
+    "tagline": "תוצאה. פשוט. יפה."
+  },
+  "common": {
+    "continue": "המשך",
+    "back": "חזור",
+    "cancel": "ביטול",
+    "save": "שמור",
+    "delete": "מחק",
+    "confirm": "אישור",
+    "ok": "אוקיי",
+    "skip": "דלג",
+    "done": "סיום",
+    "next": "הבא",
+    "start": "התחל",
+    "finish": "סיים",
+    "loading": "טוען…",
+    "yes": "כן",
+    "no": "לא",
+    "home": "בית",
+    "away": "חוץ"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "ברוכים הבאים ל-ScorePad",
+      "subtitle": "הדרך המהירה ביותר לרשום תוצאות בכל ספורט."
+    },
+    "sports": {
+      "title": "חמישה ענפי ספורט, אפליקציה אחת",
+      "subtitle": "כדורסל, כדורגל, כדורעף, טניס וטניס שולחן — עם הכללים הנכונים."
+    },
+    "language": {
+      "title": "בחר שפה",
+      "subtitle": "ניתן לשנות בכל עת בהגדרות."
+    },
+    "premium": {
+      "title": "חינם מול Premium",
+      "subtitle": "ספור תוצאות בחינם, או פתח היסטוריה והסר פרסומות ברכישה חד-פעמית.",
+      "freeTitle": "חינם",
+      "freeFeatures": "תוצאה לכל משחק · עם פרסומות",
+      "premiumTitle": "Premium",
+      "premiumFeatures": "היסטוריה · סטטיסטיקות · ללא פרסומות · סנכרון בענן"
+    },
+    "auth": {
+      "title": "התחבר (אופציונלי)",
+      "subtitle": "התחבר כדי לסנכרן משחקים בין מכשירים, או המשך באנונימיות.",
+      "createAccount": "צור חשבון",
+      "useGuest": "המשך כאורח"
+    },
+    "letsGo": "קדימה"
+  },
+  "auth": {
+    "signIn": "התחבר",
+    "signUp": "הירשם",
+    "email": "אימייל",
+    "password": "סיסמה",
+    "forgotPassword": "שכחת סיסמה?",
+    "signInApple": "התחבר עם Apple",
+    "signInGoogle": "התחבר עם Google",
+    "signInFacebook": "התחבר עם פייסבוק",
+    "continueGuest": "המשך כאורח",
+    "haveAccount": "יש לך חשבון? התחבר",
+    "noAccount": "אין חשבון? צור",
+    "errors": {
+      "invalidEmail": "אימייל לא תקין",
+      "weakPassword": "הסיסמה חייבת להיות לפחות 6 תווים",
+      "wrongPassword": "אימייל או סיסמה שגויים",
+      "generic": "משהו השתבש. נסה שוב."
+    }
+  },
+  "home": {
+    "title": "ScorePad",
+    "newMatch": "משחק חדש",
+    "history": "היסטוריית משחקים",
+    "settings": "הגדרות",
+    "premiumCta": "קבל Premium",
+    "premiumCtaSub": "שמור משחקים · ללא פרסומות",
+    "pickSport": "בחר ספורט"
+  },
+  "setup": {
+    "title": "הגדרת משחק",
+    "sport": "ספורט",
+    "homeTeam": "קבוצת בית",
+    "awayTeam": "קבוצת חוץ",
+    "homeTeamPlaceholder": "בית",
+    "awayTeamPlaceholder": "חוץ",
+    "periods": "מחזורים",
+    "halves": "חצאים",
+    "sets": "מערכות",
+    "bestOf": "הטוב ביותר",
+    "bestOf3": "הטוב ב-3",
+    "bestOf5": "הטוב ב-5",
+    "tennisFormat": "פורמט משחק",
+    "periodMinutes": "אורך מחזור (דקות)",
+    "allowOvertime": "אפשר הארכה",
+    "presets": "תבניות",
+    "preset": {
+      "quick": "משחק מהיר",
+      "standard": "סטנדרטי",
+      "tournament": "טורניר"
+    },
+    "startMatch": "התחל משחק"
+  },
+  "score": {
+    "undo": "בטל",
+    "swap": "החלף צדדים",
+    "finish": "סיים",
+    "endMatch": "לסיים משחק?",
+    "endMatchBody": "האם אתה בטוח?",
+    "matchEnded": "המשחק הסתיים",
+    "winner": "{{name}} מנצח!",
+    "draw": "תיקו",
+    "saved": "המשחק נשמר",
+    "savedToPremium": "נשמר בהיסטוריה",
+    "savePromptGuest": "הירשם כדי לשמור",
+    "savePromptPremium": "קבל Premium כדי לשמור",
+    "share": "שתף תוצאה",
+    "newMatch": "משחק חדש"
+  },
+  "history": {
+    "title": "היסטוריית משחקים",
+    "empty": "אין עדיין משחקים שמורים.",
+    "emptyHint": "סיים משחק כדי לראות אותו כאן.",
+    "filterAll": "כל ענפי הספורט",
+    "searchPlaceholder": "חפש קבוצות",
+    "winner": "מנצח: {{name}}",
+    "draw": "תיקו",
+    "deleteConfirm": "למחוק את המשחק הזה?",
+    "deleteConfirmBody": "לא ניתן לבטל.",
+    "lockedTitle": "היסטוריה היא תכונת Premium",
+    "lockedBody": "קנה פעם אחת לפתיחת היסטוריה ללא הגבלה, סטטיסטיקות וסנכרון.",
+    "unlock": "פתח Premium"
+  },
+  "settings": {
+    "title": "הגדרות",
+    "language": "שפה",
+    "theme": "ערכת נושא",
+    "themeLight": "בהיר",
+    "themeDark": "כהה",
+    "themeSystem": "מערכת",
+    "sound": "צלילים",
+    "haptics": "רטט",
+    "account": "חשבון",
+    "signOut": "התנתק",
+    "premium": "Premium",
+    "restorePurchases": "שחזר רכישות",
+    "support": "תמיכה",
+    "contact": "צור קשר",
+    "privacy": "פרטיות",
+    "terms": "תנאים",
+    "version": "גרסה {{version}}",
+    "rtlNotice": "הפעל מחדש את האפליקציה לפריסת RTL."
+  },
+  "premium": {
+    "title": "ScorePad Premium",
+    "subtitle": "רכישה אחת. שלך לתמיד.",
+    "price": "$2.99",
+    "oneTime": "רכישה חד-פעמית",
+    "features": {
+      "noAds": "ללא פרסומות",
+      "history": "היסטוריה ללא הגבלה",
+      "stats": "סטטיסטיקות מפורטות",
+      "sync": "סנכרון בענן בין מכשירים"
+    },
+    "buy": "פתח Premium",
+    "restore": "שחזר רכישות",
+    "alreadyPremium": "אתה חבר Premium 🎉",
+    "thanks": "תודה על התמיכה ב-ScorePad!",
+    "purchaseFailed": "הרכישה נכשלה.",
+    "restoreFailed": "אין רכישות לשחזור.",
+    "restoreSuccess": "רכישות שוחזרו."
+  },
+  "sport": {
+    "basketball": {
+      "name": "כדורסל",
+      "actions": {
+        "freeThrow": "זריקה חופשית",
+        "twoPoints": "2 נקודות",
+        "threePoints": "3 נקודות",
+        "foul": "עבירה"
+      },
+      "stats": {
+        "fouls": "עבירות"
+      },
+      "status": {
+        "period": "רבע {{current}} / {{total}}"
+      }
+    },
+    "football": {
+      "name": "כדורגל",
+      "actions": {
+        "goal": "שער",
+        "yellow": "כרטיס צהוב",
+        "red": "כרטיס אדום",
+        "corner": "קרן"
+      },
+      "stats": {
+        "yellow": "צהובים",
+        "red": "אדומים",
+        "corners": "קרנות"
+      },
+      "status": {
+        "half": "מחצית {{current}} / {{total}}"
+      }
+    },
+    "volleyball": {
+      "name": "כדורעף",
+      "actions": {
+        "point": "נקודה"
+      },
+      "stats": {
+        "sets": "מערכות"
+      },
+      "status": {
+        "set": "מערכה {{current}}"
+      }
+    },
+    "tennis": {
+      "name": "טניס",
+      "actions": {
+        "point": "נקודה"
+      },
+      "stats": {
+        "points": "נקודות",
+        "sets": "מערכות"
+      },
+      "status": {
+        "set": "מערכה {{current}}",
+        "tiebreak": "טייברייק"
+      }
+    },
+    "tabletennis": {
+      "name": "טניס שולחן",
+      "actions": {
+        "point": "נקודה",
+        "switchService": "החלף הגשה"
+      },
+      "stats": {
+        "sets": "מערכות",
+        "serving": "מגיש"
+      },
+      "status": {
+        "set": "מערכה {{current}}"
+      }
+    }
+  },
+  "ads": {
+    "removeAds": "הסר פרסומות"
+  },
+  "errors": {
+    "generic": "משהו השתבש.",
+    "noNetwork": "אין חיבור לאינטרנט."
+  }
+}

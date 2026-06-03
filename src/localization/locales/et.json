@@ -1,0 +1,256 @@
+{
+  "app": {
+    "name": "ScorePad",
+    "tagline": "Skoor. Lihtne. Kaunis."
+  },
+  "common": {
+    "continue": "Jätka",
+    "back": "Tagasi",
+    "cancel": "Tühista",
+    "save": "Salvesta",
+    "delete": "Kustuta",
+    "confirm": "Kinnita",
+    "ok": "OK",
+    "skip": "Jäta vahele",
+    "done": "Valmis",
+    "next": "Edasi",
+    "start": "Alusta",
+    "finish": "Lõpeta",
+    "loading": "Laadimine…",
+    "yes": "Jah",
+    "no": "Ei",
+    "home": "Kodu",
+    "away": "Külaline"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Tere tulemast ScorePadi",
+      "subtitle": "Kiireim viis skoori pidamiseks ükskõik millises spordis."
+    },
+    "sports": {
+      "title": "Viis spordiala, üks rakendus",
+      "subtitle": "Korvpall, jalgpall, võrkpall, tennis ja lauatennis — õigete reeglitega."
+    },
+    "language": {
+      "title": "Vali keel",
+      "subtitle": "Saad selle igal ajal seadetest muuta."
+    },
+    "premium": {
+      "title": "Tasuta vs Premium",
+      "subtitle": "Pea skoori tasuta või avage ühekordse ostuga ajalugu ja eemaldage reklaamid.",
+      "freeTitle": "Tasuta",
+      "freeFeatures": "Iga matši skoor · Reklaamidega",
+      "premiumTitle": "Premium",
+      "premiumFeatures": "Ajalugu · Statistika · Reklaamivaba · Pilvesünk"
+    },
+    "auth": {
+      "title": "Logi sisse (valikuline)",
+      "subtitle": "Logi sisse, et matšid seadmete vahel sünkida, või jätka anonüümselt.",
+      "createAccount": "Loo konto",
+      "useGuest": "Jätka külalisena"
+    },
+    "letsGo": "Lähme"
+  },
+  "auth": {
+    "signIn": "Logi sisse",
+    "signUp": "Registreeru",
+    "email": "E-post",
+    "password": "Parool",
+    "forgotPassword": "Unustasid parooli?",
+    "signInApple": "Logi sisse Apple'iga",
+    "signInGoogle": "Logi sisse Google'iga",
+    "signInFacebook": "Logi sisse Facebookiga",
+    "continueGuest": "Jätka külalisena",
+    "haveAccount": "On konto? Logi sisse",
+    "noAccount": "Pole kontot? Loo",
+    "errors": {
+      "invalidEmail": "Vigane e-posti aadress",
+      "weakPassword": "Parool peab olema vähemalt 6 tähemärki",
+      "wrongPassword": "Vale e-post või parool",
+      "generic": "Midagi läks valesti. Proovi uuesti."
+    }
+  },
+  "home": {
+    "title": "ScorePad",
+    "newMatch": "Uus matš",
+    "history": "Matšide ajalugu",
+    "settings": "Seaded",
+    "premiumCta": "Hangi Premium",
+    "premiumCtaSub": "Salvesta matše · Reklaamivaba",
+    "pickSport": "Vali ala"
+  },
+  "setup": {
+    "title": "Matši seadistus",
+    "sport": "Spordiala",
+    "homeTeam": "Kodumeeskond",
+    "awayTeam": "Külaline",
+    "homeTeamPlaceholder": "Kodu",
+    "awayTeamPlaceholder": "Külaline",
+    "periods": "Perioodid",
+    "halves": "Poolajad",
+    "sets": "Setid",
+    "bestOf": "Parim",
+    "bestOf3": "Parim 3-st",
+    "bestOf5": "Parim 5-st",
+    "tennisFormat": "Matši formaat",
+    "periodMinutes": "Perioodi kestus (min)",
+    "allowOvertime": "Luba lisaaeg",
+    "presets": "Mallid",
+    "preset": {
+      "quick": "Kiire mäng",
+      "standard": "Standard",
+      "tournament": "Turniir"
+    },
+    "startMatch": "Alusta matši"
+  },
+  "score": {
+    "undo": "Tühista",
+    "swap": "Vaheta pooli",
+    "finish": "Lõpeta",
+    "endMatch": "Lõpetada matš?",
+    "endMatchBody": "Kas soovid kindlasti lõpetada?",
+    "matchEnded": "Matš lõppes",
+    "winner": "{{name}} võidab!",
+    "draw": "Viik",
+    "saved": "Matš salvestatud",
+    "savedToPremium": "Salvestatud ajalukku",
+    "savePromptGuest": "Registreeru, et salvestada",
+    "savePromptPremium": "Hangi Premium, et salvestada",
+    "share": "Jaga tulemust",
+    "newMatch": "Uus matš"
+  },
+  "history": {
+    "title": "Matšide ajalugu",
+    "empty": "Salvestatud matše veel pole.",
+    "emptyHint": "Lõpeta matš, et see siia ilmuks.",
+    "filterAll": "Kõik alad",
+    "searchPlaceholder": "Otsi võistkondi",
+    "winner": "Võitja: {{name}}",
+    "draw": "Viik",
+    "deleteConfirm": "Kustutada see matš?",
+    "deleteConfirmBody": "Seda ei saa tagasi võtta.",
+    "lockedTitle": "Ajalugu on Premium funktsioon",
+    "lockedBody": "Osta üks kord, et avada piiramatu ajalugu, statistika ja sünk.",
+    "unlock": "Ava Premium"
+  },
+  "settings": {
+    "title": "Seaded",
+    "language": "Keel",
+    "theme": "Teema",
+    "themeLight": "Hele",
+    "themeDark": "Tume",
+    "themeSystem": "Süsteem",
+    "sound": "Helid",
+    "haptics": "Vibratsioon",
+    "account": "Konto",
+    "signOut": "Logi välja",
+    "premium": "Premium",
+    "restorePurchases": "Taasta ostud",
+    "support": "Tugi",
+    "contact": "Kontakt",
+    "privacy": "Privaatsus",
+    "terms": "Tingimused",
+    "version": "Versioon {{version}}",
+    "rtlNotice": "Taaskäivita rakendus RTL-paigutuse jaoks."
+  },
+  "premium": {
+    "title": "ScorePad Premium",
+    "subtitle": "Üks ost. Igavesti sinu.",
+    "price": "2,99 €",
+    "oneTime": "Ühekordne ost",
+    "features": {
+      "noAds": "Reklaamivaba",
+      "history": "Piiramatu ajalugu",
+      "stats": "Üksikasjalik statistika",
+      "sync": "Pilvesünk"
+    },
+    "buy": "Ava Premium",
+    "restore": "Taasta ostud",
+    "alreadyPremium": "Oled Premium liige 🎉",
+    "thanks": "Aitäh ScorePadi toetamise eest!",
+    "purchaseFailed": "Ost ebaõnnestus.",
+    "restoreFailed": "Pole oste, mida taastada.",
+    "restoreSuccess": "Ostud taastatud."
+  },
+  "sport": {
+    "basketball": {
+      "name": "Korvpall",
+      "actions": {
+        "freeThrow": "Vabavise",
+        "twoPoints": "2 punkti",
+        "threePoints": "3 punkti",
+        "foul": "Viga"
+      },
+      "stats": {
+        "fouls": "Vead"
+      },
+      "status": {
+        "period": "Periood {{current}} / {{total}}"
+      }
+    },
+    "football": {
+      "name": "Jalgpall",
+      "actions": {
+        "goal": "Värav",
+        "yellow": "Kollane kaart",
+        "red": "Punane kaart",
+        "corner": "Nurk"
+      },
+      "stats": {
+        "yellow": "Kollased",
+        "red": "Punased",
+        "corners": "Nurgad"
+      },
+      "status": {
+        "half": "Poolaeg {{current}} / {{total}}"
+      }
+    },
+    "volleyball": {
+      "name": "Võrkpall",
+      "actions": {
+        "point": "Punkt"
+      },
+      "stats": {
+        "sets": "Setid"
+      },
+      "status": {
+        "set": "Sett {{current}}"
+      }
+    },
+    "tennis": {
+      "name": "Tennis",
+      "actions": {
+        "point": "Punkt"
+      },
+      "stats": {
+        "points": "Punktid",
+        "sets": "Setid"
+      },
+      "status": {
+        "set": "Sett {{current}}",
+        "tiebreak": "Tie-break"
+      }
+    },
+    "tabletennis": {
+      "name": "Lauatennis",
+      "actions": {
+        "point": "Punkt",
+        "switchService": "Vaheta servi"
+      },
+      "stats": {
+        "sets": "Setid",
+        "serving": "Servib"
+      },
+      "status": {
+        "set": "Sett {{current}}"
+      }
+    }
+  },
+  "ads": {
+    "removeAds": "Eemalda reklaamid"
+  },
+  "errors": {
+    "generic": "Midagi läks valesti.",
+    "noNetwork": "Internetiühendus puudub."
+  }
+}

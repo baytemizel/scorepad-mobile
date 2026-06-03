@@ -1,0 +1,256 @@
+{
+  "app": {
+    "name": "ScorePad",
+    "tagline": "Счёт. Просто. Красиво."
+  },
+  "common": {
+    "continue": "Продолжить",
+    "back": "Назад",
+    "cancel": "Отмена",
+    "save": "Сохранить",
+    "delete": "Удалить",
+    "confirm": "Подтвердить",
+    "ok": "ОК",
+    "skip": "Пропустить",
+    "done": "Готово",
+    "next": "Далее",
+    "start": "Старт",
+    "finish": "Завершить",
+    "loading": "Загрузка…",
+    "yes": "Да",
+    "no": "Нет",
+    "home": "Дома",
+    "away": "В гостях"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Добро пожаловать в ScorePad",
+      "subtitle": "Самый быстрый способ вести счёт в любом виде спорта."
+    },
+    "sports": {
+      "title": "Пять видов спорта, одно приложение",
+      "subtitle": "Баскетбол, футбол, волейбол, теннис и настольный теннис — с правильными правилами."
+    },
+    "language": {
+      "title": "Выберите язык",
+      "subtitle": "Можно изменить в любой момент в Настройках."
+    },
+    "premium": {
+      "title": "Бесплатно vs Premium",
+      "subtitle": "Ведите счёт бесплатно или разблокируйте историю и уберите рекламу одним платежом.",
+      "freeTitle": "Бесплатно",
+      "freeFeatures": "Счёт каждого матча · С рекламой",
+      "premiumTitle": "Premium",
+      "premiumFeatures": "История · Статистика · Без рекламы · Облачная синхронизация"
+    },
+    "auth": {
+      "title": "Войти (по желанию)",
+      "subtitle": "Войдите для синхронизации матчей между устройствами или продолжайте анонимно.",
+      "createAccount": "Создать аккаунт",
+      "useGuest": "Продолжить как гость"
+    },
+    "letsGo": "Поехали"
+  },
+  "auth": {
+    "signIn": "Войти",
+    "signUp": "Регистрация",
+    "email": "Email",
+    "password": "Пароль",
+    "forgotPassword": "Забыли пароль?",
+    "signInApple": "Войти через Apple",
+    "signInGoogle": "Войти через Google",
+    "signInFacebook": "Войти через Facebook",
+    "continueGuest": "Продолжить как гость",
+    "haveAccount": "Уже есть аккаунт? Войти",
+    "noAccount": "Нет аккаунта? Создать",
+    "errors": {
+      "invalidEmail": "Неверный email",
+      "weakPassword": "Пароль должен быть не короче 6 символов",
+      "wrongPassword": "Неверный email или пароль",
+      "generic": "Что-то пошло не так. Попробуйте ещё раз."
+    }
+  },
+  "home": {
+    "title": "ScorePad",
+    "newMatch": "Новый матч",
+    "history": "История матчей",
+    "settings": "Настройки",
+    "premiumCta": "Получить Premium",
+    "premiumCtaSub": "Сохранять матчи · Без рекламы",
+    "pickSport": "Выберите спорт"
+  },
+  "setup": {
+    "title": "Настройка матча",
+    "sport": "Спорт",
+    "homeTeam": "Домашняя команда",
+    "awayTeam": "Гостевая команда",
+    "homeTeamPlaceholder": "Дома",
+    "awayTeamPlaceholder": "В гостях",
+    "periods": "Периоды",
+    "halves": "Таймы",
+    "sets": "Сеты",
+    "bestOf": "Лучший из",
+    "bestOf3": "Лучший из 3",
+    "bestOf5": "Лучший из 5",
+    "tennisFormat": "Формат матча",
+    "periodMinutes": "Длительность периода (мин)",
+    "allowOvertime": "Разрешить овертайм",
+    "presets": "Шаблоны",
+    "preset": {
+      "quick": "Быстрый матч",
+      "standard": "Стандартный",
+      "tournament": "Турнир"
+    },
+    "startMatch": "Начать матч"
+  },
+  "score": {
+    "undo": "Отменить",
+    "swap": "Поменять стороны",
+    "finish": "Завершить",
+    "endMatch": "Завершить матч?",
+    "endMatchBody": "Вы уверены, что хотите завершить?",
+    "matchEnded": "Матч завершён",
+    "winner": "Победа {{name}}!",
+    "draw": "Ничья",
+    "saved": "Матч сохранён",
+    "savedToPremium": "Сохранено в истории",
+    "savePromptGuest": "Зарегистрируйтесь, чтобы сохранять матчи",
+    "savePromptPremium": "Получите Premium для сохранения матчей",
+    "share": "Поделиться результатом",
+    "newMatch": "Новый матч"
+  },
+  "history": {
+    "title": "История матчей",
+    "empty": "Сохранённых матчей пока нет.",
+    "emptyHint": "Завершите матч, чтобы он появился здесь.",
+    "filterAll": "Все виды спорта",
+    "searchPlaceholder": "Поиск команд",
+    "winner": "Победитель: {{name}}",
+    "draw": "Ничья",
+    "deleteConfirm": "Удалить этот матч?",
+    "deleteConfirmBody": "Это нельзя отменить.",
+    "lockedTitle": "История — функция Premium",
+    "lockedBody": "Купите один раз для безлимитной истории, статистики и синхронизации.",
+    "unlock": "Открыть Premium"
+  },
+  "settings": {
+    "title": "Настройки",
+    "language": "Язык",
+    "theme": "Тема",
+    "themeLight": "Светлая",
+    "themeDark": "Тёмная",
+    "themeSystem": "Системная",
+    "sound": "Звуки",
+    "haptics": "Вибрация",
+    "account": "Аккаунт",
+    "signOut": "Выйти",
+    "premium": "Premium",
+    "restorePurchases": "Восстановить покупки",
+    "support": "Поддержка",
+    "contact": "Связаться",
+    "privacy": "Конфиденциальность",
+    "terms": "Условия",
+    "version": "Версия {{version}}",
+    "rtlNotice": "Перезапустите приложение для RTL-раскладки."
+  },
+  "premium": {
+    "title": "ScorePad Premium",
+    "subtitle": "Одна покупка. Навсегда.",
+    "price": "$2.99",
+    "oneTime": "Разовая покупка",
+    "features": {
+      "noAds": "Без рекламы",
+      "history": "Безлимитная история",
+      "stats": "Подробная статистика",
+      "sync": "Синхронизация между устройствами"
+    },
+    "buy": "Открыть Premium",
+    "restore": "Восстановить покупки",
+    "alreadyPremium": "Вы Premium 🎉",
+    "thanks": "Спасибо за поддержку ScorePad!",
+    "purchaseFailed": "Покупка не удалась. Попробуйте ещё раз.",
+    "restoreFailed": "Нет покупок для восстановления.",
+    "restoreSuccess": "Покупки восстановлены."
+  },
+  "sport": {
+    "basketball": {
+      "name": "Баскетбол",
+      "actions": {
+        "freeThrow": "Штрафной",
+        "twoPoints": "2 очка",
+        "threePoints": "3 очка",
+        "foul": "Фол"
+      },
+      "stats": {
+        "fouls": "Фолы"
+      },
+      "status": {
+        "period": "Период {{current}} / {{total}}"
+      }
+    },
+    "football": {
+      "name": "Футбол",
+      "actions": {
+        "goal": "Гол",
+        "yellow": "Жёлтая карточка",
+        "red": "Красная карточка",
+        "corner": "Угловой"
+      },
+      "stats": {
+        "yellow": "Жёлтые",
+        "red": "Красные",
+        "corners": "Угловые"
+      },
+      "status": {
+        "half": "Тайм {{current}} / {{total}}"
+      }
+    },
+    "volleyball": {
+      "name": "Волейбол",
+      "actions": {
+        "point": "Очко"
+      },
+      "stats": {
+        "sets": "Сеты"
+      },
+      "status": {
+        "set": "Сет {{current}}"
+      }
+    },
+    "tennis": {
+      "name": "Теннис",
+      "actions": {
+        "point": "Очко"
+      },
+      "stats": {
+        "points": "Очки",
+        "sets": "Сеты"
+      },
+      "status": {
+        "set": "Сет {{current}}",
+        "tiebreak": "Тай-брейк"
+      }
+    },
+    "tabletennis": {
+      "name": "Настольный теннис",
+      "actions": {
+        "point": "Очко",
+        "switchService": "Сменить подачу"
+      },
+      "stats": {
+        "sets": "Сеты",
+        "serving": "Подаёт"
+      },
+      "status": {
+        "set": "Сет {{current}}"
+      }
+    }
+  },
+  "ads": {
+    "removeAds": "Убрать рекламу"
+  },
+  "errors": {
+    "generic": "Что-то пошло не так.",
+    "noNetwork": "Нет интернета."
+  }
+}

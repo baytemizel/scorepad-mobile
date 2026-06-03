@@ -1,0 +1,256 @@
+{
+  "app": {
+    "name": "ScorePad",
+    "tagline": "النتيجة. ببساطة. بأناقة."
+  },
+  "common": {
+    "continue": "متابعة",
+    "back": "رجوع",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "delete": "حذف",
+    "confirm": "تأكيد",
+    "ok": "حسناً",
+    "skip": "تخطي",
+    "done": "تم",
+    "next": "التالي",
+    "start": "ابدأ",
+    "finish": "إنهاء",
+    "loading": "جارٍ التحميل…",
+    "yes": "نعم",
+    "no": "لا",
+    "home": "المضيف",
+    "away": "الضيف"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "أهلاً بك في ScorePad",
+      "subtitle": "أسرع طريقة لتسجيل النتائج في أي رياضة."
+    },
+    "sports": {
+      "title": "خمس رياضات، تطبيق واحد",
+      "subtitle": "كرة السلة، كرة القدم، الكرة الطائرة، التنس، وتنس الطاولة — مع القواعد الصحيحة."
+    },
+    "language": {
+      "title": "اختر اللغة",
+      "subtitle": "يمكنك تغييرها في أي وقت من الإعدادات."
+    },
+    "premium": {
+      "title": "مجاني مقابل Premium",
+      "subtitle": "سجل النتائج مجاناً، أو افتح السجل وأزل الإعلانات بشراء واحد.",
+      "freeTitle": "مجاني",
+      "freeFeatures": "تسجيل النتائج لكل مباراة · مع إعلانات",
+      "premiumTitle": "Premium",
+      "premiumFeatures": "السجل · الإحصائيات · بدون إعلانات · مزامنة سحابية"
+    },
+    "auth": {
+      "title": "تسجيل الدخول (اختياري)",
+      "subtitle": "سجل الدخول لمزامنة المباريات بين الأجهزة، أو تابع كمجهول.",
+      "createAccount": "إنشاء حساب",
+      "useGuest": "متابعة كضيف"
+    },
+    "letsGo": "هيا بنا"
+  },
+  "auth": {
+    "signIn": "تسجيل الدخول",
+    "signUp": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "signInApple": "تسجيل الدخول بـ Apple",
+    "signInGoogle": "تسجيل الدخول بـ Google",
+    "signInFacebook": "تسجيل الدخول باستخدام فيسبوك",
+    "continueGuest": "متابعة كضيف",
+    "haveAccount": "لديك حساب؟ سجل الدخول",
+    "noAccount": "ليس لديك حساب؟ أنشئ",
+    "errors": {
+      "invalidEmail": "بريد إلكتروني غير صالح",
+      "weakPassword": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
+      "wrongPassword": "البريد أو كلمة المرور خطأ",
+      "generic": "حدث خطأ ما. حاول مرة أخرى."
+    }
+  },
+  "home": {
+    "title": "ScorePad",
+    "newMatch": "مباراة جديدة",
+    "history": "سجل المباريات",
+    "settings": "الإعدادات",
+    "premiumCta": "الحصول على Premium",
+    "premiumCtaSub": "احفظ المباريات · بدون إعلانات",
+    "pickSport": "اختر رياضة"
+  },
+  "setup": {
+    "title": "إعداد المباراة",
+    "sport": "الرياضة",
+    "homeTeam": "الفريق المضيف",
+    "awayTeam": "الفريق الضيف",
+    "homeTeamPlaceholder": "المضيف",
+    "awayTeamPlaceholder": "الضيف",
+    "periods": "الأشواط",
+    "halves": "الأشواط",
+    "sets": "الأطقم",
+    "bestOf": "أفضل من",
+    "bestOf3": "أفضل من 3",
+    "bestOf5": "أفضل من 5",
+    "tennisFormat": "صيغة المباراة",
+    "periodMinutes": "مدة الشوط (دقيقة)",
+    "allowOvertime": "السماح بالوقت الإضافي",
+    "presets": "قوالب",
+    "preset": {
+      "quick": "مباراة سريعة",
+      "standard": "قياسي",
+      "tournament": "بطولة"
+    },
+    "startMatch": "ابدأ المباراة"
+  },
+  "score": {
+    "undo": "تراجع",
+    "swap": "تبديل الجهات",
+    "finish": "إنهاء",
+    "endMatch": "إنهاء المباراة؟",
+    "endMatchBody": "هل أنت متأكد من الإنهاء؟",
+    "matchEnded": "انتهت المباراة",
+    "winner": "{{name}} يفوز!",
+    "draw": "تعادل",
+    "saved": "تم حفظ المباراة",
+    "savedToPremium": "تم الحفظ في السجل",
+    "savePromptGuest": "سجّل لحفظ المباراة",
+    "savePromptPremium": "احصل على Premium لحفظ المباريات",
+    "share": "مشاركة النتيجة",
+    "newMatch": "مباراة جديدة"
+  },
+  "history": {
+    "title": "سجل المباريات",
+    "empty": "لا توجد مباريات محفوظة بعد.",
+    "emptyHint": "أنهِ مباراة لتراها هنا.",
+    "filterAll": "كل الرياضات",
+    "searchPlaceholder": "ابحث عن الفرق",
+    "winner": "الفائز: {{name}}",
+    "draw": "تعادل",
+    "deleteConfirm": "حذف هذه المباراة؟",
+    "deleteConfirmBody": "لا يمكن التراجع.",
+    "lockedTitle": "السجل ميزة Premium",
+    "lockedBody": "اشترِ مرة واحدة لفتح سجل غير محدود وإحصائيات ومزامنة.",
+    "unlock": "افتح Premium"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "language": "اللغة",
+    "theme": "السمة",
+    "themeLight": "فاتح",
+    "themeDark": "داكن",
+    "themeSystem": "النظام",
+    "sound": "الأصوات",
+    "haptics": "الاهتزاز",
+    "account": "الحساب",
+    "signOut": "تسجيل الخروج",
+    "premium": "Premium",
+    "restorePurchases": "استرداد المشتريات",
+    "support": "الدعم",
+    "contact": "تواصل معنا",
+    "privacy": "الخصوصية",
+    "terms": "الشروط",
+    "version": "الإصدار {{version}}",
+    "rtlNotice": "أعد تشغيل التطبيق لتطبيق التخطيط من اليمين لليسار."
+  },
+  "premium": {
+    "title": "ScorePad Premium",
+    "subtitle": "شراء واحد. لك للأبد.",
+    "price": "‏2.99 $",
+    "oneTime": "شراء لمرة واحدة",
+    "features": {
+      "noAds": "بدون إعلانات",
+      "history": "سجل غير محدود",
+      "stats": "إحصائيات تفصيلية",
+      "sync": "مزامنة سحابية بين الأجهزة"
+    },
+    "buy": "افتح Premium",
+    "restore": "استرداد المشتريات",
+    "alreadyPremium": "أنت عضو Premium 🎉",
+    "thanks": "شكراً لدعمك ScorePad!",
+    "purchaseFailed": "فشل الشراء.",
+    "restoreFailed": "لا توجد مشتريات للاسترداد.",
+    "restoreSuccess": "تم استرداد المشتريات."
+  },
+  "sport": {
+    "basketball": {
+      "name": "كرة السلة",
+      "actions": {
+        "freeThrow": "رمية حرة",
+        "twoPoints": "نقطتان",
+        "threePoints": "ثلاث نقاط",
+        "foul": "خطأ"
+      },
+      "stats": {
+        "fouls": "الأخطاء"
+      },
+      "status": {
+        "period": "الربع {{current}} / {{total}}"
+      }
+    },
+    "football": {
+      "name": "كرة القدم",
+      "actions": {
+        "goal": "هدف",
+        "yellow": "بطاقة صفراء",
+        "red": "بطاقة حمراء",
+        "corner": "ركنية"
+      },
+      "stats": {
+        "yellow": "الصفراء",
+        "red": "الحمراء",
+        "corners": "الركنيات"
+      },
+      "status": {
+        "half": "الشوط {{current}} / {{total}}"
+      }
+    },
+    "volleyball": {
+      "name": "الكرة الطائرة",
+      "actions": {
+        "point": "نقطة"
+      },
+      "stats": {
+        "sets": "الأطقم"
+      },
+      "status": {
+        "set": "الطقم {{current}}"
+      }
+    },
+    "tennis": {
+      "name": "التنس",
+      "actions": {
+        "point": "نقطة"
+      },
+      "stats": {
+        "points": "النقاط",
+        "sets": "الأطقم"
+      },
+      "status": {
+        "set": "الطقم {{current}}",
+        "tiebreak": "كسر التعادل"
+      }
+    },
+    "tabletennis": {
+      "name": "تنس الطاولة",
+      "actions": {
+        "point": "نقطة",
+        "switchService": "تبديل الإرسال"
+      },
+      "stats": {
+        "sets": "الأطقم",
+        "serving": "يرسل"
+      },
+      "status": {
+        "set": "الطقم {{current}}"
+      }
+    }
+  },
+  "ads": {
+    "removeAds": "إزالة الإعلانات"
+  },
+  "errors": {
+    "generic": "حدث خطأ ما.",
+    "noNetwork": "لا يوجد اتصال بالإنترنت."
+  }
+}

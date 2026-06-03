@@ -1,0 +1,256 @@
+{
+  "app": {
+    "name": "ScorePad",
+    "tagline": "Резултат. Једноставно. Лепо."
+  },
+  "common": {
+    "continue": "Настави",
+    "back": "Назад",
+    "cancel": "Откажи",
+    "save": "Сачувај",
+    "delete": "Обриши",
+    "confirm": "Потврди",
+    "ok": "У реду",
+    "skip": "Прескочи",
+    "done": "Готово",
+    "next": "Даље",
+    "start": "Почни",
+    "finish": "Заврши",
+    "loading": "Учитавање…",
+    "yes": "Да",
+    "no": "Не",
+    "home": "Домаћин",
+    "away": "Гост"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Добродошли у ScorePad",
+      "subtitle": "Најбржи начин да пратите резултат у било ком спорту."
+    },
+    "sports": {
+      "title": "Пет спортова, једна апликација",
+      "subtitle": "Кошарка, фудбал, одбојка, тенис и стони тенис — са правим правилима."
+    },
+    "language": {
+      "title": "Изаберите језик",
+      "subtitle": "Можете променити у Подешавањима у било ком тренутку."
+    },
+    "premium": {
+      "title": "Бесплатно vs Премијум",
+      "subtitle": "Пратите резултат бесплатно, или откључајте историју и уклоните рекламе једном куповином.",
+      "freeTitle": "Бесплатно",
+      "freeFeatures": "Резултат сваке утакмице · Са рекламама",
+      "premiumTitle": "Премијум",
+      "premiumFeatures": "Историја · Статистика · Без реклама · Cloud синхронизација"
+    },
+    "auth": {
+      "title": "Пријава (опционо)",
+      "subtitle": "Пријавите се да направите бекап утакмица, или наставите анонимно.",
+      "createAccount": "Направи налог",
+      "useGuest": "Настави као гост"
+    },
+    "letsGo": "Кренимо"
+  },
+  "auth": {
+    "signIn": "Пријави се",
+    "signUp": "Региструј се",
+    "email": "Имејл",
+    "password": "Лозинка",
+    "forgotPassword": "Заборављена лозинка?",
+    "signInApple": "Пријави се са Apple",
+    "signInGoogle": "Пријави се са Google",
+    "signInFacebook": "Пријави се преко Фејсбука",
+    "continueGuest": "Настави као гост",
+    "haveAccount": "Имаш налог? Пријави се",
+    "noAccount": "Немаш налог? Направи",
+    "errors": {
+      "invalidEmail": "Неисправан имејл",
+      "weakPassword": "Лозинка мора имати најмање 6 карактера",
+      "wrongPassword": "Имејл или лозинка нису тачни",
+      "generic": "Нешто није у реду. Покушајте поново."
+    }
+  },
+  "home": {
+    "title": "ScorePad",
+    "newMatch": "Нова утакмица",
+    "history": "Историја",
+    "settings": "Подешавања",
+    "premiumCta": "Узми Премијум",
+    "premiumCtaSub": "Сачувај утакмице · Без реклама",
+    "pickSport": "Изабери спорт"
+  },
+  "setup": {
+    "title": "Подешавање утакмице",
+    "sport": "Спорт",
+    "homeTeam": "Домаћи тим",
+    "awayTeam": "Гостујући тим",
+    "homeTeamPlaceholder": "Домаћин",
+    "awayTeamPlaceholder": "Гост",
+    "periods": "Периоди",
+    "halves": "Полувремена",
+    "sets": "Сетови",
+    "bestOf": "Најбоље од",
+    "bestOf3": "Најбоље од 3",
+    "bestOf5": "Најбоље од 5",
+    "tennisFormat": "Формат меча",
+    "periodMinutes": "Трајање периода (мин)",
+    "allowOvertime": "Дозволи продужетке",
+    "presets": "Шаблони",
+    "preset": {
+      "quick": "Брза игра",
+      "standard": "Стандардна",
+      "tournament": "Турнир"
+    },
+    "startMatch": "Почни утакмицу"
+  },
+  "score": {
+    "undo": "Опозови",
+    "swap": "Замени стране",
+    "finish": "Заврши",
+    "endMatch": "Завршити утакмицу?",
+    "endMatchBody": "Сигурно желиш да завршиш?",
+    "matchEnded": "Утакмица завршена",
+    "winner": "{{name}} побеђује!",
+    "draw": "Нерешено",
+    "saved": "Утакмица сачувана",
+    "savedToPremium": "Сачувано у историји",
+    "savePromptGuest": "Региструј се да сачуваш",
+    "savePromptPremium": "Узми Премијум да сачуваш",
+    "share": "Подели резултат",
+    "newMatch": "Нова утакмица"
+  },
+  "history": {
+    "title": "Историја утакмица",
+    "empty": "Нема сачуваних утакмица.",
+    "emptyHint": "Заврши утакмицу да би се појавила овде.",
+    "filterAll": "Сви спортови",
+    "searchPlaceholder": "Тражи тимове",
+    "winner": "Победник: {{name}}",
+    "draw": "Нерешено",
+    "deleteConfirm": "Обрисати?",
+    "deleteConfirmBody": "Ово се не може поништити.",
+    "lockedTitle": "Историја је Премијум функција",
+    "lockedBody": "Купи једном за неограничену историју, статистику и синхронизацију.",
+    "unlock": "Откључај Премијум"
+  },
+  "settings": {
+    "title": "Подешавања",
+    "language": "Језик",
+    "theme": "Тема",
+    "themeLight": "Светла",
+    "themeDark": "Тамна",
+    "themeSystem": "Систем",
+    "sound": "Звукови",
+    "haptics": "Хаптика",
+    "account": "Налог",
+    "signOut": "Одјави се",
+    "premium": "Премијум",
+    "restorePurchases": "Поврати куповине",
+    "support": "Подршка",
+    "contact": "Контакт",
+    "privacy": "Приватност",
+    "terms": "Услови",
+    "version": "Верзија {{version}}",
+    "rtlNotice": "Поново покрени апликацију за RTL распоред."
+  },
+  "premium": {
+    "title": "ScorePad Премијум",
+    "subtitle": "Једна куповина. Заувек твоје.",
+    "price": "$2.99",
+    "oneTime": "Једнократна куповина",
+    "features": {
+      "noAds": "Без реклама",
+      "history": "Неограничена историја",
+      "stats": "Детаљна статистика",
+      "sync": "Cloud синхронизација"
+    },
+    "buy": "Откључај Премијум",
+    "restore": "Поврати куповине",
+    "alreadyPremium": "Премијум члан си 🎉",
+    "thanks": "Хвала за подршку!",
+    "purchaseFailed": "Куповина није успела.",
+    "restoreFailed": "Нема куповина за враћање.",
+    "restoreSuccess": "Куповине враћене."
+  },
+  "sport": {
+    "basketball": {
+      "name": "Кошарка",
+      "actions": {
+        "freeThrow": "Слободно бацање",
+        "twoPoints": "2 поена",
+        "threePoints": "3 поена",
+        "foul": "Прекршај"
+      },
+      "stats": {
+        "fouls": "Прекршаји"
+      },
+      "status": {
+        "period": "Четвртина {{current}} / {{total}}"
+      }
+    },
+    "football": {
+      "name": "Фудбал",
+      "actions": {
+        "goal": "Гол",
+        "yellow": "Жути картон",
+        "red": "Црвени картон",
+        "corner": "Корнер"
+      },
+      "stats": {
+        "yellow": "Жути",
+        "red": "Црвени",
+        "corners": "Корнери"
+      },
+      "status": {
+        "half": "Полувреме {{current}} / {{total}}"
+      }
+    },
+    "volleyball": {
+      "name": "Одбојка",
+      "actions": {
+        "point": "Поен"
+      },
+      "stats": {
+        "sets": "Сетови"
+      },
+      "status": {
+        "set": "Сет {{current}}"
+      }
+    },
+    "tennis": {
+      "name": "Тенис",
+      "actions": {
+        "point": "Поен"
+      },
+      "stats": {
+        "points": "Поени",
+        "sets": "Сетови"
+      },
+      "status": {
+        "set": "Сет {{current}}",
+        "tiebreak": "Тај-брејк"
+      }
+    },
+    "tabletennis": {
+      "name": "Стони тенис",
+      "actions": {
+        "point": "Поен",
+        "switchService": "Промени сервис"
+      },
+      "stats": {
+        "sets": "Сетови",
+        "serving": "Сервира"
+      },
+      "status": {
+        "set": "Сет {{current}}"
+      }
+    }
+  },
+  "ads": {
+    "removeAds": "Уклони рекламе"
+  },
+  "errors": {
+    "generic": "Нешто није у реду.",
+    "noNetwork": "Нема интернета."
+  }
+}

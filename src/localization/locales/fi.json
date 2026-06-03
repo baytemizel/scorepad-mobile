@@ -1,0 +1,256 @@
+{
+  "app": {
+    "name": "ScorePad",
+    "tagline": "Pisteet. Yksinkertaista. Kaunis."
+  },
+  "common": {
+    "continue": "Jatka",
+    "back": "Takaisin",
+    "cancel": "Peruuta",
+    "save": "Tallenna",
+    "delete": "Poista",
+    "confirm": "Vahvista",
+    "ok": "OK",
+    "skip": "Ohita",
+    "done": "Valmis",
+    "next": "Seuraava",
+    "start": "Aloita",
+    "finish": "Lopeta",
+    "loading": "Ladataan…",
+    "yes": "Kyllä",
+    "no": "Ei",
+    "home": "Koti",
+    "away": "Vieras"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Tervetuloa ScorePadiin",
+      "subtitle": "Nopein tapa pitää pisteitä missä tahansa lajissa."
+    },
+    "sports": {
+      "title": "Viisi lajia, yksi sovellus",
+      "subtitle": "Koripallo, jalkapallo, lentopallo, tennis ja pöytätennis — oikeilla säännöillä."
+    },
+    "language": {
+      "title": "Valitse kieli",
+      "subtitle": "Voit vaihtaa sen milloin tahansa Asetuksissa."
+    },
+    "premium": {
+      "title": "Ilmainen vs Premium",
+      "subtitle": "Pidä pisteitä ilmaiseksi tai avaa historia ja poista mainokset kertaostolla.",
+      "freeTitle": "Ilmainen",
+      "freeFeatures": "Pisteet jokaiseen otteluun · Mainoksilla",
+      "premiumTitle": "Premium",
+      "premiumFeatures": "Historia · Tilastot · Mainoksetta · Pilvisynk"
+    },
+    "auth": {
+      "title": "Kirjaudu (valinnainen)",
+      "subtitle": "Kirjaudu sisään synkataksesi ottelut laitteiden välillä, tai jatka anonyyminä.",
+      "createAccount": "Luo tili",
+      "useGuest": "Jatka vieraana"
+    },
+    "letsGo": "Mennään"
+  },
+  "auth": {
+    "signIn": "Kirjaudu",
+    "signUp": "Rekisteröidy",
+    "email": "Sähköposti",
+    "password": "Salasana",
+    "forgotPassword": "Unohditko salasanan?",
+    "signInApple": "Kirjaudu Applella",
+    "signInGoogle": "Kirjaudu Googlella",
+    "signInFacebook": "Kirjaudu Facebookilla",
+    "continueGuest": "Jatka vieraana",
+    "haveAccount": "Onko tili? Kirjaudu",
+    "noAccount": "Ei tiliä? Luo",
+    "errors": {
+      "invalidEmail": "Virheellinen sähköposti",
+      "weakPassword": "Salasanan on oltava vähintään 6 merkkiä",
+      "wrongPassword": "Väärä sähköposti tai salasana",
+      "generic": "Jokin meni pieleen. Yritä uudelleen."
+    }
+  },
+  "home": {
+    "title": "ScorePad",
+    "newMatch": "Uusi ottelu",
+    "history": "Otteluhistoria",
+    "settings": "Asetukset",
+    "premiumCta": "Hanki Premium",
+    "premiumCtaSub": "Tallenna otteluita · Mainoksetta",
+    "pickSport": "Valitse laji"
+  },
+  "setup": {
+    "title": "Ottelun asetukset",
+    "sport": "Laji",
+    "homeTeam": "Kotijoukkue",
+    "awayTeam": "Vierasjoukkue",
+    "homeTeamPlaceholder": "Koti",
+    "awayTeamPlaceholder": "Vieras",
+    "periods": "Erät",
+    "halves": "Puoliajat",
+    "sets": "Erät",
+    "bestOf": "Paras",
+    "bestOf3": "Paras 3:sta",
+    "bestOf5": "Paras 5:stä",
+    "tennisFormat": "Ottelumuoto",
+    "periodMinutes": "Erän pituus (min)",
+    "allowOvertime": "Salli jatkoaika",
+    "presets": "Mallit",
+    "preset": {
+      "quick": "Pikaottelu",
+      "standard": "Vakio",
+      "tournament": "Turnaus"
+    },
+    "startMatch": "Aloita ottelu"
+  },
+  "score": {
+    "undo": "Kumoa",
+    "swap": "Vaihda puolet",
+    "finish": "Lopeta",
+    "endMatch": "Lopeta ottelu?",
+    "endMatchBody": "Haluatko varmasti lopettaa?",
+    "matchEnded": "Ottelu päättyi",
+    "winner": "{{name}} voittaa!",
+    "draw": "Tasapeli",
+    "saved": "Ottelu tallennettu",
+    "savedToPremium": "Tallennettu historiaan",
+    "savePromptGuest": "Rekisteröidy tallentaaksesi",
+    "savePromptPremium": "Hanki Premium tallentaaksesi",
+    "share": "Jaa tulos",
+    "newMatch": "Uusi ottelu"
+  },
+  "history": {
+    "title": "Otteluhistoria",
+    "empty": "Ei tallennettuja otteluita vielä.",
+    "emptyHint": "Lopeta ottelu nähdäksesi sen täällä.",
+    "filterAll": "Kaikki lajit",
+    "searchPlaceholder": "Etsi joukkueita",
+    "winner": "Voittaja: {{name}}",
+    "draw": "Tasapeli",
+    "deleteConfirm": "Poistetaanko tämä ottelu?",
+    "deleteConfirmBody": "Tätä ei voi kumota.",
+    "lockedTitle": "Historia on Premium-ominaisuus",
+    "lockedBody": "Osta kerran avataksesi rajattoman historian, tilastot ja synkin.",
+    "unlock": "Avaa Premium"
+  },
+  "settings": {
+    "title": "Asetukset",
+    "language": "Kieli",
+    "theme": "Teema",
+    "themeLight": "Vaalea",
+    "themeDark": "Tumma",
+    "themeSystem": "Järjestelmä",
+    "sound": "Äänet",
+    "haptics": "Värinä",
+    "account": "Tili",
+    "signOut": "Kirjaudu ulos",
+    "premium": "Premium",
+    "restorePurchases": "Palauta ostot",
+    "support": "Tuki",
+    "contact": "Yhteystiedot",
+    "privacy": "Yksityisyys",
+    "terms": "Ehdot",
+    "version": "Versio {{version}}",
+    "rtlNotice": "Käynnistä sovellus uudelleen RTL-asettelua varten."
+  },
+  "premium": {
+    "title": "ScorePad Premium",
+    "subtitle": "Yksi osto. Ikuisesti sinun.",
+    "price": "2,99 €",
+    "oneTime": "Kertaosto",
+    "features": {
+      "noAds": "Mainoksetta",
+      "history": "Rajaton historia",
+      "stats": "Tarkat tilastot",
+      "sync": "Pilvisynk laitteiden välillä"
+    },
+    "buy": "Avaa Premium",
+    "restore": "Palauta ostot",
+    "alreadyPremium": "Olet Premium-jäsen 🎉",
+    "thanks": "Kiitos ScorePadin tukemisesta!",
+    "purchaseFailed": "Osto epäonnistui.",
+    "restoreFailed": "Ei palautettavia ostoja.",
+    "restoreSuccess": "Ostot palautettu."
+  },
+  "sport": {
+    "basketball": {
+      "name": "Koripallo",
+      "actions": {
+        "freeThrow": "Vapaaheitto",
+        "twoPoints": "2 pistettä",
+        "threePoints": "3 pistettä",
+        "foul": "Virhe"
+      },
+      "stats": {
+        "fouls": "Virheet"
+      },
+      "status": {
+        "period": "Erä {{current}} / {{total}}"
+      }
+    },
+    "football": {
+      "name": "Jalkapallo",
+      "actions": {
+        "goal": "Maali",
+        "yellow": "Keltainen kortti",
+        "red": "Punainen kortti",
+        "corner": "Kulma"
+      },
+      "stats": {
+        "yellow": "Keltaiset",
+        "red": "Punaiset",
+        "corners": "Kulmat"
+      },
+      "status": {
+        "half": "Puoliaika {{current}} / {{total}}"
+      }
+    },
+    "volleyball": {
+      "name": "Lentopallo",
+      "actions": {
+        "point": "Piste"
+      },
+      "stats": {
+        "sets": "Erät"
+      },
+      "status": {
+        "set": "Erä {{current}}"
+      }
+    },
+    "tennis": {
+      "name": "Tennis",
+      "actions": {
+        "point": "Piste"
+      },
+      "stats": {
+        "points": "Pisteet",
+        "sets": "Erät"
+      },
+      "status": {
+        "set": "Erä {{current}}",
+        "tiebreak": "Tasapelipisteet"
+      }
+    },
+    "tabletennis": {
+      "name": "Pöytätennis",
+      "actions": {
+        "point": "Piste",
+        "switchService": "Vaihda syöttö"
+      },
+      "stats": {
+        "sets": "Erät",
+        "serving": "Syöttää"
+      },
+      "status": {
+        "set": "Erä {{current}}"
+      }
+    }
+  },
+  "ads": {
+    "removeAds": "Poista mainokset"
+  },
+  "errors": {
+    "generic": "Jokin meni pieleen.",
+    "noNetwork": "Ei internet-yhteyttä."
+  }
+}

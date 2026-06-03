@@ -1,0 +1,28 @@
+node_modules/
+.expo/
+dist/
+web-build/
+*.log
+npm-debug.*
+*.orig.*
+*.tsbuildinfo
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Env files contain secrets we set via EAS env separately; keep out of upload
+.env
+.env.local
+.env.*.local
+
+# Local prebuild output not needed for managed EAS build
+ios/
+android/
+
+# Tooling caches
+.claude/
+expo-env.d.ts

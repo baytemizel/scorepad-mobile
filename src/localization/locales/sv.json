@@ -1,0 +1,256 @@
+{
+  "app": {
+    "name": "ScorePad",
+    "tagline": "Poäng. Enkelt. Snyggt."
+  },
+  "common": {
+    "continue": "Fortsätt",
+    "back": "Tillbaka",
+    "cancel": "Avbryt",
+    "save": "Spara",
+    "delete": "Ta bort",
+    "confirm": "Bekräfta",
+    "ok": "OK",
+    "skip": "Hoppa över",
+    "done": "Klar",
+    "next": "Nästa",
+    "start": "Starta",
+    "finish": "Avsluta",
+    "loading": "Laddar…",
+    "yes": "Ja",
+    "no": "Nej",
+    "home": "Hemma",
+    "away": "Borta"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Välkommen till ScorePad",
+      "subtitle": "Det snabbaste sättet att räkna poäng i vilken sport som helst."
+    },
+    "sports": {
+      "title": "Fem sporter, en app",
+      "subtitle": "Basket, fotboll, volleyboll, tennis och bordtennis — med rätt regler."
+    },
+    "language": {
+      "title": "Välj språk",
+      "subtitle": "Du kan ändra det när som helst i Inställningar."
+    },
+    "premium": {
+      "title": "Gratis vs Premium",
+      "subtitle": "Räkna poäng gratis, eller lås upp matchhistorik och ta bort annonser med ett engångsköp.",
+      "freeTitle": "Gratis",
+      "freeFeatures": "Räkna varje match · Med annonser",
+      "premiumTitle": "Premium",
+      "premiumFeatures": "Historik · Statistik · Annonsfritt · Molnsynk"
+    },
+    "auth": {
+      "title": "Logga in (valfritt)",
+      "subtitle": "Logga in för att synka matcher mellan enheter, eller fortsätt anonymt.",
+      "createAccount": "Skapa konto",
+      "useGuest": "Fortsätt som gäst"
+    },
+    "letsGo": "Kör"
+  },
+  "auth": {
+    "signIn": "Logga in",
+    "signUp": "Registrera",
+    "email": "E-post",
+    "password": "Lösenord",
+    "forgotPassword": "Glömt lösenord?",
+    "signInApple": "Logga in med Apple",
+    "signInGoogle": "Logga in med Google",
+    "signInFacebook": "Logga in med Facebook",
+    "continueGuest": "Fortsätt som gäst",
+    "haveAccount": "Har du konto? Logga in",
+    "noAccount": "Inget konto? Skapa",
+    "errors": {
+      "invalidEmail": "Ogiltig e-post",
+      "weakPassword": "Lösenordet måste vara minst 6 tecken",
+      "wrongPassword": "Fel e-post eller lösenord",
+      "generic": "Något gick fel. Försök igen."
+    }
+  },
+  "home": {
+    "title": "ScorePad",
+    "newMatch": "Ny match",
+    "history": "Matchhistorik",
+    "settings": "Inställningar",
+    "premiumCta": "Skaffa Premium",
+    "premiumCtaSub": "Spara matcher · Annonsfritt",
+    "pickSport": "Välj sport"
+  },
+  "setup": {
+    "title": "Matchinställning",
+    "sport": "Sport",
+    "homeTeam": "Hemmalag",
+    "awayTeam": "Bortalag",
+    "homeTeamPlaceholder": "Hemma",
+    "awayTeamPlaceholder": "Borta",
+    "periods": "Perioder",
+    "halves": "Halvlekar",
+    "sets": "Set",
+    "bestOf": "Bäst av",
+    "bestOf3": "Bäst av 3",
+    "bestOf5": "Bäst av 5",
+    "tennisFormat": "Matchformat",
+    "periodMinutes": "Periodlängd (min)",
+    "allowOvertime": "Tillåt förlängning",
+    "presets": "Mallar",
+    "preset": {
+      "quick": "Snabb match",
+      "standard": "Standard",
+      "tournament": "Turnering"
+    },
+    "startMatch": "Starta match"
+  },
+  "score": {
+    "undo": "Ångra",
+    "swap": "Byt sida",
+    "finish": "Avsluta",
+    "endMatch": "Avsluta match?",
+    "endMatchBody": "Är du säker?",
+    "matchEnded": "Match avslutad",
+    "winner": "{{name}} vinner!",
+    "draw": "Oavgjort",
+    "saved": "Match sparad",
+    "savedToPremium": "Sparad i historiken",
+    "savePromptGuest": "Registrera för att spara",
+    "savePromptPremium": "Skaffa Premium för att spara",
+    "share": "Dela resultat",
+    "newMatch": "Ny match"
+  },
+  "history": {
+    "title": "Matchhistorik",
+    "empty": "Inga sparade matcher än.",
+    "emptyHint": "Avsluta en match för att se den här.",
+    "filterAll": "Alla sporter",
+    "searchPlaceholder": "Sök lag",
+    "winner": "Vinnare: {{name}}",
+    "draw": "Oavgjort",
+    "deleteConfirm": "Ta bort denna match?",
+    "deleteConfirmBody": "Detta kan inte ångras.",
+    "lockedTitle": "Historik är en Premium-funktion",
+    "lockedBody": "Köp en gång för obegränsad historik, statistik och synk.",
+    "unlock": "Lås upp Premium"
+  },
+  "settings": {
+    "title": "Inställningar",
+    "language": "Språk",
+    "theme": "Tema",
+    "themeLight": "Ljust",
+    "themeDark": "Mörkt",
+    "themeSystem": "System",
+    "sound": "Ljud",
+    "haptics": "Vibration",
+    "account": "Konto",
+    "signOut": "Logga ut",
+    "premium": "Premium",
+    "restorePurchases": "Återställ köp",
+    "support": "Support",
+    "contact": "Kontakta oss",
+    "privacy": "Integritet",
+    "terms": "Villkor",
+    "version": "Version {{version}}",
+    "rtlNotice": "Starta om appen för RTL-layout."
+  },
+  "premium": {
+    "title": "ScorePad Premium",
+    "subtitle": "Ett köp. Ditt för alltid.",
+    "price": "29 kr",
+    "oneTime": "Engångsköp",
+    "features": {
+      "noAds": "Annonsfritt",
+      "history": "Obegränsad historik",
+      "stats": "Detaljerad statistik",
+      "sync": "Molnsynk mellan enheter"
+    },
+    "buy": "Lås upp Premium",
+    "restore": "Återställ köp",
+    "alreadyPremium": "Du är Premium-medlem 🎉",
+    "thanks": "Tack för att du stödjer ScorePad!",
+    "purchaseFailed": "Köpet misslyckades.",
+    "restoreFailed": "Inga köp att återställa.",
+    "restoreSuccess": "Köp återställda."
+  },
+  "sport": {
+    "basketball": {
+      "name": "Basket",
+      "actions": {
+        "freeThrow": "Frikast",
+        "twoPoints": "2 poäng",
+        "threePoints": "3 poäng",
+        "foul": "Foul"
+      },
+      "stats": {
+        "fouls": "Foul"
+      },
+      "status": {
+        "period": "Period {{current}} / {{total}}"
+      }
+    },
+    "football": {
+      "name": "Fotboll",
+      "actions": {
+        "goal": "Mål",
+        "yellow": "Gult kort",
+        "red": "Rött kort",
+        "corner": "Hörna"
+      },
+      "stats": {
+        "yellow": "Gula",
+        "red": "Röda",
+        "corners": "Hörnor"
+      },
+      "status": {
+        "half": "Halvlek {{current}} / {{total}}"
+      }
+    },
+    "volleyball": {
+      "name": "Volleyboll",
+      "actions": {
+        "point": "Poäng"
+      },
+      "stats": {
+        "sets": "Set"
+      },
+      "status": {
+        "set": "Set {{current}}"
+      }
+    },
+    "tennis": {
+      "name": "Tennis",
+      "actions": {
+        "point": "Poäng"
+      },
+      "stats": {
+        "points": "Poäng",
+        "sets": "Set"
+      },
+      "status": {
+        "set": "Set {{current}}",
+        "tiebreak": "Tiebreak"
+      }
+    },
+    "tabletennis": {
+      "name": "Bordtennis",
+      "actions": {
+        "point": "Poäng",
+        "switchService": "Byt serv"
+      },
+      "stats": {
+        "sets": "Set",
+        "serving": "Servar"
+      },
+      "status": {
+        "set": "Set {{current}}"
+      }
+    }
+  },
+  "ads": {
+    "removeAds": "Ta bort annonser"
+  },
+  "errors": {
+    "generic": "Något gick fel.",
+    "noNetwork": "Ingen internetanslutning."
+  }
+}

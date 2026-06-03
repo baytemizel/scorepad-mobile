@@ -1,0 +1,257 @@
+{
+  "app": {
+    "name": "ScorePad",
+    "tagline": "Skor. Basit. Şık."
+  },
+  "common": {
+    "continue": "Devam et",
+    "back": "Geri",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "confirm": "Onayla",
+    "ok": "Tamam",
+    "skip": "Atla",
+    "done": "Tamam",
+    "next": "İleri",
+    "start": "Başlat",
+    "finish": "Bitir",
+    "loading": "Yükleniyor…",
+    "yes": "Evet",
+    "no": "Hayır",
+    "home": "Ev sahibi",
+    "away": "Deplasman"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "ScorePad'e hoş geldin",
+      "subtitle": "Her spor için en hızlı skor tutma yolu."
+    },
+    "sports": {
+      "title": "Beş Spor, Tek Uygulama",
+      "subtitle": "Basketbol, futbol, voleybol, tenis ve masa tenisi — hepsi resmi kurallarla."
+    },
+    "language": {
+      "title": "Dilini Seç",
+      "subtitle": "Ayarlardan istediğin zaman değiştirebilirsin."
+    },
+    "premium": {
+      "title": "Ücretsiz vs Premium",
+      "subtitle": "Ücretsiz skor tut ya da tek seferlik ödemeyle maç geçmişini aç ve reklamları kaldır.",
+      "freeTitle": "Ücretsiz",
+      "freeFeatures": "Her maçta skor tut · Reklam destekli",
+      "premiumTitle": "Premium",
+      "premiumFeatures": "Maç geçmişi · İstatistikler · Reklamsız · Bulut yedekleme"
+    },
+    "auth": {
+      "title": "Giriş Yap (İsteğe bağlı)",
+      "subtitle": "Maçlarını cihazlar arası yedeklemek için giriş yap, ya da atlayıp uygulamayı misafir olarak kullan.",
+      "createAccount": "Hesap oluştur",
+      "useGuest": "Misafir olarak devam et"
+    },
+    "letsGo": "Başlayalım"
+  },
+  "auth": {
+    "signIn": "Giriş Yap",
+    "signUp": "Kayıt Ol",
+    "email": "E-posta",
+    "password": "Şifre",
+    "forgotPassword": "Şifremi unuttum",
+    "signInApple": "Apple ile giriş yap",
+    "signInGoogle": "Google ile giriş yap",
+    "signInFacebook": "Facebook ile giriş yap",
+    "continueGuest": "Misafir olarak devam et",
+    "haveAccount": "Hesabın var mı? Giriş yap",
+    "noAccount": "Hesabın yok mu? Oluştur",
+    "errors": {
+      "invalidEmail": "Geçersiz e-posta adresi",
+      "weakPassword": "Şifre en az 6 karakter olmalı",
+      "wrongPassword": "E-posta veya şifre hatalı",
+      "generic": "Bir şeyler ters gitti. Lütfen tekrar dene."
+    }
+  },
+  "home": {
+    "title": "ScorePad",
+    "newMatch": "Yeni Maç",
+    "history": "Maç Geçmişi",
+    "settings": "Ayarlar",
+    "premiumCta": "Premium'a Geç",
+    "premiumCtaSub": "Maçları kaydet · Reklamları kaldır",
+    "pickSport": "Spor seç"
+  },
+  "setup": {
+    "title": "Maç Kurulumu",
+    "sport": "Spor",
+    "homeTeam": "Ev sahibi takım",
+    "awayTeam": "Deplasman takımı",
+    "homeTeamPlaceholder": "Ev sahibi",
+    "awayTeamPlaceholder": "Deplasman",
+    "periods": "Periyot",
+    "halves": "Devre",
+    "sets": "Set",
+    "bestOf": "Maç formatı",
+    "bestOf3": "3'ün ikisi",
+    "bestOf5": "5'in üçü",
+    "tennisFormat": "Maç formatı",
+    "periodMinutes": "Periyot süresi (dakika)",
+    "allowOvertime": "Uzatmaya izin ver",
+    "presets": "Hazır şablonlar",
+    "preset": {
+      "quick": "Hızlı maç",
+      "standard": "Standart",
+      "tournament": "Turnuva"
+    },
+    "startMatch": "Maçı Başlat"
+  },
+  "score": {
+    "undo": "Geri al",
+    "swap": "Tarafları değiştir",
+    "finish": "Bitir",
+    "nextPeriod": "Sonraki",
+    "endMatch": "Maç bitirilsin mi?",
+    "endMatchBody": "Bu maçı bitirmek istediğine emin misin?",
+    "matchEnded": "Maç bitti",
+    "winner": "{{name}} kazandı!",
+    "draw": "Berabere",
+    "saved": "Maç kaydedildi",
+    "savedToPremium": "Maç geçmişine kaydedildi",
+    "savePromptGuest": "Bu maçı kaydetmek için kayıt ol",
+    "savePromptPremium": "Maçları kaydetmek için Premium'a geç",
+    "share": "Sonucu paylaş",
+    "newMatch": "Yeni maç"
+  },
+  "history": {
+    "title": "Maç Geçmişi",
+    "empty": "Henüz kayıtlı maç yok.",
+    "emptyHint": "Bir maçı bitirdiğinde burada görünecek.",
+    "filterAll": "Tüm sporlar",
+    "searchPlaceholder": "Takım ara",
+    "winner": "Kazanan: {{name}}",
+    "draw": "Berabere",
+    "deleteConfirm": "Bu maç silinsin mi?",
+    "deleteConfirmBody": "Bu işlem geri alınamaz.",
+    "lockedTitle": "Maç geçmişi bir Premium özelliğidir",
+    "lockedBody": "Tek seferlik satın alımla sınırsız maç geçmişi, istatistik ve bulut yedeklemenin kilidini aç.",
+    "unlock": "Premium'u Aç"
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "language": "Dil",
+    "theme": "Tema",
+    "themeLight": "Açık",
+    "themeDark": "Koyu",
+    "themeSystem": "Sistem",
+    "sound": "Ses efektleri",
+    "haptics": "Titreşim",
+    "account": "Hesap",
+    "signOut": "Çıkış yap",
+    "premium": "Premium",
+    "restorePurchases": "Satın alımları geri yükle",
+    "support": "Destek",
+    "contact": "Bize ulaş",
+    "privacy": "Gizlilik politikası",
+    "terms": "Kullanım koşulları",
+    "version": "Sürüm {{version}}",
+    "rtlNotice": "Sağdan sola düzeni tam uygulamak için uygulamayı yeniden başlat."
+  },
+  "premium": {
+    "title": "ScorePad Premium",
+    "subtitle": "Tek satın alma. Sonsuza kadar senin.",
+    "price": "$2.99",
+    "oneTime": "Tek seferlik satın alma",
+    "features": {
+      "noAds": "Reklam yok",
+      "history": "Sınırsız maç geçmişi",
+      "stats": "Detaylı maç istatistikleri",
+      "sync": "Cihazlar arası bulut yedekleme"
+    },
+    "buy": "Premium'u Aç",
+    "restore": "Satın alımları geri yükle",
+    "alreadyPremium": "Premium üyesin 🎉",
+    "thanks": "ScorePad'i desteklediğin için teşekkürler!",
+    "purchaseFailed": "Satın alma başarısız. Lütfen tekrar dene.",
+    "restoreFailed": "Geri yüklenecek satın alma yok.",
+    "restoreSuccess": "Satın alımlar geri yüklendi."
+  },
+  "sport": {
+    "basketball": {
+      "name": "Basketbol",
+      "actions": {
+        "freeThrow": "Serbest atış",
+        "twoPoints": "2 sayı",
+        "threePoints": "3 sayı",
+        "foul": "Faul"
+      },
+      "stats": {
+        "fouls": "Fauller"
+      },
+      "status": {
+        "period": "Periyot {{current}} / {{total}}"
+      }
+    },
+    "football": {
+      "name": "Futbol",
+      "actions": {
+        "goal": "Gol",
+        "yellow": "Sarı kart",
+        "red": "Kırmızı kart",
+        "corner": "Korner"
+      },
+      "stats": {
+        "yellow": "Sarı",
+        "red": "Kırmızı",
+        "corners": "Korner"
+      },
+      "status": {
+        "half": "Devre {{current}} / {{total}}"
+      }
+    },
+    "volleyball": {
+      "name": "Voleybol",
+      "actions": {
+        "point": "Sayı"
+      },
+      "stats": {
+        "sets": "Setler"
+      },
+      "status": {
+        "set": "Set {{current}}"
+      }
+    },
+    "tennis": {
+      "name": "Tenis",
+      "actions": {
+        "point": "Sayı"
+      },
+      "stats": {
+        "points": "Puanlar",
+        "sets": "Setler"
+      },
+      "status": {
+        "set": "Set {{current}}",
+        "tiebreak": "Tie-break"
+      }
+    },
+    "tabletennis": {
+      "name": "Masa Tenisi",
+      "actions": {
+        "point": "Sayı",
+        "switchService": "Servis değiştir"
+      },
+      "stats": {
+        "sets": "Setler",
+        "serving": "Serviste"
+      },
+      "status": {
+        "set": "Set {{current}}"
+      }
+    }
+  },
+  "ads": {
+    "removeAds": "Reklamları kaldır"
+  },
+  "errors": {
+    "generic": "Bir şeyler ters gitti.",
+    "noNetwork": "İnternet bağlantısı yok."
+  }
+}
