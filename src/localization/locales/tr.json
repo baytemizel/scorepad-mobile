@@ -70,7 +70,8 @@
       "invalidEmail": "Geçersiz e-posta adresi",
       "weakPassword": "Şifre en az 6 karakter olmalı",
       "wrongPassword": "E-posta veya şifre hatalı",
-      "generic": "Bir şeyler ters gitti. Lütfen tekrar dene."
+      "generic": "Bir şeyler ters gitti. Lütfen tekrar dene.",
+      "emailInUse": "Bu e-posta zaten kullanılıyor. Bunun yerine giriş yapın."
     }
   },
   "home": {

@@ -67,7 +67,8 @@
       "invalidEmail": "Correo no válido",
       "weakPassword": "La contraseña debe tener al menos 6 caracteres",
       "wrongPassword": "Correo o contraseña incorrectos",
-      "generic": "Algo salió mal. Inténtalo de nuevo."
+      "generic": "Algo salió mal. Inténtalo de nuevo.",
+      "emailInUse": "Este correo ya está en uso. Inicia sesión en su lugar."
     }
   },
   "home": {

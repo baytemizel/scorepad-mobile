@@ -67,7 +67,8 @@
       "invalidEmail": "Ungültige E-Mail-Adresse",
       "weakPassword": "Passwort muss mindestens 6 Zeichen haben",
       "wrongPassword": "E-Mail oder Passwort ist falsch",
-      "generic": "Etwas ist schiefgelaufen. Bitte erneut versuchen."
+      "generic": "Etwas ist schiefgelaufen. Bitte erneut versuchen.",
+      "emailInUse": "Diese E-Mail wird bereits verwendet. Versuchen Sie sich stattdessen anzumelden."
     }
   },
   "home": {

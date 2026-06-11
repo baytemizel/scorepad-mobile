@@ -67,7 +67,8 @@
       "invalidEmail": "Vigane e-posti aadress",
       "weakPassword": "Parool peab olema vähemalt 6 tähemärki",
       "wrongPassword": "Vale e-post või parool",
-      "generic": "Midagi läks valesti. Proovi uuesti."
+      "generic": "Midagi läks valesti. Proovi uuesti.",
+      "emailInUse": "See e-post on juba kasutusel. Proovige hoopis sisse logida."
     }
   },
   "home": {

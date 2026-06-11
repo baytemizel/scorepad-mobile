@@ -67,7 +67,8 @@
       "invalidEmail": "Virheellinen sähköposti",
       "weakPassword": "Salasanan on oltava vähintään 6 merkkiä",
       "wrongPassword": "Väärä sähköposti tai salasana",
-      "generic": "Jokin meni pieleen. Yritä uudelleen."
+      "generic": "Jokin meni pieleen. Yritä uudelleen.",
+      "emailInUse": "Sähköposti on jo käytössä. Yritä kirjautua sisään."
     }
   },
   "home": {

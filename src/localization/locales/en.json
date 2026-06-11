@@ -70,7 +70,8 @@
       "invalidEmail": "Invalid email address",
       "weakPassword": "Password must be at least 6 characters",
       "wrongPassword": "Email or password is incorrect",
-      "generic": "Something went wrong. Please try again."
+      "generic": "Something went wrong. Please try again.",
+      "emailInUse": "This email is already in use. Try signing in instead."
     }
   },
   "home": {

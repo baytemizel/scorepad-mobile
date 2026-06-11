@@ -67,7 +67,8 @@
       "invalidEmail": "Ogiltig e-post",
       "weakPassword": "Lösenordet måste vara minst 6 tecken",
       "wrongPassword": "Fel e-post eller lösenord",
-      "generic": "Något gick fel. Försök igen."
+      "generic": "Något gick fel. Försök igen.",
+      "emailInUse": "Denna e-post används redan. Försök logga in istället."
     }
   },
   "home": {

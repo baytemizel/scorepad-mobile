@@ -67,7 +67,8 @@
       "invalidEmail": "Email non valida",
       "weakPassword": "La password deve avere almeno 6 caratteri",
       "wrongPassword": "Email o password errata",
-      "generic": "Qualcosa è andato storto. Riprova."
+      "generic": "Qualcosa è andato storto. Riprova.",
+      "emailInUse": "Questa email è già in uso. Prova ad accedere invece."
     }
   },
   "home": {

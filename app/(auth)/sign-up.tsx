@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Alert,
 } from 'react-native';
 import { router, Link } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -38,8 +39,26 @@ export default function SignUp() {
       const profile = await signUpWithEmail(email.trim(), password);
       // New account is never premium yet — go straight to the premium screen.
       router.replace(profile.isPremium ? '/(main)' : '/(main)/premium');
-    } catch {
-      setError(t('auth.errors.generic'));
+    } catch (e) {
+      console.error('[SignUp] error:', e);
+      const err = e as { code?: string; message?: string };
+      // Map common Firebase errors to clearer text.
+      const code = err.code ?? '';
+      if (/email-already-in-use/i.test(code)) {
+        setError(t('auth.errors.emailInUse'));
+      } else if (/weak-password/i.test(code)) {
+        setError(t('auth.errors.weakPassword'));
+      } else if (/invalid-email/i.test(code)) {
+        setError(t('auth.errors.invalidEmail'));
+      } else {
+        setError(t('auth.errors.generic'));
+      }
+      if (__DEV__) {
+        Alert.alert(
+          '[DEV] Sign-up error',
+          `code: ${code || 'n/a'}\nmessage: ${err.message ?? String(e)}`,
+        );
+      }
     } finally {
       setLoading(false);
     }
