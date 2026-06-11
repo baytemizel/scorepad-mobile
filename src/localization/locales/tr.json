@@ -121,7 +121,8 @@
     "savePromptGuest": "Bu maçı kaydetmek için kayıt ol",
     "savePromptPremium": "Maçları kaydetmek için Premium'a geç",
     "share": "Sonucu paylaş",
-    "newMatch": "Yeni maç"
+    "newMatch": "Yeni maç",
+    "summary": "ÖZET"
   },
   "history": {
     "title": "Maç Geçmişi",

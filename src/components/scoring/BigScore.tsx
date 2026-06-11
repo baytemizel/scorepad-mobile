@@ -8,8 +8,6 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-const AnimatedText = Animated.createAnimatedComponent(Text);
-
 interface BigScoreProps {
   value: number;
   color: string;
@@ -18,8 +16,7 @@ interface BigScoreProps {
 
 /**
  * Score number with a tasteful pop animation when the value changes.
- * The container provides an absolute or flex layout; this only handles the
- * number itself.
+ * The container provides flex layout; this only handles the number itself.
  */
 export function BigScore({ value, color, style }: BigScoreProps) {
   const scale = useSharedValue(1);
@@ -42,27 +39,29 @@ export function BigScore({ value, color, style }: BigScoreProps) {
   }));
 
   return (
-    <AnimatedText
-      numberOfLines={1}
-      adjustsFontSizeToFit
-      minimumFontScale={0.5}
-      style={[
-        {
-          fontSize: 104,
-          lineHeight: 108,
-          fontWeight: '900',
-          color,
-          textAlign: 'center',
-          letterSpacing: -2,
-        },
-        animStyle,
-        style,
-      ]}
-      // Avoid system font scaling making the score huge & breaking layout.
-      allowFontScaling={false}
-    >
-      {value}
-    </AnimatedText>
+    <Animated.View style={animStyle}>
+      <Text
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.5}
+        style={[
+          {
+            fontSize: 100,
+            lineHeight: 100,
+            fontWeight: '900',
+            color,
+            textAlign: 'center',
+            letterSpacing: -2,
+            includeFontPadding: false,
+          },
+          style,
+        ]}
+        // Avoid system font scaling making the score huge & breaking layout.
+        allowFontScaling={false}
+      >
+        {value}
+      </Text>
+    </Animated.View>
   );
 }
 

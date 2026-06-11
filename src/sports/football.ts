@@ -9,6 +9,7 @@ import {
   SportAction,
   StatLine,
   StatusLabel,
+  PeriodSummary,
   newEvent,
   newMatchId,
 } from './index';
@@ -185,5 +186,20 @@ export const football: SportEngine = {
       { labelKey: 'sport.football.stats.red', value: meta.awayRed },
       { labelKey: 'sport.football.stats.corners', value: meta.awayCorners },
     ];
+  },
+
+  getPeriodSummary(state: MatchState, periodIndex: number, side: TeamSide): PeriodSummary {
+    const events = state.events.filter(
+      (e) => e.periodIndex === periodIndex && e.side === side,
+    );
+    const count = (id: string) => events.filter((e) => e.action === id).length;
+    return {
+      score: count('goal'),
+      stats: [
+        { labelKey: 'sport.football.stats.yellow', value: count('yellow') },
+        { labelKey: 'sport.football.stats.red', value: count('red') },
+        { labelKey: 'sport.football.stats.corners', value: count('corner') },
+      ],
+    };
   },
 };

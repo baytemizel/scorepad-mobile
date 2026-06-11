@@ -9,6 +9,7 @@ import {
   SportAction,
   StatLine,
   StatusLabel,
+  PeriodSummary,
   newEvent,
   newMatchId,
 } from './index';
@@ -174,5 +175,26 @@ export const basketball: SportEngine = {
         value: totalFouls,
       },
     ];
+  },
+
+  getPeriodSummary(state: MatchState, periodIndex: number, side: TeamSide): PeriodSummary {
+    const meta = ensureMeta(state);
+    const scoringEvents = state.events.filter(
+      (e) =>
+        e.periodIndex === periodIndex &&
+        e.side === side &&
+        (e.action === '1pt' || e.action === '2pt' || e.action === '3pt'),
+    );
+    const points = scoringEvents.reduce((sum, e) => sum + e.value, 0);
+    const fouls = side === 'home' ? meta.homeFouls : meta.awayFouls;
+    return {
+      score: points,
+      stats: [
+        {
+          labelKey: 'sport.basketball.stats.fouls',
+          value: fouls[periodIndex] ?? 0,
+        },
+      ],
+    };
   },
 };

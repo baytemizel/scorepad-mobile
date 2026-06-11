@@ -4,6 +4,7 @@ import {
   SportAction,
   StatLine,
   StatusLabel,
+  PeriodSummary,
   newEvent,
   newMatchId,
 } from './index';
@@ -206,5 +207,23 @@ export const volleyball: SportEngine = {
         value: side === 'home' ? meta.homeSets : meta.awaySets,
       },
     ];
+  },
+
+  getPeriodSummary(state: MatchState, periodIndex: number, side: TeamSide): PeriodSummary {
+    const completed = state.periods[periodIndex];
+    if (completed) {
+      return {
+        score: side === 'home' ? completed.homeScore : completed.awayScore,
+        stats: [],
+      };
+    }
+    // In-progress set (e.g. match finished early via Finish): show live points.
+    if (periodIndex === state.currentPeriod) {
+      return {
+        score: side === 'home' ? state.homeScore : state.awayScore,
+        stats: [],
+      };
+    }
+    return { score: 0, stats: [] };
   },
 };

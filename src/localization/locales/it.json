@@ -117,7 +117,8 @@
     "savePromptGuest": "Registrati per salvare questa partita",
     "savePromptPremium": "Diventa Premium per salvare le partite",
     "share": "Condividi risultato",
-    "newMatch": "Nuova partita"
+    "newMatch": "Nuova partita",
+    "summary": "RIEPILOGO"
   },
   "history": {
     "title": "Storico partite",

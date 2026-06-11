@@ -117,7 +117,8 @@
     "savePromptGuest": "Εγγράψου για να αποθηκεύσεις",
     "savePromptPremium": "Πάρε Premium για αποθήκευση",
     "share": "Κοινοποίηση",
-    "newMatch": "Νέο ματς"
+    "newMatch": "Νέο ματς",
+    "summary": "ΣΥΝΟΨΗ"
   },
   "history": {
     "title": "Ιστορικό αγώνων",

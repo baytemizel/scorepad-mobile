@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
   },
   scoreArea: {
     flex: 1,
+    minHeight: 110,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    minHeight: 130,
+    minHeight: 110,
   },
 });
 

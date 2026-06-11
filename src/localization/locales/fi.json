@@ -117,7 +117,8 @@
     "savePromptGuest": "Rekisteröidy tallentaaksesi",
     "savePromptPremium": "Hanki Premium tallentaaksesi",
     "share": "Jaa tulos",
-    "newMatch": "Uusi ottelu"
+    "newMatch": "Uusi ottelu",
+    "summary": "YHTEENVETO"
   },
   "history": {
     "title": "Otteluhistoria",

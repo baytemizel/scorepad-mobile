@@ -85,24 +85,6 @@ export function ScoreCenterBar({ state, onUndo, onFinish, onNextPeriod }: ScoreC
         </Text>
       ) : null}
 
-      {state.config.sport !== 'tennis' && (
-        <Text
-          allowFontScaling={false}
-          numberOfLines={1}
-          style={{
-            color: theme.colors.text,
-            fontSize: 28,
-            fontWeight: '900',
-            lineHeight: 36,
-            marginTop: 6,
-            includeFontPadding: false,
-            textAlignVertical: 'center',
-          }}
-        >
-          {state.homeScore}-{state.awayScore}
-        </Text>
-      )}
-
       {homeStat && awayStat && (
         <View style={{ alignItems: 'center', marginTop: 10 }}>
           <Text

@@ -39,6 +39,20 @@ export interface SportEngine {
 
   /** Optional secondary stats line shown below score (e.g. set wins, fouls). */
   getStatLines?: (state: MatchState, side: TeamSide) => StatLine[];
+
+  /** Optional per-period breakdown used by the end-of-match summary modal. */
+  getPeriodSummary?: (
+    state: MatchState,
+    periodIndex: number,
+    side: TeamSide,
+  ) => PeriodSummary;
+}
+
+export interface PeriodSummary {
+  /** The numeric score this side put up in the given period. */
+  score: number;
+  /** Sport-specific extras (yellow cards, fouls, etc.) for the period. */
+  stats: StatLine[];
 }
 
 export interface SportAction {

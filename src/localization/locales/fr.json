@@ -117,7 +117,8 @@
     "savePromptGuest": "Inscris-toi pour sauvegarder ce match",
     "savePromptPremium": "Passe Premium pour sauvegarder",
     "share": "Partager le résultat",
-    "newMatch": "Nouveau match"
+    "newMatch": "Nouveau match",
+    "summary": "RÉSUMÉ"
   },
   "history": {
     "title": "Historique des matchs",

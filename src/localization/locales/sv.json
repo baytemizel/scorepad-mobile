@@ -117,7 +117,8 @@
     "savePromptGuest": "Registrera för att spara",
     "savePromptPremium": "Skaffa Premium för att spara",
     "share": "Dela resultat",
-    "newMatch": "Ny match"
+    "newMatch": "Ny match",
+    "summary": "SAMMANFATTNING"
   },
   "history": {
     "title": "Matchhistorik",

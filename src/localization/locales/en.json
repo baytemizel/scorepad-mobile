@@ -121,7 +121,8 @@
     "savePromptGuest": "Sign up to save this match",
     "savePromptPremium": "Upgrade to Premium to save matches",
     "share": "Share result",
-    "newMatch": "New match"
+    "newMatch": "New match",
+    "summary": "SUMMARY"
   },
   "history": {
     "title": "Match History",

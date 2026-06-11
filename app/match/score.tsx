@@ -6,18 +6,15 @@ import {
   Alert,
   Pressable,
   Share,
-  Modal,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { useTranslation } from 'react-i18next';
-import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import { useTheme } from '@/theme/ThemeProvider';
 import { TeamPanel } from '@/components/scoring/TeamPanel';
 import { ScoreCenterBar } from '@/components/scoring/ScoreCenterBar';
-import { Button } from '@/components/ui/Button';
+import { MatchSummaryModal } from '@/components/scoring/MatchSummaryModal';
 import { useMatchStore } from '@/store/matchStore';
 import { useMatchHistoryStore } from '@/store/matchHistoryStore';
 import { useAuthStore } from '@/store/authStore';
@@ -56,7 +53,9 @@ export default function ScoreScreen() {
     };
   }, []);
 
-  // Show end-of-match overlay when finished + side effects.
+  // Side effects when the match transitions to finished: whistle, haptic,
+  // analytics, auto-save (premium), interstitial (free). Guarded by
+  // matchEndedShown so they fire exactly once per finished state.
   useEffect(() => {
     if (state?.finished && !matchEndedShown) {
       setMatchEndedShown(true);
@@ -67,7 +66,16 @@ export default function ScoreScreen() {
         winner: state.winner ?? 'draw',
       });
 
-      // Wait a beat so the user sees the final score before the interstitial.
+      // Premium: silently persist the match to history + cloud.
+      if (isPremium && !saved) {
+        const record = saveMatch(state);
+        if (record) {
+          void syncMatchToCloud(record);
+          setSaved(true);
+        }
+      }
+
+      // Free: show an interstitial after the user has had a beat with the score.
       if (!isPremium && !interstitialShownRef.current) {
         interstitialShownRef.current = true;
         setTimeout(() => {
@@ -75,7 +83,12 @@ export default function ScoreScreen() {
         }, 1500);
       }
     }
-  }, [state, matchEndedShown, isPremium]);
+    // New match started: reset the one-shot guards.
+    if (state && !state.finished && matchEndedShown) {
+      setMatchEndedShown(false);
+      setSaved(false);
+    }
+  }, [state, matchEndedShown, isPremium, saved, saveMatch]);
 
   if (!state) {
     // No active match — bounce back to home.
@@ -105,20 +118,6 @@ export default function ScoreScreen() {
         },
       },
     ]);
-  };
-
-  const onSave = async () => {
-    if (!isPremium) {
-      router.push('/(main)/premium');
-      return;
-    }
-    if (!state || !state.finished) return;
-    const record = saveMatch(state);
-    if (record) {
-      void syncMatchToCloud(record);
-      setSaved(true);
-      haptic('success');
-    }
   };
 
   const onShare = async () => {
@@ -172,164 +171,29 @@ export default function ScoreScreen() {
         <TeamPanel state={state} side="away" onAction={onAction} />
       </View>
 
-      <Pressable
-        onPress={onExit}
-        hitSlop={10}
-        accessibilityLabel={t('common.back')}
-        style={[
-          styles.backBtn,
-          {
-            backgroundColor: theme.colors.surface,
-            borderColor: theme.colors.border,
-          },
-        ]}
-      >
-        <Text style={{ color: theme.colors.text, fontSize: 22, lineHeight: 24 }}>‹</Text>
-      </Pressable>
+      {!state.finished && (
+        <Pressable
+          onPress={onExit}
+          hitSlop={20}
+          accessibilityLabel={t('common.back')}
+          style={[
+            styles.backBtn,
+            {
+              backgroundColor: theme.colors.surface,
+              borderColor: theme.colors.border,
+            },
+          ]}
+        >
+          <Text style={{ color: theme.colors.text, fontSize: 30, lineHeight: 32 }}>‹</Text>
+        </Pressable>
+      )}
 
-      <Modal
-        visible={state.finished && matchEndedShown}
-        transparent
-        animationType="fade"
-        supportedOrientations={['landscape', 'landscape-left', 'landscape-right']}
-      >
-        {(() => {
-          const winnerSide =
-            state.winner === 'home' || state.winner === 'away'
-              ? state.winner
-              : null;
-          const endCard = (
-            <Animated.View
-              entering={FadeInDown.duration(450)}
-              style={[
-                styles.endCard,
-                {
-                  backgroundColor: theme.colors.bgElevated,
-                  borderColor: theme.colors.border,
-                },
-              ]}
-            >
-              <LinearGradient
-                colors={theme.gradients.premium}
-                style={styles.trophyCircle}
-              >
-                <Text style={{ fontSize: 36 }}>🏆</Text>
-              </LinearGradient>
-
-              <Text style={[styles.endTitle, { color: theme.colors.text }]}>
-                {t('score.matchEnded')}
-              </Text>
-              <Text style={[styles.endWinner, { color: theme.colors.text }]}>
-                {winnerSide === null
-                  ? t('score.draw')
-                  : t('score.winner', {
-                      name:
-                        winnerSide === 'home'
-                          ? state.config.home.name || t('common.home')
-                          : state.config.away.name || t('common.away'),
-                    })}
-              </Text>
-
-              <Text style={[styles.endScore, { color: theme.colors.text }]}>
-                {sportEngines[state.config.sport].getDisplayScore(state, 'home')} –{' '}
-                {sportEngines[state.config.sport].getDisplayScore(state, 'away')}
-              </Text>
-
-              {saved && (
-                <Text
-                  style={{
-                    color: theme.colors.success,
-                    marginTop: 6,
-                    fontWeight: '700',
-                  }}
-                >
-                  ✓ {t('score.saved')}
-                </Text>
-              )}
-
-              <View style={styles.endActions}>
-                {!saved &&
-                  (isPremium ? (
-                    <Button
-                      label={t('common.save')}
-                      variant="primary"
-                      size="md"
-                      onPress={onSave}
-                      style={{ flex: 1 }}
-                    />
-                  ) : (
-                    <Button
-                      label={t('score.savePromptPremium')}
-                      variant="gradient"
-                      gradientColors={theme.gradients.premium}
-                      size="md"
-                      onPress={onSave}
-                      style={{ flex: 1 }}
-                    />
-                  ))}
-                <Button
-                  label={t('score.share')}
-                  variant="secondary"
-                  size="md"
-                  onPress={onShare}
-                  style={{ flex: 1 }}
-                />
-              </View>
-
-              <Pressable onPress={onNewMatch} style={{ marginTop: 14 }}>
-                <Text
-                  style={{
-                    color: theme.colors.primary,
-                    fontWeight: '700',
-                    fontSize: 16,
-                  }}
-                >
-                  {t('score.newMatch')}
-                </Text>
-              </Pressable>
-            </Animated.View>
-          );
-
-          return (
-            <View style={styles.overlay}>
-              <Animated.View
-                entering={FadeIn.duration(300)}
-                style={[styles.dim, { backgroundColor: '#000000CC' }]}
-              />
-              {/* Back button — must live inside the Modal so its native
-                  layer doesn't swallow the touch (the outer backBtn is
-                  hidden while finished for the same reason). */}
-              <Pressable
-                onPress={onNewMatch}
-                hitSlop={10}
-                accessibilityLabel={t('common.back')}
-                style={[
-                  styles.backBtn,
-                  {
-                    backgroundColor: theme.colors.surface,
-                    borderColor: theme.colors.border,
-                  },
-                ]}
-              >
-                <Text style={{ color: theme.colors.text, fontSize: 22, lineHeight: 24 }}>‹</Text>
-              </Pressable>
-              {winnerSide === null ? (
-                <View style={styles.overlayCenter}>{endCard}</View>
-              ) : (
-                <View style={styles.overlayRow} pointerEvents="box-none">
-                  <View style={styles.overlayHalf} pointerEvents="box-none">
-                    {winnerSide === 'home' && endCard}
-                  </View>
-                  <View style={styles.overlayCenterGap} pointerEvents="none" />
-                  <View style={styles.overlayHalf} pointerEvents="box-none">
-                    {winnerSide === 'away' && endCard}
-                  </View>
-                </View>
-              )}
-            </View>
-          );
-        })()}
-      </Modal>
+      <MatchSummaryModal
+        visible={state.finished}
+        state={state}
+        onBack={onNewMatch}
+        onShare={onShare}
+      />
     </SafeAreaView>
   );
 }
@@ -339,45 +203,14 @@ const styles = StyleSheet.create({
   row: { flex: 1, flexDirection: 'row' },
   backBtn: {
     position: 'absolute',
-    top: 12,
-    left: 12,
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    top: 16,
+    left: 16,
+    width: 52,
+    height: 52,
+    borderRadius: 26,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
     zIndex: 10,
-  },
-  overlay: { flex: 1 },
-  overlayCenter: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  overlayRow: { flex: 1, flexDirection: 'row' },
-  overlayHalf: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  overlayCenterGap: { width: 90 },
-  dim: { ...StyleSheet.absoluteFillObject },
-  endCard: {
-    width: '92%',
-    maxWidth: 420,
-    borderRadius: 24,
-    padding: 20,
-    alignItems: 'center',
-    borderWidth: 1,
-  },
-  trophyCircle: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 12,
-  },
-  endTitle: { fontSize: 14, fontWeight: '700', letterSpacing: 1, opacity: 0.7 },
-  endWinner: { fontSize: 26, fontWeight: '900', marginTop: 6, textAlign: 'center' },
-  endScore: { fontSize: 56, fontWeight: '900', marginTop: 8, letterSpacing: -2 },
-  endActions: {
-    flexDirection: 'row',
-    gap: 10,
-    marginTop: 16,
-    width: '100%',
   },
 });

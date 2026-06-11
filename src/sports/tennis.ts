@@ -4,6 +4,7 @@ import {
   SportAction,
   StatLine,
   StatusLabel,
+  PeriodSummary,
   newEvent,
   newMatchId,
 } from './index';
@@ -268,5 +269,24 @@ export const tennis: SportEngine = {
         value: side === 'home' ? meta.homeSets : meta.awaySets,
       },
     ];
+  },
+
+  getPeriodSummary(state: MatchState, periodIndex: number, side: TeamSide): PeriodSummary {
+    const completed = state.periods[periodIndex];
+    if (completed) {
+      return {
+        score: side === 'home' ? completed.homeScore : completed.awayScore,
+        stats: [],
+      };
+    }
+    // In-progress set (e.g. match finished early via Finish): show live games.
+    if (periodIndex === state.currentPeriod) {
+      const meta = ensureMeta(state);
+      return {
+        score: side === 'home' ? meta.homeGames : meta.awayGames,
+        stats: [],
+      };
+    }
+    return { score: 0, stats: [] };
   },
 };

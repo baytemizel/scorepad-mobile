@@ -117,7 +117,8 @@
     "savePromptGuest": "Registreeru, et salvestada",
     "savePromptPremium": "Hangi Premium, et salvestada",
     "share": "Jaga tulemust",
-    "newMatch": "Uus matš"
+    "newMatch": "Uus matš",
+    "summary": "KOKKUVÕTE"
   },
   "history": {
     "title": "Matšide ajalugu",

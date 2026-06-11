@@ -117,7 +117,8 @@
     "savePromptGuest": "سجّل لحفظ المباراة",
     "savePromptPremium": "احصل على Premium لحفظ المباريات",
     "share": "مشاركة النتيجة",
-    "newMatch": "مباراة جديدة"
+    "newMatch": "مباراة جديدة",
+    "summary": "ملخص"
   },
   "history": {
     "title": "سجل المباريات",

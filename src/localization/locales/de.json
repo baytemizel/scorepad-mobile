@@ -117,7 +117,8 @@
     "savePromptGuest": "Registriere dich, um dieses Spiel zu speichern",
     "savePromptPremium": "Premium freischalten, um Spiele zu speichern",
     "share": "Ergebnis teilen",
-    "newMatch": "Neues Spiel"
+    "newMatch": "Neues Spiel",
+    "summary": "ZUSAMMENFASSUNG"
   },
   "history": {
     "title": "Spielverlauf",
