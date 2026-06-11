@@ -5,6 +5,7 @@
   },
   "common": {
     "continue": "Devam et",
+    "or": "veya",
     "back": "Geri",
     "cancel": "İptal",
     "save": "Kaydet",
@@ -47,6 +48,8 @@
       "title": "Giriş Yap (İsteğe bağlı)",
       "subtitle": "Maçlarını cihazlar arası yedeklemek için giriş yap, ya da atlayıp uygulamayı misafir olarak kullan.",
       "createAccount": "Hesap oluştur",
+      "alreadyHaveAccount": "Zaten hesabın var mı?",
+      "logIn": "Giriş Yap",
       "useGuest": "Misafir olarak devam et"
     },
     "letsGo": "Başlayalım"

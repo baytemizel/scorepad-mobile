@@ -5,6 +5,7 @@
   },
   "common": {
     "continue": "Continue",
+    "or": "or",
     "back": "Back",
     "cancel": "Cancel",
     "save": "Save",
@@ -47,6 +48,8 @@
       "title": "Sign In (Optional)",
       "subtitle": "Sign in to back up your matches across devices, or skip and use the app anonymously.",
       "createAccount": "Create account",
+      "alreadyHaveAccount": "Already have an account?",
+      "logIn": "Log In",
       "useGuest": "Continue as guest"
     },
     "letsGo": "Let's Go"

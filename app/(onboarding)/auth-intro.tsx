@@ -1,69 +1,134 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  Pressable,
+  Alert,
+} from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/Button';
-import { useTheme } from '@/theme/ThemeProvider';
+import { GoogleSignInButton } from '@/components/common/GoogleSignInButton';
 import { useSettingsStore } from '@/store/settingsStore';
+import { signInWithGoogle } from '@/services/auth';
 import { logEvent } from '@/services/analytics';
+import { UserProfile } from '@/types';
+
+const sportsBg = require('../../assets/images/sports_bg.png');
 
 export default function AuthIntro() {
-  const theme = useTheme();
   const { t } = useTranslation();
   const setOnboardingCompleted = useSettingsStore((s) => s.setOnboardingCompleted);
+  const [loading, setLoading] = useState(false);
 
-  const goSignIn = () => {
+  const goAfterAuth = (profile: UserProfile) => {
+    router.replace(profile.isPremium ? '/(main)' : '/(main)/premium');
+  };
+
+  const onCreateAccount = () => {
+    setOnboardingCompleted(true);
+    void logEvent('onboarding_complete', { mode: 'sign_up' });
+    router.replace('/(auth)/sign-up');
+  };
+
+  const onLogIn = () => {
     setOnboardingCompleted(true);
     void logEvent('onboarding_complete', { mode: 'sign_in' });
     router.replace('/(auth)/sign-in');
   };
 
-  return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: theme.colors.bg }}
-      edges={['top', 'bottom']}
-    >
-      <View style={styles.content}>
-        <Text
-          style={{
-            color: theme.colors.text,
-            fontSize: 28,
-            fontWeight: '800',
-            fontFamily: theme.fonts.heading.bold,
-            marginBottom: 8,
-            textAlign: 'center',
-          }}
-        >
-          {t('onboarding.auth.title')}
-        </Text>
-        <Text
-          style={{
-            color: theme.colors.textMuted,
-            fontSize: 16,
-            textAlign: 'center',
-            lineHeight: 22,
-            marginBottom: 32,
-          }}
-        >
-          {t('onboarding.auth.subtitle')}
-        </Text>
-      </View>
+  const onGoogle = async () => {
+    try {
+      setLoading(true);
+      const profile = await signInWithGoogle();
+      setOnboardingCompleted(true);
+      void logEvent('onboarding_complete', { mode: 'google' });
+      goAfterAuth(profile);
+    } catch (e) {
+      console.error('[GoogleSignIn] error:', e);
+      Alert.alert(t('auth.errors.generic'));
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      <View style={styles.footer}>
-        <Button
-          label={t('onboarding.auth.createAccount')}
-          variant="primary"
-          size="lg"
-          fullWidth
-          onPress={goSignIn}
-        />
-      </View>
-    </SafeAreaView>
+  return (
+    <ImageBackground source={sportsBg} style={styles.bg} resizeMode="cover">
+      {/* Darkening overlay — light at the top so the artwork shows through,
+          deeper at the bottom to keep the controls legible. */}
+      <LinearGradient
+        colors={['rgba(11,18,32,0.15)', 'rgba(11,18,32,0.88)']}
+        style={StyleSheet.absoluteFill}
+      />
+
+      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+        <View style={styles.spacer} />
+
+        <View style={styles.footer}>
+          <Button
+            label={t('onboarding.auth.createAccount')}
+            variant="primary"
+            size="lg"
+            fullWidth
+            onPress={onCreateAccount}
+          />
+
+          <Pressable onPress={onLogIn} hitSlop={8} style={styles.logInRow}>
+            <Text style={styles.logInText}>
+              {t('onboarding.auth.alreadyHaveAccount')}{' '}
+              <Text style={styles.logInLink}>{t('onboarding.auth.logIn')}</Text>
+            </Text>
+          </Pressable>
+
+          <View style={styles.dividerRow}>
+            <View style={styles.dividerLine} />
+            <Text style={styles.dividerText}>{t('common.or')}</Text>
+            <View style={styles.dividerLine} />
+          </View>
+
+          <GoogleSignInButton
+            label={t('auth.signInGoogle')}
+            loading={loading}
+            fullWidth
+            onPress={onGoogle}
+          />
+        </View>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  content: { flex: 1, justifyContent: 'center', paddingHorizontal: 32 },
-  footer: { padding: 24 },
+  bg: { flex: 1 },
+  safe: { flex: 1 },
+  spacer: { flex: 1 },
+  footer: { padding: 24, gap: 14 },
+  logInRow: { alignItems: 'center', paddingVertical: 2 },
+  logInText: {
+    color: 'rgba(255,255,255,0.85)',
+    fontSize: 15,
+    textAlign: 'center',
+  },
+  logInLink: {
+    color: '#FFFFFF',
+    fontWeight: '700',
+    textDecorationLine: 'underline',
+  },
+  dividerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    marginVertical: 2,
+  },
+  dividerLine: { flex: 1, height: 1, backgroundColor: 'rgba(255,255,255,0.22)' },
+  dividerText: {
+    color: 'rgba(255,255,255,0.7)',
+    fontSize: 13,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
 });

@@ -29,12 +29,14 @@ export function SportIcon({ sport, size = 56 }: SportIconProps) {
       }}
     >
       <Text
+        allowFontScaling={false}
         style={{
-          fontSize: size * 0.55,
-          lineHeight: size * 0.55,
+          fontSize: size * 0.52,
+          // Give the glyph comfortable headroom — a line-height equal to the
+          // font size clips the top of taller emoji (⚽ 🏐 🎾 🏓). Letting the
+          // flex container handle centering keeps the icon crisp and uncropped.
+          lineHeight: size * 0.72,
           textAlign: 'center',
-          textAlignVertical: 'center',
-          includeFontPadding: false,
           fontFamily: 'System',
         }}
       >
