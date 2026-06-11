@@ -12,6 +12,8 @@
     "test": "jest",
     "build:ios": "eas build --platform ios --profile production",
     "build:android": "eas build --platform android --profile production",
+    "build:ios:local": "EAS_NO_VCS=1 eas build --platform ios --profile production --local",
+    "build:android:local": "EAS_NO_VCS=1 eas build --platform android --profile production --local",
     "submit:ios": "eas submit --platform ios",
     "submit:android": "eas submit --platform android"
   },
@@ -57,6 +59,8 @@
     "react-native-gesture-handler": "~2.20.2",
     "react-native-google-mobile-ads": "^14.7.1",
     "react-native-mmkv": "^3.1.0",
+    "react-native-purchases": "^10.3.0",
+    "react-native-purchases-ui": "^10.3.0",
     "react-native-reanimated": "~3.16.1",
     "react-native-safe-area-context": "4.12.0",
     "react-native-screens": "~4.1.0",

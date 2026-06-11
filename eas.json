@@ -15,7 +15,8 @@
         "buildType": "apk"
       },
       "env": {
-        "APP_ENV": "development"
+        "APP_ENV": "development",
+        "FIREBASE_GOOGLE_WEB_CLIENT_ID": "492816893459-ujods52onrp2k80v58ucf6e8v0pt2bnd.apps.googleusercontent.com"
       }
     },
     "preview": {
@@ -27,7 +28,8 @@
         "buildType": "apk"
       },
       "env": {
-        "APP_ENV": "preview"
+        "APP_ENV": "preview",
+        "FIREBASE_GOOGLE_WEB_CLIENT_ID": "492816893459-ujods52onrp2k80v58ucf6e8v0pt2bnd.apps.googleusercontent.com"
       }
     },
     "production": {
@@ -40,7 +42,8 @@
         "autoIncrement": "versionCode"
       },
       "env": {
-        "APP_ENV": "production"
+        "APP_ENV": "production",
+        "FIREBASE_GOOGLE_WEB_CLIENT_ID": "492816893459-ujods52onrp2k80v58ucf6e8v0pt2bnd.apps.googleusercontent.com"
       }
     }
   },
