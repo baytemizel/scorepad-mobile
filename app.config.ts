@@ -135,6 +135,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     facebookEnabled: !!process.env.FACEBOOK_APP_ID,
     firebaseGoogleWebClientId: process.env.FIREBASE_GOOGLE_WEB_CLIENT_ID ?? '',
+    revenueCatIosKey: process.env.REVENUECAT_IOS_API_KEY ?? '',
+    revenueCatAndroidKey: process.env.REVENUECAT_ANDROID_API_KEY ?? '',
   },
   experiments: {
     typedRoutes: true,

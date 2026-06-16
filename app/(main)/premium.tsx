@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Alert, Pressable } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Alert,
+  Pressable,
+  ActivityIndicator,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,39 +16,54 @@ import { useTheme } from '@/theme/ThemeProvider';
 import { Button } from '@/components/ui/Button';
 import { useAuthStore } from '@/store/authStore';
 import {
-  fetchPremiumProduct,
-  purchasePremium,
+  fetchCurrentOffering,
+  getPremiumPackages,
+  purchasePackage,
   restorePurchases,
-  PremiumProductInfo,
-} from '@/services/iap';
-import { setUserPremiumFlag } from '@/services/firestore';
+  PremiumPackages,
+} from '@/services/purchases';
 import { logEvent } from '@/services/analytics';
+
+type Plan = 'monthly' | 'yearly';
 
 export default function PremiumScreen() {
   const theme = useTheme();
   const { t } = useTranslation();
   const isPremium = useAuthStore((s) => s.isPremium);
-  const [product, setProduct] = useState<PremiumProductInfo | null>(null);
+  const [packages, setPackages] = useState<PremiumPackages | null>(null);
+  const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
+  // Yearly is preselected since it's the better-value plan.
+  const [plan, setPlan] = useState<Plan>('yearly');
 
   useEffect(() => {
-    void fetchPremiumProduct().then(setProduct);
+    let cancelled = false;
+    void (async () => {
+      const offering = await fetchCurrentOffering();
+      if (cancelled) return;
+      setPackages(getPremiumPackages(offering));
+      setLoading(false);
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  // React to becoming premium (purchase listener fires asynchronously).
-  useEffect(() => {
-    if (isPremium) {
-      void setUserPremiumFlag(true);
-    }
-  }, [isPremium]);
+  const selectedPackage =
+    plan === 'monthly' ? packages?.monthly ?? null : packages?.annual ?? null;
 
   const onBuy = async () => {
+    if (!selectedPackage) {
+      Alert.alert(t('premium.unavailable'));
+      return;
+    }
     setBusy(true);
-    void logEvent('premium_buy_pressed');
+    void logEvent('premium_buy_pressed', { plan });
     try {
-      await purchasePremium();
-    } catch {
-      Alert.alert(t('premium.purchaseFailed'));
+      const { success, cancelled } = await purchasePackage(selectedPackage);
+      if (!success && !cancelled) {
+        Alert.alert(t('premium.purchaseFailed'));
+      }
     } finally {
       setBusy(false);
     }
@@ -57,6 +80,13 @@ export default function PremiumScreen() {
       setBusy(false);
     }
   };
+
+  // Localized store price when available, otherwise the static fallback price.
+  const priceLabel = selectedPackage
+    ? selectedPackage.product.priceString
+    : plan === 'monthly'
+      ? t('premium.priceMonthly')
+      : t('premium.priceYearly');
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.bg }} edges={['top']}>
@@ -109,27 +139,41 @@ export default function PremiumScreen() {
           </View>
         ) : (
           <>
-            <View style={{ gap: 14, paddingHorizontal: 8 }}>
+            <PlanTabs
+              plan={plan}
+              onChange={setPlan}
+              savingsPercent={packages?.annualSavingsPercent ?? null}
+            />
+
+            <View style={{ gap: 4, paddingHorizontal: 8 }}>
               <Feature icon="🚫" label={t('premium.features.noAds')} />
               <Feature icon="📊" label={t('premium.features.history')} />
               <Feature icon="📈" label={t('premium.features.stats')} />
               <Feature icon="☁️" label={t('premium.features.sync')} />
             </View>
 
-            <View
-              style={[
-                styles.priceBox,
-                { backgroundColor: theme.colors.surface, borderColor: theme.colors.border },
-              ]}
-            >
-              <Text
-                style={{ color: theme.colors.text, fontSize: 36, fontWeight: '900' }}
-              >
-                {product?.price ?? t('premium.price')}
-              </Text>
-              <Text style={{ color: theme.colors.textMuted, fontSize: 14, marginTop: 2 }}>
-                {t('premium.oneTime')}
-              </Text>
+            <View style={styles.priceArea}>
+              {loading ? (
+                <ActivityIndicator color={theme.colors.primary} />
+              ) : (
+                <>
+                  <Text
+                    style={{ color: theme.colors.text, fontSize: 36, fontWeight: '900' }}
+                  >
+                    {priceLabel}
+                  </Text>
+                  <Text
+                    style={{
+                      color: theme.colors.textMuted,
+                      fontSize: 16,
+                      marginLeft: 6,
+                      marginBottom: 6,
+                    }}
+                  >
+                    {plan === 'monthly' ? t('premium.perMonth') : t('premium.perYear')}
+                  </Text>
+                </>
+              )}
             </View>
 
             <Button
@@ -139,6 +183,7 @@ export default function PremiumScreen() {
               size="lg"
               fullWidth
               loading={busy}
+              disabled={loading}
               onPress={onBuy}
               style={{ marginTop: 16 }}
             />
@@ -160,11 +205,68 @@ export default function PremiumScreen() {
 function Feature({ icon, label }: { icon: string; label: string }) {
   const theme = useTheme();
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 6 }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 2 }}>
       <Text style={{ fontSize: 24, marginRight: 14 }}>{icon}</Text>
       <Text style={{ color: theme.colors.text, fontSize: 16, fontWeight: '600', flex: 1 }}>
         {label}
       </Text>
+    </View>
+  );
+}
+
+function PlanTabs({
+  plan,
+  onChange,
+  savingsPercent,
+}: {
+  plan: Plan;
+  onChange: (p: Plan) => void;
+  savingsPercent: number | null;
+}) {
+  const theme = useTheme();
+  const { t } = useTranslation();
+  const saveLabel =
+    savingsPercent != null ? t('premium.savePercent', { percent: savingsPercent }) : t('premium.save');
+  const tabs: { key: Plan; label: string }[] = [
+    { key: 'monthly', label: t('premium.monthly') },
+    { key: 'yearly', label: t('premium.yearly') },
+  ];
+  return (
+    <View
+      style={[
+        styles.tabs,
+        { backgroundColor: theme.colors.surface, borderColor: theme.colors.border },
+      ]}
+    >
+      {tabs.map((tab) => {
+        const active = plan === tab.key;
+        return (
+          <Pressable
+            key={tab.key}
+            onPress={() => onChange(tab.key)}
+            style={[styles.tab, active && { backgroundColor: theme.colors.primary }]}
+          >
+            <Text
+              style={[
+                styles.tabLabel,
+                { color: active ? theme.colors.textInverse : theme.colors.textMuted },
+              ]}
+            >
+              {tab.label}
+            </Text>
+            {tab.key === 'yearly' && (
+              <View
+                style={[
+                  styles.saveBadge,
+                  { backgroundColor: active ? 'rgba(255,255,255,0.25)' : theme.colors.success },
+                ]}
+              >
+                <Text style={styles.saveText}>{saveLabel}</Text>
+              </View>
+            )}
+          </Pressable>
+        );
+      })}
     </View>
   );
 }
@@ -186,13 +288,37 @@ const styles = StyleSheet.create({
     marginTop: 6,
     lineHeight: 22,
   },
-  priceBox: {
-    alignItems: 'center',
-    padding: 24,
-    borderRadius: 20,
-    borderWidth: 1,
+  priceArea: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
     marginTop: 16,
+    minHeight: 44,
   },
+  tabs: {
+    flexDirection: 'row',
+    borderRadius: 999,
+    borderWidth: 1,
+    padding: 4,
+    gap: 4,
+    marginBottom: 20,
+  },
+  tab: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    paddingVertical: 10,
+    borderRadius: 999,
+  },
+  tabLabel: { fontSize: 15, fontWeight: '700' },
+  saveBadge: {
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 999,
+  },
+  saveText: { color: '#FFFFFF', fontSize: 11, fontWeight: '700' },
   alreadyBox: {
     alignItems: 'center',
     padding: 24,

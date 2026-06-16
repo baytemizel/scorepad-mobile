@@ -21,7 +21,7 @@ import { Button } from '@/components/ui/Button';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useAuthStore } from '@/store/authStore';
 import { signOut } from '@/services/auth';
-import { restorePurchases } from '@/services/iap';
+import { restorePurchases, openManageSubscriptions } from '@/services/purchases';
 import { supportedLanguages, changeLanguage } from '@/localization/i18n';
 
 export default function Settings() {
@@ -62,6 +62,10 @@ export default function Settings() {
     } finally {
       setBusy(false);
     }
+  };
+
+  const onManageSubscription = () => {
+    void openManageSubscriptions();
   };
 
   const activeLangCode = language ?? i18n.language;
@@ -195,7 +199,17 @@ export default function Settings() {
         {/* Premium */}
         <Section title={t('settings.premium')}>
           <Card>
-            {!isPremium && (
+            {isPremium ? (
+              <>
+                <Pressable onPress={onManageSubscription} style={styles.row}>
+                  <Text style={{ color: theme.colors.text, fontSize: 16, flex: 1 }}>
+                    {t('settings.manageSubscription')}
+                  </Text>
+                  <Text style={{ color: theme.colors.textMuted, fontSize: 22 }}>›</Text>
+                </Pressable>
+                <View style={[styles.separator, { backgroundColor: theme.colors.border }]} />
+              </>
+            ) : (
               <>
                 <Pressable
                   onPress={() => router.push('/(main)/premium')}

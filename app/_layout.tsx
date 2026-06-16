@@ -16,7 +16,7 @@ import { ThemeProvider } from '@/theme/ThemeProvider';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useAuthStore } from '@/store/authStore';
 import { initializeAds } from '@/services/ads';
-import { initializeIAP } from '@/services/iap';
+import { initializePurchases } from '@/services/purchases';
 import { preloadSounds } from '@/services/feedback';
 import {
   subscribeToAuthChanges,
@@ -65,7 +65,7 @@ export default function RootLayout() {
 
         await Promise.allSettled([
           initializeAds(),
-          initializeIAP(),
+          initializePurchases(),
           preloadSounds(),
         ]);
       } catch {
