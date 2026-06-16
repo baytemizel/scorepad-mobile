@@ -66,7 +66,7 @@ export default function SportsShowcase() {
           variant="primary"
           size="lg"
           fullWidth
-          onPress={() => router.push('/(onboarding)/language')}
+          onPress={() => router.push('/(onboarding)/auth-intro')}
         />
       </View>
     </SafeAreaView>

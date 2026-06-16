@@ -6,7 +6,8 @@ const COL_USERS = 'users';
 const COL_MATCHES = 'matches';
 
 /**
- * Cloud sync for premium users. Anonymous/free users only have local storage.
+ * Cloud sync for every signed-in user (free or premium). Guests have no
+ * account and nothing is persisted for them.
  *
  * Schema:
  *   users/{uid}
@@ -18,7 +19,7 @@ const COL_MATCHES = 'matches';
 
 export async function syncMatchToCloud(record: MatchRecord): Promise<void> {
   const user = useAuthStore.getState().user;
-  if (!user || !user.isPremium) return;
+  if (!user) return;
   try {
     await firestore()
       .collection(COL_USERS)
@@ -51,7 +52,7 @@ export async function deleteMatchFromCloud(matchId: string): Promise<void> {
 
 export async function fetchMatchesFromCloud(): Promise<MatchRecord[]> {
   const user = useAuthStore.getState().user;
-  if (!user || !user.isPremium) return [];
+  if (!user) return [];
   try {
     const snap = await firestore()
       .collection(COL_USERS)

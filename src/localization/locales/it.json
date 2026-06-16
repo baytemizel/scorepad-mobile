@@ -133,7 +133,9 @@
     "deleteConfirmBody": "Non si può annullare.",
     "lockedTitle": "Lo storico è una funzione Premium",
     "lockedBody": "Acquista una volta per sbloccare storico illimitato, statistiche e sync cloud.",
-    "unlock": "Sblocca Premium"
+    "unlock": "Sblocca Premium",
+    "guestTitle": "Accedi per lo storico delle partite",
+    "guestBody": "In modalità ospite le partite non vengono salvate. Accedi per salvare le tue partite e vedere lo storico."
   },
   "settings": {
     "title": "Impostazioni",

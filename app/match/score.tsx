@@ -54,8 +54,8 @@ export default function ScoreScreen() {
   }, []);
 
   // Side effects when the match transitions to finished: whistle, haptic,
-  // analytics, auto-save (premium), interstitial (free). Guarded by
-  // matchEndedShown so they fire exactly once per finished state.
+  // analytics, auto-save (signed-in users), interstitial (non-premium).
+  // Guarded by matchEndedShown so they fire exactly once per finished state.
   useEffect(() => {
     if (state?.finished && !matchEndedShown) {
       setMatchEndedShown(true);
@@ -66,8 +66,9 @@ export default function ScoreScreen() {
         winner: state.winner ?? 'draw',
       });
 
-      // Premium: silently persist the match to history + cloud.
-      if (isPremium && !saved) {
+      // Signed-in (free or premium): persist locally + sync to cloud.
+      // Guests (no user) never persist match data.
+      if (user && !saved) {
         const record = saveMatch(state);
         if (record) {
           void syncMatchToCloud(record);
@@ -75,7 +76,8 @@ export default function ScoreScreen() {
         }
       }
 
-      // Free: show an interstitial after the user has had a beat with the score.
+      // Non-premium (guest or free): show an interstitial after the user has
+      // had a beat with the score.
       if (!isPremium && !interstitialShownRef.current) {
         interstitialShownRef.current = true;
         setTimeout(() => {
@@ -88,7 +90,7 @@ export default function ScoreScreen() {
       setMatchEndedShown(false);
       setSaved(false);
     }
-  }, [state, matchEndedShown, isPremium, saved, saveMatch]);
+  }, [state, matchEndedShown, isPremium, user, saved, saveMatch]);
 
   if (!state) {
     // No active match — bounce back to home.

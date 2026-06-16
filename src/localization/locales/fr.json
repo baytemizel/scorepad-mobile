@@ -133,7 +133,9 @@
     "deleteConfirmBody": "Cette action est irréversible.",
     "lockedTitle": "L'historique est une fonctionnalité Premium",
     "lockedBody": "Achète une fois pour débloquer l'historique illimité, les stats et la sync cloud.",
-    "unlock": "Débloquer Premium"
+    "unlock": "Débloquer Premium",
+    "guestTitle": "Connecte-toi pour l'historique des matchs",
+    "guestBody": "En mode invité, les matchs ne sont pas enregistrés. Connecte-toi pour enregistrer tes matchs et voir ton historique."
   },
   "settings": {
     "title": "Paramètres",

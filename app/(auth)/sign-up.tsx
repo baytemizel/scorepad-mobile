@@ -6,18 +6,21 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Pressable,
+  ImageBackground,
   Alert,
 } from 'react-native';
-import { router, Link } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
+import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { useTheme } from '@/theme/ThemeProvider';
 import { signUpWithEmail } from '@/services/auth';
 
+const sportsBg = require('../../assets/images/sports-bg.jpg');
+
 export default function SignUp() {
-  const theme = useTheme();
   const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -65,58 +68,92 @@ export default function SignUp() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.bg }} edges={['top', 'bottom']}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        style={{ flex: 1 }}
-      >
-        <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
-          <Text
-            style={{
-              color: theme.colors.text,
-              fontSize: 32,
-              fontWeight: '800',
-              fontFamily: theme.fonts.heading.bold,
-              marginBottom: 24,
-            }}
+    <ImageBackground source={sportsBg} style={styles.bg} resizeMode="cover">
+      {/* Darkening overlay — light at the top so the artwork shows through,
+          deeper at the bottom to keep the form legible. */}
+      <LinearGradient
+        colors={['rgba(11,18,32,0.25)', 'rgba(11,18,32,0.92)']}
+        style={StyleSheet.absoluteFill}
+      />
+
+      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          style={{ flex: 1 }}
+        >
+          <ScrollView
+            contentContainerStyle={styles.scroll}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
           >
-            {t('auth.signUp')}
-          </Text>
-          <View style={{ gap: 12 }}>
-            <Input
-              label={t('auth.email')}
-              autoCapitalize="none"
-              keyboardType="email-address"
-              value={email}
-              onChangeText={setEmail}
-              autoComplete="email"
-            />
-            <Input
-              label={t('auth.password')}
-              secureTextEntry
-              value={password}
-              onChangeText={setPassword}
-              autoComplete="password-new"
-              errorText={error ?? undefined}
-            />
-            <Button
-              label={t('auth.signUp')}
-              variant="primary"
-              size="lg"
-              loading={loading}
-              fullWidth
-              onPress={onSignUp}
-            />
-            <Link href="/(auth)/sign-in" asChild>
-              <Button label={t('auth.haveAccount')} variant="ghost" size="md" fullWidth />
-            </Link>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+            <Text style={styles.title}>{t('auth.signUp')}</Text>
+            <Text style={styles.subtitle}>{t('app.tagline')}</Text>
+
+            <View style={styles.form}>
+              <Input
+                tone="onDark"
+                label={t('auth.email')}
+                autoCapitalize="none"
+                keyboardType="email-address"
+                value={email}
+                onChangeText={setEmail}
+                autoComplete="email"
+              />
+              <Input
+                tone="onDark"
+                label={t('auth.password')}
+                secureTextEntry
+                value={password}
+                onChangeText={setPassword}
+                autoComplete="password-new"
+                errorText={error ?? undefined}
+              />
+
+              <Button
+                label={t('auth.signUp')}
+                variant="primary"
+                size="lg"
+                loading={loading}
+                fullWidth
+                onPress={onSignUp}
+              />
+
+              <Pressable
+                onPress={() => router.replace('/(auth)/sign-in')}
+                hitSlop={8}
+                style={styles.linkRow}
+              >
+                <Text style={styles.linkText}>{t('auth.haveAccount')}</Text>
+              </Pressable>
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  scroll: { padding: 24, paddingBottom: 48 },
+  bg: { flex: 1 },
+  safe: { flex: 1 },
+  scroll: { flexGrow: 1, justifyContent: 'flex-end', padding: 24, paddingBottom: 32, gap: 14 },
+  title: {
+    color: '#FFFFFF',
+    fontSize: 34,
+    fontWeight: '800',
+    marginBottom: 4,
+  },
+  subtitle: {
+    color: 'rgba(255,255,255,0.8)',
+    fontSize: 15,
+    lineHeight: 21,
+  },
+  form: { gap: 12, marginTop: 8 },
+  linkRow: { alignItems: 'center', paddingVertical: 4 },
+  linkText: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '600',
+    textDecorationLine: 'underline',
+  },
 });

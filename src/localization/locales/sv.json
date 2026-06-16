@@ -133,7 +133,9 @@
     "deleteConfirmBody": "Detta kan inte ångras.",
     "lockedTitle": "Historik är en Premium-funktion",
     "lockedBody": "Köp en gång för obegränsad historik, statistik och synk.",
-    "unlock": "Lås upp Premium"
+    "unlock": "Lås upp Premium",
+    "guestTitle": "Logga in för matchhistorik",
+    "guestBody": "I gästläge sparas inte matcher. Logga in för att spara dina matcher och se din historik."
   },
   "settings": {
     "title": "Inställningar",

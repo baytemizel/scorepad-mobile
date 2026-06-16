@@ -133,7 +133,9 @@
     "deleteConfirmBody": "Tätä ei voi kumota.",
     "lockedTitle": "Historia on Premium-ominaisuus",
     "lockedBody": "Osta kerran avataksesi rajattoman historian, tilastot ja synkin.",
-    "unlock": "Avaa Premium"
+    "unlock": "Avaa Premium",
+    "guestTitle": "Kirjaudu sisään otteluhistoriaa varten",
+    "guestBody": "Vierastilassa otteluita ei tallenneta. Kirjaudu sisään tallentaaksesi ottelusi ja nähdäksesi historiasi."
   },
   "settings": {
     "title": "Asetukset",

@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
+import { Button } from '@/components/ui/Button';
 import { SportIcon } from '@/components/common/SportIcon';
 import { PremiumGate } from '@/components/common/PremiumGate';
 import { useAuthStore } from '@/store/authStore';
@@ -26,6 +27,7 @@ import { haptic } from '@/services/feedback';
 export default function HistoryScreen() {
   const theme = useTheme();
   const { t, i18n } = useTranslation();
+  const user = useAuthStore((s) => s.user);
   const isPremium = useAuthStore((s) => s.isPremium);
   const records = useMatchHistoryStore((s) => s.records);
   const deleteMatch = useMatchHistoryStore((s) => s.deleteMatch);
@@ -47,6 +49,46 @@ export default function HistoryScreen() {
     return [...list].sort((a, b) => b.finishedAt - a.finishedAt);
   }, [records, filter, search]);
 
+  // Guests have no account and nothing is saved for them — prompt to sign in.
+  if (!user) {
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.bg }} edges={['top']}>
+        <Header onBack={() => router.back()} title={t('history.title')} />
+        <View style={styles.empty}>
+          <Text style={{ fontSize: 56, marginBottom: 12 }}>🔒</Text>
+          <Text
+            style={{
+              color: theme.colors.text,
+              fontSize: 18,
+              fontWeight: '700',
+              marginBottom: 8,
+              textAlign: 'center',
+            }}
+          >
+            {t('history.guestTitle')}
+          </Text>
+          <Text
+            style={{
+              color: theme.colors.textMuted,
+              fontSize: 14,
+              textAlign: 'center',
+              marginBottom: 20,
+            }}
+          >
+            {t('history.guestBody')}
+          </Text>
+          <Button
+            label={t('auth.signIn')}
+            variant="primary"
+            onPress={() => router.push('/(auth)/sign-in')}
+          />
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  // Signed-in but not premium: matches are saved to the cloud, but viewing
+  // history stays a premium feature.
   if (!isPremium) {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.bg }} edges={['top']}>

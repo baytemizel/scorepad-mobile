@@ -4,7 +4,9 @@ import Constants from 'expo-constants';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { useAuthStore } from '@/store/authStore';
+import { useMatchHistoryStore } from '@/store/matchHistoryStore';
 import { setUserId, logEvent } from './analytics';
+import { fetchMatchesFromCloud } from './firestore';
 import { UserProfile } from '@/types';
 
 const facebookEnabled = Constants.expoConfig?.extra?.facebookEnabled === true;
@@ -32,6 +34,23 @@ const profileFromUser = (
     : Date.now(),
 });
 
+/**
+ * Pull the signed-in user's matches from the cloud into the local history
+ * store so their data follows them across devices / reinstalls. Fire-and-forget
+ * after a successful sign-in. A transient failure returns [] and we keep the
+ * local cache untouched rather than wiping it.
+ */
+async function hydrateUserData(): Promise<void> {
+  try {
+    const records = await fetchMatchesFromCloud();
+    if (records.length) {
+      useMatchHistoryStore.setState({ records });
+    }
+  } catch {
+    // ignore — local cache stays as-is
+  }
+}
+
 export function configureGoogleSignIn(webClientId: string | undefined): void {
   if (!webClientId) {
     if (__DEV__) {
@@ -51,6 +70,8 @@ export async function signInWithEmail(
   const { user } = await auth().signInWithEmailAndPassword(email, password);
   const profile = profileFromUser(user, useAuthStore.getState().isPremium);
   useAuthStore.getState().signInWithProfile(profile);
+  // Restore this account's match history from the cloud (free + premium).
+  void hydrateUserData();
   await setUserId(user.uid);
   await logEvent('login', { method: 'password' });
   return profile;
@@ -63,6 +84,8 @@ export async function signUpWithEmail(
   const { user } = await auth().createUserWithEmailAndPassword(email, password);
   const profile = profileFromUser(user, false);
   useAuthStore.getState().signInWithProfile(profile);
+  // Restore this account's match history from the cloud (free + premium).
+  void hydrateUserData();
   await setUserId(user.uid);
   await logEvent('sign_up', { method: 'password' });
   return profile;
@@ -83,6 +106,8 @@ export async function signInWithApple(): Promise<UserProfile> {
   const { user } = await auth().signInWithCredential(appleCredential);
   const profile = profileFromUser(user, useAuthStore.getState().isPremium);
   useAuthStore.getState().signInWithProfile(profile);
+  // Restore this account's match history from the cloud (free + premium).
+  void hydrateUserData();
   await setUserId(user.uid);
   await logEvent('login', { method: 'apple' });
   return profile;
@@ -115,6 +140,8 @@ export async function signInWithFacebook(): Promise<UserProfile> {
   const { user } = await auth().signInWithCredential(credential);
   const profile = profileFromUser(user, useAuthStore.getState().isPremium);
   useAuthStore.getState().signInWithProfile(profile);
+  // Restore this account's match history from the cloud (free + premium).
+  void hydrateUserData();
   await setUserId(user.uid);
   await logEvent('login', { method: 'facebook' });
   return profile;
@@ -133,6 +160,8 @@ export async function signInWithGoogle(): Promise<UserProfile> {
   const { user } = await auth().signInWithCredential(credential);
   const profile = profileFromUser(user, useAuthStore.getState().isPremium);
   useAuthStore.getState().signInWithProfile(profile);
+  // Restore this account's match history from the cloud (free + premium).
+  void hydrateUserData();
   await setUserId(user.uid);
   await logEvent('login', { method: 'google' });
   return profile;
@@ -156,6 +185,7 @@ export async function signOut(): Promise<void> {
       // ignore
     }
   }
+  // Also clears the local match cache (see authStore.signOut).
   useAuthStore.getState().signOut();
   await setUserId(null);
   await logEvent('sign_out');

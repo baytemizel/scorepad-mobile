@@ -82,7 +82,7 @@ export default function LanguageOnboarding() {
           variant="primary"
           size="lg"
           fullWidth
-          onPress={() => router.push('/(onboarding)/auth-intro')}
+          onPress={() => router.push('/(onboarding)/sports')}
         />
       </View>
     </SafeAreaView>

@@ -137,7 +137,9 @@
     "deleteConfirmBody": "Bu işlem geri alınamaz.",
     "lockedTitle": "Maç geçmişi bir Premium özelliğidir",
     "lockedBody": "Tek seferlik satın alımla sınırsız maç geçmişi, istatistik ve bulut yedeklemenin kilidini aç.",
-    "unlock": "Premium'u Aç"
+    "unlock": "Premium'u Aç",
+    "guestTitle": "Maç geçmişi için giriş yap",
+    "guestBody": "Misafir modunda maçlar kaydedilmez. Maçlarını kaydetmek ve geçmişini görmek için giriş yap."
   },
   "settings": {
     "title": "Ayarlar",

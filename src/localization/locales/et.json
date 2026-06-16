@@ -133,7 +133,9 @@
     "deleteConfirmBody": "Seda ei saa tagasi võtta.",
     "lockedTitle": "Ajalugu on Premium funktsioon",
     "lockedBody": "Osta üks kord, et avada piiramatu ajalugu, statistika ja sünk.",
-    "unlock": "Ava Premium"
+    "unlock": "Ava Premium",
+    "guestTitle": "Logi sisse mängude ajaloo jaoks",
+    "guestBody": "Külalisrežiimis mänge ei salvestata. Logi sisse, et salvestada oma mängud ja näha ajalugu."
   },
   "settings": {
     "title": "Seaded",

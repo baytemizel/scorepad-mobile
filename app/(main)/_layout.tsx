@@ -3,10 +3,11 @@ import { useAuthStore } from '@/store/authStore';
 
 export default function MainLayout() {
   const user = useAuthStore((s) => s.user);
+  const isGuest = useAuthStore((s) => s.isGuest);
 
-  // Defense-in-depth: every (main) route requires a signed-in user.
-  // If somehow we land here without one, bounce back to auth.
-  if (!user) {
+  // (main) is open to signed-in users and guests. Only bounce to auth when
+  // neither applies (e.g. a stale session after sign-out).
+  if (!user && !isGuest) {
     return <Redirect href="/(auth)/sign-in" />;
   }
 

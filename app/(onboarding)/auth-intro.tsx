@@ -14,15 +14,17 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/Button';
 import { GoogleSignInButton } from '@/components/common/GoogleSignInButton';
 import { useSettingsStore } from '@/store/settingsStore';
+import { useAuthStore } from '@/store/authStore';
 import { signInWithGoogle } from '@/services/auth';
 import { logEvent } from '@/services/analytics';
 import { UserProfile } from '@/types';
 
-const sportsBg = require('../../assets/images/sports_bg.png');
+const sportsBg = require('../../assets/images/sports-bg.jpg');
 
 export default function AuthIntro() {
   const { t } = useTranslation();
   const setOnboardingCompleted = useSettingsStore((s) => s.setOnboardingCompleted);
+  const continueAsGuest = useAuthStore((s) => s.continueAsGuest);
   const [loading, setLoading] = useState(false);
 
   const goAfterAuth = (profile: UserProfile) => {
@@ -54,6 +56,13 @@ export default function AuthIntro() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const onGuest = () => {
+    continueAsGuest();
+    setOnboardingCompleted(true);
+    void logEvent('onboarding_complete', { mode: 'guest' });
+    router.replace('/(main)');
   };
 
   return (
@@ -96,6 +105,10 @@ export default function AuthIntro() {
             fullWidth
             onPress={onGoogle}
           />
+
+          <Pressable onPress={onGuest} hitSlop={8} style={styles.guestRow}>
+            <Text style={styles.guestText}>{t('onboarding.auth.useGuest')}</Text>
+          </Pressable>
         </View>
       </SafeAreaView>
     </ImageBackground>
@@ -108,6 +121,13 @@ const styles = StyleSheet.create({
   spacer: { flex: 1 },
   footer: { padding: 24, gap: 14 },
   logInRow: { alignItems: 'center', paddingVertical: 2 },
+  guestRow: { alignItems: 'center', paddingVertical: 8 },
+  guestText: {
+    color: 'rgba(255,255,255,0.75)',
+    fontSize: 15,
+    fontWeight: '600',
+    textDecorationLine: 'underline',
+  },
   logInText: {
     color: 'rgba(255,255,255,0.85)',
     fontSize: 15,

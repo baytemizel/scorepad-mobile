@@ -18,6 +18,7 @@ import { fontFamilies } from '@/theme/fonts';
 export default function Index() {
   const onboardingDone = useSettingsStore((s) => s.onboardingCompleted);
   const user = useAuthStore((s) => s.user);
+  const isGuest = useAuthStore((s) => s.isGuest);
 
   // Show a tiny brand splash for one render then redirect.
   useEffect(() => {
@@ -28,9 +29,9 @@ export default function Index() {
     return <Redirect href="/(onboarding)/welcome" />;
   }
 
-  // Sign-in is required after onboarding. Premium gating is handled by the
-  // sign-in success handler — once a user exists here, route them to (main).
-  if (!user) {
+  // Sign-in is optional: a signed-in user OR a guest goes straight to (main).
+  // Only send to auth when neither applies (e.g. after sign-out).
+  if (!user && !isGuest) {
     return <Redirect href="/(auth)/sign-in" />;
   }
 

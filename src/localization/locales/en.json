@@ -137,7 +137,9 @@
     "deleteConfirmBody": "This cannot be undone.",
     "lockedTitle": "Match history is a Premium feature",
     "lockedBody": "Upgrade once to unlock unlimited match history, stats and cloud sync.",
-    "unlock": "Unlock Premium"
+    "unlock": "Unlock Premium",
+    "guestTitle": "Sign in for match history",
+    "guestBody": "Matches aren't saved in guest mode. Sign in to save your matches and view your history."
   },
   "settings": {
     "title": "Settings",

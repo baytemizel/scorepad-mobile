@@ -133,7 +133,9 @@
     "deleteConfirmBody": "Das kann nicht rückgängig gemacht werden.",
     "lockedTitle": "Spielverlauf ist eine Premium-Funktion",
     "lockedBody": "Einmalig kaufen, um unbegrenzten Spielverlauf, Statistiken und Cloud-Sync freizuschalten.",
-    "unlock": "Premium freischalten"
+    "unlock": "Premium freischalten",
+    "guestTitle": "Melde dich für den Spielverlauf an",
+    "guestBody": "Im Gastmodus werden Spiele nicht gespeichert. Melde dich an, um deine Spiele zu speichern und deinen Verlauf zu sehen."
   },
   "settings": {
     "title": "Einstellungen",

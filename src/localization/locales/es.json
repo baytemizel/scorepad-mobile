@@ -133,7 +133,9 @@
     "deleteConfirmBody": "Esto no se puede deshacer.",
     "lockedTitle": "El historial es una función Premium",
     "lockedBody": "Compra una vez para desbloquear historial ilimitado, estadísticas y sync.",
-    "unlock": "Desbloquear Premium"
+    "unlock": "Desbloquear Premium",
+    "guestTitle": "Inicia sesión para ver el historial",
+    "guestBody": "En modo invitado no se guardan los partidos. Inicia sesión para guardar tus partidos y ver tu historial."
   },
   "settings": {
     "title": "Ajustes",

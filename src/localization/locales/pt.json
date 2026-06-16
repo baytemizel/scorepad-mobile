@@ -133,7 +133,9 @@
     "deleteConfirmBody": "Isso não pode ser desfeito.",
     "lockedTitle": "Histórico é Premium",
     "lockedBody": "Compre uma vez para desbloquear histórico ilimitado, stats e sync.",
-    "unlock": "Desbloquear Premium"
+    "unlock": "Desbloquear Premium",
+    "guestTitle": "Entre para ver o histórico de partidas",
+    "guestBody": "No modo convidado as partidas não são salvas. Entre para salvar suas partidas e ver seu histórico."
   },
   "settings": {
     "title": "Configurações",
