@@ -7,6 +7,7 @@ import {
   Pressable,
   Alert,
   ScrollView,
+  LayoutAnimation,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
@@ -17,6 +18,7 @@ import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { SportIcon } from '@/components/common/SportIcon';
 import { PremiumGate } from '@/components/common/PremiumGate';
+import { MatchPeriodTimeline } from '@/components/scoring/MatchPeriodTimeline';
 import { useAuthStore } from '@/store/authStore';
 import { useMatchHistoryStore } from '@/store/matchHistoryStore';
 import { sportList } from '@/sports';
@@ -34,6 +36,10 @@ export default function HistoryScreen() {
 
   const [filter, setFilter] = useState<SportId | 'all'>('all');
   const [search, setSearch] = useState('');
+  // Match History is premium-only, so a single expanded row (accordion) is
+  // enough — tapping a row reveals its per-period timeline; tapping again or
+  // opening another collapses it.
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
     let list = records;
@@ -117,49 +123,80 @@ export default function HistoryScreen() {
     );
   };
 
+  const toggleExpanded = (id: string) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setExpandedId((prev) => (prev === id ? null : id));
+  };
+
   const renderItem = ({ item }: { item: MatchRecord }) => {
     const date = new Date(item.finishedAt).toLocaleDateString(i18n.language, {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
     });
+    const expanded = expandedId === item.id;
     return (
-      <Pressable onLongPress={() => onDelete(item)}>
+      <Pressable
+        onPress={() => toggleExpanded(item.id)}
+        onLongPress={() => onDelete(item)}
+      >
         <Card style={styles.card}>
-          <SportIcon sport={item.sport} size={44} />
-          <View style={{ flex: 1, marginLeft: 12 }}>
-            <View style={styles.rowBetween}>
-              <Text
-                numberOfLines={1}
-                style={{
-                  color: theme.colors.text,
-                  fontSize: 16,
-                  fontWeight: '700',
-                  flex: 1,
-                }}
-              >
-                {item.homeName} <Text style={{ color: theme.colors.textMuted }}>vs</Text> {item.awayName}
-              </Text>
-              <Text
-                style={{
-                  color: theme.colors.text,
-                  fontSize: 18,
-                  fontWeight: '900',
-                }}
-              >
-                {item.homeFinalScore}–{item.awayFinalScore}
-              </Text>
+          <View style={styles.cardTop}>
+            <SportIcon sport={item.sport} size={44} />
+            <View style={{ flex: 1, marginLeft: 12 }}>
+              <View style={styles.rowBetween}>
+                <Text
+                  numberOfLines={1}
+                  style={{
+                    color: theme.colors.text,
+                    fontSize: 16,
+                    fontWeight: '700',
+                    flex: 1,
+                  }}
+                >
+                  {item.homeName} <Text style={{ color: theme.colors.textMuted }}>vs</Text> {item.awayName}
+                </Text>
+                <Text
+                  style={{
+                    color: theme.colors.text,
+                    fontSize: 18,
+                    fontWeight: '900',
+                  }}
+                >
+                  {item.homeFinalScore}–{item.awayFinalScore}
+                </Text>
+              </View>
+              <View style={styles.metaRow}>
+                <Text
+                  numberOfLines={1}
+                  style={{ color: theme.colors.textMuted, fontSize: 12, flex: 1 }}
+                >
+                  {item.winner === 'draw'
+                    ? t('history.draw')
+                    : t('history.winner', {
+                        name:
+                          item.winner === 'home' ? item.homeName : item.awayName,
+                      })}{' '}
+                  · {date}
+                </Text>
+                <Text
+                  style={{ color: theme.colors.textMuted, fontSize: 11, marginLeft: 8 }}
+                  allowFontScaling={false}
+                >
+                  {expanded ? '▲' : '▼'}
+                </Text>
+              </View>
             </View>
-            <Text style={{ color: theme.colors.textMuted, fontSize: 12, marginTop: 4 }}>
-              {item.winner === 'draw'
-                ? t('history.draw')
-                : t('history.winner', {
-                    name:
-                      item.winner === 'home' ? item.homeName : item.awayName,
-                  })}{' '}
-              · {date}
-            </Text>
           </View>
+
+          {expanded && (
+            <View style={styles.timelineWrap}>
+              <View
+                style={[styles.timelineDivider, { backgroundColor: theme.colors.border }]}
+              />
+              <MatchPeriodTimeline record={item} />
+            </View>
+          )}
         </Card>
       </Pressable>
     );
@@ -241,6 +278,7 @@ export default function HistoryScreen() {
           data={filtered}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
+          extraData={expandedId}
           contentContainerStyle={{ padding: 24, gap: 12 }}
         />
       )}
@@ -281,7 +319,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     marginBottom: 12,
   },
-  card: { flexDirection: 'row', alignItems: 'center', padding: 14 },
+  card: { padding: 14 },
+  cardTop: { flexDirection: 'row', alignItems: 'center' },
+  metaRow: { flexDirection: 'row', alignItems: 'center', marginTop: 4 },
+  timelineWrap: { marginTop: 12 },
+  timelineDivider: { height: StyleSheet.hairlineWidth, marginBottom: 12 },
   rowBetween: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   chip: {
     paddingHorizontal: 14,
