@@ -48,6 +48,18 @@ export default function PremiumScreen() {
         onRestoreCompleted={({ customerInfo }) => {
           if (customerInfo.entitlements.active[ENTITLEMENT_ID]) close();
         }}
+        onPurchaseError={({ error }) => {
+          // Satın alma hatasının detayını DEV logcat'e bas — Play Console / test
+          // ortamı sorunlarını teşhis etmek için (kod, mesaj, alttaki store hatası).
+          if (__DEV__) {
+            console.warn(
+              '[RevenueCat] paywall purchase error',
+              error.code,
+              error.message,
+              error.underlyingErrorMessage,
+            );
+          }
+        }}
         onDismiss={close}
       />
     </View>
