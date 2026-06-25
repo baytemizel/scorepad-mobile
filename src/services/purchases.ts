@@ -39,6 +39,9 @@ const apiKey = Platform.select({
 });
 
 let configured = false;
+// If a sign-in is reported before the SDK finished configuring (boot race),
+// we stash the uid here so `initializePurchases` can configure with it.
+let pendingIdentifyUid: string | null = null;
 
 export function isPurchasesConfigured(): boolean {
   return configured;
@@ -74,6 +77,24 @@ function syncPremiumFromCustomerInfo(info: CustomerInfo): void {
 }
 
 /**
+ * Re-pull customerInfo from RevenueCat and mirror it. Used as a fallback when a
+ * purchase resolves (or throws) without the entitlement reflected yet, so a user
+ * who was actually charged isn't shown a false "purchase failed". Returns whether
+ * premium is active after the refresh.
+ */
+async function refreshPremiumStatus(): Promise<boolean> {
+  if (!configured) return false;
+  try {
+    const info = await Purchases.getCustomerInfo();
+    syncPremiumFromCustomerInfo(info);
+    return hasPremiumEntitlement(info);
+  } catch (e) {
+    if (__DEV__) console.warn('[RevenueCat] refreshPremiumStatus failed', e);
+    return false;
+  }
+}
+
+/**
  * Configure the RevenueCat SDK and start mirroring entitlement changes.
  * Safe to call multiple times — only the first call configures. No-ops (with a
  * dev warning) when no API key is present, so the app still boots locally.
@@ -93,10 +114,13 @@ export async function initializePurchases(): Promise<void> {
   if (__DEV__) void Purchases.setLogLevel(LOG_LEVEL.DEBUG);
 
   // Link RevenueCat to the Firebase uid when a session is already restored, so
-  // purchases follow the account across devices. Anonymous otherwise.
-  const uid = useAuthStore.getState().user?.uid ?? null;
+  // purchases follow the account across devices. Falls back to a uid reported by
+  // the auth listener before configuration finished, then anonymous.
+  const uid =
+    useAuthStore.getState().user?.uid ?? pendingIdentifyUid ?? null;
   Purchases.configure({ apiKey, appUserID: uid });
   configured = true;
+  pendingIdentifyUid = null;
 
   Purchases.addCustomerInfoUpdateListener(syncPremiumFromCustomerInfo);
 
@@ -112,7 +136,12 @@ export async function initializePurchases(): Promise<void> {
  * after a successful sign-in so entitlements are tied to the real account.
  */
 export async function identifyPurchaseUser(uid: string): Promise<void> {
-  if (!configured) return;
+  if (!configured) {
+    // Called before the SDK finished configuring (boot race). Remember the uid
+    // so `initializePurchases` configures with it instead of going anonymous.
+    pendingIdentifyUid = uid;
+    return;
+  }
   try {
     const { customerInfo } = await Purchases.logIn(uid);
     syncPremiumFromCustomerInfo(customerInfo);
@@ -173,9 +202,16 @@ export async function purchasePackage(
   if (!configured) return { success: false, cancelled: false };
   try {
     const { customerInfo } = await Purchases.purchasePackage(pkg);
-    const success = hasPremiumEntitlement(customerInfo);
-    if (success) {
+    // The store transaction completed. Usually the entitlement is already in the
+    // returned snapshot; when it isn't yet (backend eventual consistency), re-pull
+    // once before deciding, so a charged user isn't told the purchase failed.
+    const success =
+      hasPremiumEntitlement(customerInfo) ||
+      (await refreshPremiumStatus());
+    if (hasPremiumEntitlement(customerInfo)) {
       syncPremiumFromCustomerInfo(customerInfo);
+    }
+    if (success) {
       void logEvent('premium_purchased', {
         package: pkg.identifier,
         product: pkg.product.identifier,
@@ -186,8 +222,13 @@ export async function purchasePackage(
     return { success, cancelled: false };
   } catch (e) {
     const cancelled = (e as { userCancelled?: boolean }).userCancelled === true;
-    if (!cancelled && __DEV__) console.warn('[RevenueCat] purchase failed', e);
-    return { success: false, cancelled };
+    if (cancelled) return { success: false, cancelled: true };
+    if (__DEV__) console.warn('[RevenueCat] purchase failed', e);
+    // A non-cancel error doesn't guarantee no charge — the store may have
+    // completed the transaction while finishing it threw (network blip,
+    // receipt-already-in-use). Re-check entitlements before reporting failure.
+    const success = await refreshPremiumStatus();
+    return { success, cancelled: false };
   }
 }
 

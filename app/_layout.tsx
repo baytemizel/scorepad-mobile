@@ -16,7 +16,7 @@ import { ThemeProvider } from '@/theme/ThemeProvider';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useAuthStore } from '@/store/authStore';
 import { initializeAds } from '@/services/ads';
-import { initializePurchases } from '@/services/purchases';
+import { initializePurchases, identifyPurchaseUser } from '@/services/purchases';
 import { preloadSounds } from '@/services/feedback';
 import {
   subscribeToAuthChanges,
@@ -93,7 +93,14 @@ export default function RootLayout() {
   useEffect(() => {
     const unsubscribe = subscribeToAuthChanges((fbUser) => {
       const current = useAuthStore.getState().user;
-      if (fbUser) return;
+      if (fbUser) {
+        // A restored/active Firebase session: alias RevenueCat to this uid so
+        // purchases are attributed to (and premium read from) the real account,
+        // not a leftover anonymous id. `identifyPurchaseUser` is only otherwise
+        // called on interactive sign-in, so restored sessions would miss it.
+        void identifyPurchaseUser(fbUser.uid);
+        return;
+      }
       // Firebase reports signed-out — clear the store and bounce back to auth.
       if (current) {
         useAuthStore.getState().signOut();
