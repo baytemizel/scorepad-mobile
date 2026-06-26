@@ -223,6 +223,23 @@
         "half": "Devre {{current}} / {{total}}"
       }
     },
+    "handball": {
+      "name": "Hentbol",
+      "actions": {
+        "goal": "Gol",
+        "twoMin": "2 dk ihraç",
+        "yellow": "Sarı kart",
+        "red": "Kırmızı kart"
+      },
+      "stats": {
+        "twoMin": "2 dk",
+        "yellow": "Sarı",
+        "red": "Kırmızı"
+      },
+      "status": {
+        "half": "Devre {{current}} / {{total}}"
+      }
+    },
     "volleyball": {
       "name": "Voleybol",
       "actions": {

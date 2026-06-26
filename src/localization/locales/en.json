@@ -223,6 +223,23 @@
         "half": "Half {{current}} / {{total}}"
       }
     },
+    "handball": {
+      "name": "Handball",
+      "actions": {
+        "goal": "Goal",
+        "twoMin": "2-min suspension",
+        "yellow": "Yellow card",
+        "red": "Red card"
+      },
+      "stats": {
+        "twoMin": "2-min",
+        "yellow": "Yellow",
+        "red": "Red"
+      },
+      "status": {
+        "half": "Half {{current}} / {{total}}"
+      }
+    },
     "volleyball": {
       "name": "Volleyball",
       "actions": {

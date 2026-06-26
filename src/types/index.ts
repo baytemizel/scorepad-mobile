@@ -7,6 +7,7 @@
 export type SportId =
   | 'basketball'
   | 'football'
+  | 'handball'
   | 'volleyball'
   | 'tennis'
   | 'tabletennis';

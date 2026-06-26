@@ -99,6 +99,7 @@ export const newMatchId = (): string => `m-${newId()}`;
 
 import { basketball } from './basketball';
 import { football } from './football';
+import { handball } from './handball';
 import { volleyball } from './volleyball';
 import { tennis } from './tennis';
 import { tabletennis } from './tabletennis';
@@ -106,6 +107,7 @@ import { tabletennis } from './tabletennis';
 export const sportEngines: Record<SportId, SportEngine> = {
   basketball,
   football,
+  handball,
   volleyball,
   tennis,
   tabletennis,
@@ -114,6 +116,7 @@ export const sportEngines: Record<SportId, SportEngine> = {
 export const sportList: SportEngine[] = [
   basketball,
   football,
+  handball,
   volleyball,
   tennis,
   tabletennis,

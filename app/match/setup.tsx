@@ -25,6 +25,7 @@ import { logEvent } from '@/services/analytics';
 const PERIOD_OPTIONS: Record<SportId, number[]> = {
   basketball: [2, 4],
   football: [2],
+  handball: [2],
   volleyball: [3, 5],
   tennis: [3, 5],
   tabletennis: [3, 5, 7],
@@ -42,6 +43,11 @@ const PRESETS: Record<SportId, Preset[]> = {
     { key: 'tournament', periods: 4 },
   ],
   football: [
+    { key: 'quick', periods: 2 },
+    { key: 'standard', periods: 2 },
+    { key: 'tournament', periods: 2 },
+  ],
+  handball: [
     { key: 'quick', periods: 2 },
     { key: 'standard', periods: 2 },
     { key: 'tournament', periods: 2 },
@@ -114,7 +120,7 @@ export default function MatchSetup() {
   };
 
   const periodLabel = useMemo(() => {
-    if (sportId === 'football') return t('setup.halves');
+    if (sportId === 'football' || sportId === 'handball') return t('setup.halves');
     if (engine.meta.setBased) return t('setup.bestOf');
     return t('setup.periods');
   }, [sportId, t, engine]);
