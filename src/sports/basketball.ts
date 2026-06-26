@@ -40,6 +40,7 @@ export const basketball: SportEngine = {
     id: 'basketball',
     nameKey: 'sport.basketball.name',
     icon: '🏀',
+    mdiIcon: 'basketball',
     gradient: ['#F97316', '#EA580C'],
     setBased: false,
     defaultPeriodCount: 4,

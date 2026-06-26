@@ -64,6 +64,7 @@ export const tabletennis: SportEngine = {
     id: 'tabletennis',
     nameKey: 'sport.tabletennis.name',
     icon: '🏓',
+    mdiIcon: 'table-tennis',
     gradient: ['#EF4444', '#DC2626'],
     setBased: true,
     defaultPeriodCount: 3,

@@ -103,6 +103,8 @@ export interface SportMeta {
   nameKey: string;
   /** Emoji/icon shown in lists. */
   icon: string;
+  /** MaterialCommunityIcons glyph name shown in the sport badge. */
+  mdiIcon: string;
   /** Brand gradient colors. */
   gradient: [string, string];
   /** True if the sport uses set-based scoring (volleyball, tennis, table tennis). */

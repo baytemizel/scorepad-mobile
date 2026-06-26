@@ -54,6 +54,7 @@ export const volleyball: SportEngine = {
     id: 'volleyball',
     nameKey: 'sport.volleyball.name',
     icon: '🏐',
+    mdiIcon: 'volleyball',
     gradient: ['#F59E0B', '#D97706'],
     setBased: true,
     defaultPeriodCount: 3,

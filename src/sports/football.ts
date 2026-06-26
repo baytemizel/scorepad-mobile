@@ -47,6 +47,7 @@ export const football: SportEngine = {
     id: 'football',
     nameKey: 'sport.football.name',
     icon: '⚽',
+    mdiIcon: 'soccer',
     gradient: ['#10B981', '#047857'],
     setBased: false,
     defaultPeriodCount: 2,

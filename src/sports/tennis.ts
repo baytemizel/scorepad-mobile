@@ -96,6 +96,7 @@ export const tennis: SportEngine = {
     id: 'tennis',
     nameKey: 'sport.tennis.name',
     icon: '🎾',
+    mdiIcon: 'tennis-ball',
     gradient: ['#84CC16', '#65A30D'],
     setBased: true,
     defaultPeriodCount: 3,
