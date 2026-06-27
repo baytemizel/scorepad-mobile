@@ -80,6 +80,37 @@ export const volleyball: SportEngine = {
   },
 
   apply(state: MatchState, side: TeamSide, action: string): ApplyResult {
+    // Manual "next set": award the current set to whoever leads and advance.
+    if (!state.finished && action === 'nextset') {
+      const meta = ensureMeta(state);
+      const home = state.homeScore;
+      const away = state.awayScore;
+      const winner: TeamSide | null = home > away ? 'home' : away > home ? 'away' : null;
+      const event = newEvent(state.id, winner ?? 'home', 'nextset', 0, state.currentPeriod);
+      const completedPeriod: PeriodState = {
+        index: state.currentPeriod,
+        homeScore: home,
+        awayScore: away,
+      };
+      const newSets: VolleyballMeta = {
+        homeSets: meta.homeSets + (winner === 'home' ? 1 : 0),
+        awaySets: meta.awaySets + (winner === 'away' ? 1 : 0),
+      };
+      return {
+        next: {
+          ...state,
+          homeScore: 0,
+          awayScore: 0,
+          currentPeriod: state.currentPeriod + 1,
+          periods: [...state.periods, completedPeriod],
+          events: [...state.events, event],
+          meta: newSets as unknown as Record<string, unknown>,
+        },
+        periodEnded: true,
+        matchEnded: false,
+      };
+    }
+
     if (state.finished || action !== 'point') {
       return { next: state, periodEnded: false, matchEnded: false };
     }
@@ -145,6 +176,31 @@ export const volleyball: SportEngine = {
     const last = state.events[state.events.length - 1]!;
     const meta = ensureMeta(state);
 
+    // Undo a manual "next set": restore the closed set's scores (no point was
+    // scored) and give back the set, if one was awarded.
+    if (last.action === 'nextset') {
+      const lastPeriod = state.periods[state.periods.length - 1]!;
+      const home = lastPeriod.homeScore;
+      const away = lastPeriod.awayScore;
+      const setWonBy: TeamSide | null = home > away ? 'home' : away > home ? 'away' : null;
+      const newMeta: VolleyballMeta = {
+        homeSets: meta.homeSets - (setWonBy === 'home' ? 1 : 0),
+        awaySets: meta.awaySets - (setWonBy === 'away' ? 1 : 0),
+      };
+      return {
+        ...state,
+        homeScore: home,
+        awayScore: away,
+        currentPeriod: lastPeriod.index,
+        periods: state.periods.slice(0, -1),
+        events: state.events.slice(0, -1),
+        meta: newMeta as unknown as Record<string, unknown>,
+        finished: false,
+        finishedAt: undefined,
+        winner: undefined,
+      };
+    }
+
     // If the last event ended a set, revert sets count and pop the period.
     const periodEnded = state.periods.length > 0 &&
       state.periods[state.periods.length - 1]!.index === last.periodIndex &&
@@ -187,6 +243,14 @@ export const volleyball: SportEngine = {
     if (meta.homeSets > meta.awaySets) winner = 'home';
     else if (meta.awaySets > meta.homeSets) winner = 'away';
     return { ...state, finished: true, finishedAt: Date.now(), winner };
+  },
+
+  periodCount(state: MatchState): number {
+    return state.config.bestOf ?? 3;
+  },
+
+  nextPeriod(state: MatchState): MatchState {
+    return volleyball.apply(state, 'home', 'nextset').next;
   },
 
   getStatusLabel(state: MatchState): StatusLabel {

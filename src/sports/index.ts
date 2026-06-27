@@ -31,6 +31,23 @@ export interface SportEngine {
   /** Force-end the match (user taps Finish). Returns final state with winner. */
   finish: (state: MatchState) => MatchState;
 
+  /**
+   * Total number of periods/sets the match can span. Drives the center bar's
+   * "Next" button, which stays visible until the last unit (then the user taps
+   * Finish). Period-based sports fall back to `config.periodCount`; set-based
+   * sports return the maximum number of sets for the configured best-of.
+   */
+  periodCount?: (state: MatchState) => number;
+
+  /**
+   * Manually close the current period/set and advance to the next one. Pure.
+   * Only invoked while not on the last unit. The meaning differs per sport
+   * (next quarter/half for period-based games, next set for set-based ones),
+   * so set-based engines implement it; period-based ones rely on the store's
+   * generic period-advance instead.
+   */
+  nextPeriod?: (state: MatchState) => MatchState;
+
   /** A short status line (e.g. "Set 2 — 1-0", "Period 3"). i18n-safe (returns key + values). */
   getStatusLabel: (state: MatchState) => StatusLabel;
 

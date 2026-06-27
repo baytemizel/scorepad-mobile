@@ -25,14 +25,11 @@ export function ScoreCenterBar({ state, onUndo, onFinish, onNextPeriod }: ScoreC
   const engine = getEngine(state.config.sport);
   const status = engine.getStatusLabel(state);
   const canUndo = state.events.length > 0 && !state.finished;
-  // Period-based sports (basketball, football) need a manual "advance to next
-  // period" trigger because their engines don't auto-end a period on score —
-  // otherwise the user is stuck in P1 with no way out except Finish.
-  // Set-based engines (volleyball, tennis, table tennis) progress on their own.
-  const showNextPeriod =
-    !engine.meta.setBased &&
-    !state.finished &&
-    state.currentPeriod + 1 < (state.config.periodCount ?? 1);
+  // The "Next" button advances to the next period/set. It shows in every sport
+  // until the last unit (then the user taps Finish). Period-based sports use
+  // the configured period count; set-based engines report their max set count.
+  const totalPeriods = engine.periodCount?.(state) ?? state.config.periodCount ?? 1;
+  const showNextPeriod = !state.finished && state.currentPeriod + 1 < totalPeriods;
 
   // Split the localized status into a small label line + a value line, e.g.
   // "PERİYOT 1 / 4" -> "PERİYOT" + "1 / 4".

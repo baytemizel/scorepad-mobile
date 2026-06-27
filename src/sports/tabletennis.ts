@@ -114,6 +114,40 @@ export const tabletennis: SportEngine = {
       };
     }
 
+    // Manual "next set": award the current set to whoever leads and advance.
+    if (action === 'nextset') {
+      const home = state.homeScore;
+      const away = state.awayScore;
+      const winner: TeamSide | null = home > away ? 'home' : away > home ? 'away' : null;
+      const event = newEvent(state.id, winner ?? 'home', 'nextset', 0, state.currentPeriod);
+      const completedPeriod: PeriodState = {
+        index: state.currentPeriod,
+        homeScore: home,
+        awayScore: away,
+      };
+      const newMeta: TableTennisMeta = {
+        ...meta,
+        homeSets: meta.homeSets + (winner === 'home' ? 1 : 0),
+        awaySets: meta.awaySets + (winner === 'away' ? 1 : 0),
+        pointsInSet: 0,
+        // Server alternates between sets.
+        serving: meta.serving === 'home' ? 'away' : 'home',
+      };
+      return {
+        next: {
+          ...state,
+          homeScore: 0,
+          awayScore: 0,
+          currentPeriod: state.currentPeriod + 1,
+          periods: [...state.periods, completedPeriod],
+          events: [...state.events, event],
+          meta: newMeta as unknown as Record<string, unknown>,
+        },
+        periodEnded: true,
+        matchEnded: false,
+      };
+    }
+
     if (action !== 'point') {
       return { next: state, periodEnded: false, matchEnded: false };
     }
@@ -200,6 +234,14 @@ export const tabletennis: SportEngine = {
     if (meta.homeSets > meta.awaySets) winner = 'home';
     else if (meta.awaySets > meta.homeSets) winner = 'away';
     return { ...state, finished: true, finishedAt: Date.now(), winner };
+  },
+
+  periodCount(state: MatchState): number {
+    return state.config.bestOf ?? 5;
+  },
+
+  nextPeriod(state: MatchState): MatchState {
+    return tabletennis.apply(state, 'home', 'nextset').next;
   },
 
   getStatusLabel(state: MatchState): StatusLabel {

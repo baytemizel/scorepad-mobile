@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   Alert,
-  Pressable,
   Share,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -173,23 +172,6 @@ export default function ScoreScreen() {
         <TeamPanel state={state} side="away" onAction={onAction} />
       </View>
 
-      {!state.finished && (
-        <Pressable
-          onPress={onExit}
-          hitSlop={20}
-          accessibilityLabel={t('common.back')}
-          style={[
-            styles.backBtn,
-            {
-              backgroundColor: theme.colors.surface,
-              borderColor: theme.colors.border,
-            },
-          ]}
-        >
-          <Text style={{ color: theme.colors.text, fontSize: 30, lineHeight: 32 }}>‹</Text>
-        </Pressable>
-      )}
-
       <MatchSummaryModal
         visible={state.finished}
         state={state}
@@ -203,16 +185,4 @@ export default function ScoreScreen() {
 const styles = StyleSheet.create({
   fill: { flex: 1 },
   row: { flex: 1, flexDirection: 'row' },
-  backBtn: {
-    position: 'absolute',
-    top: 16,
-    left: 16,
-    width: 52,
-    height: 52,
-    borderRadius: 26,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    zIndex: 10,
-  },
 });

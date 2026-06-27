@@ -10,9 +10,10 @@ interface MatchStoreState {
   applyAction: (side: TeamSide, action: string) => ApplyResult | null;
   undo: () => void;
   finish: () => MatchState | null;
-  /** Close the current period and either advance to the next, or finish the
-   *  match if this was the last one. For period-based sports (basketball,
-   *  football) — set-based engines progress automatically. */
+  /** Close the current period/set and advance to the next, or finish the match
+   *  if this was the last one. Period-based sports (basketball, football,
+   *  handball) use the generic period advance; set-based sports (volleyball,
+   *  tennis, table tennis) delegate to their engine's own `nextPeriod`. */
   nextPeriod: () => void;
   reset: () => void;
   swapSides: () => void;
@@ -64,6 +65,11 @@ export const useMatchStore = create<MatchStoreState>((set, get) => ({
     const cur = get().active;
     if (!cur || cur.finished) return;
     const engine = getEngine(cur.config.sport);
+    // Set-based engines define their own "advance to next set" semantics.
+    if (engine.nextPeriod) {
+      set({ active: engine.nextPeriod(cur), lastResult: null });
+      return;
+    }
     const periodCount = cur.config.periodCount ?? 1;
     const completedPeriod = {
       index: cur.currentPeriod,

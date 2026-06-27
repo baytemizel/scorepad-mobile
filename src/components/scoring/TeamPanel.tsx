@@ -15,7 +15,7 @@ interface TeamPanelProps {
 
 /**
  * Half-width panel of the score screen. Shows team name, big score,
- * sport-specific stats, and a 2x2 grid of scoring actions.
+ * sport-specific stats, and a single row of scoring actions.
  */
 export function TeamPanel({ state, side, onAction }: TeamPanelProps) {
   const theme = useTheme();
@@ -90,20 +90,15 @@ export function TeamPanel({ state, side, onAction }: TeamPanelProps) {
         </View>
       )}
 
-      {/* Action grid */}
-      <View style={styles.actionsGrid}>
-        {actions.map((action, idx) => (
+      {/* Action row — all actions on a single line, sized to fit */}
+      <View style={styles.actionsRow}>
+        {actions.map((action) => (
           <ActionButton
             key={action.id}
             action={action}
             onPress={() => onAction(side, action.id)}
             baseColor={teamColor}
             big={actions.length <= 2}
-            style={{
-              marginRight: idx % 2 === 0 && actions.length > 1 ? 8 : 0,
-              marginBottom: idx < actions.length - 2 ? 8 : 0,
-              minWidth: actions.length === 1 ? '100%' : '48%',
-            }}
           />
         ))}
       </View>
@@ -145,11 +140,9 @@ const styles = StyleSheet.create({
   statBlock: {
     alignItems: 'center',
   },
-  actionsGrid: {
+  actionsRow: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    minHeight: 110,
+    gap: 8,
   },
 });
 

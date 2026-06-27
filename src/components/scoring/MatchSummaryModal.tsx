@@ -6,6 +6,8 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/theme/ThemeProvider';
 import { getEngine } from '@/sports';
@@ -36,6 +38,7 @@ export function MatchSummaryModal({
   onShare,
 }: MatchSummaryModalProps) {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
   const { t } = useTranslation();
   const engine = getEngine(state.config.sport);
 
@@ -75,7 +78,15 @@ export function MatchSummaryModal({
     >
       {/* Header */}
       <View
-        style={[styles.header, { borderBottomColor: theme.colors.border }]}
+        style={[
+          styles.header,
+          {
+            borderBottomColor: theme.colors.border,
+            paddingTop: insets.top,
+            paddingLeft: insets.left + 12,
+            paddingRight: insets.right + 12,
+          },
+        ]}
       >
         <Pressable
           onPress={onBack}
@@ -89,17 +100,11 @@ export function MatchSummaryModal({
             },
           ]}
         >
-          <Text
-            allowFontScaling={false}
-            style={{
-              color: theme.colors.text,
-              fontSize: 26,
-              lineHeight: 28,
-              fontWeight: '700',
-            }}
-          >
-            ‹
-          </Text>
+          <MaterialCommunityIcons
+            name="chevron-left"
+            size={28}
+            color={theme.colors.text}
+          />
         </Pressable>
 
         <Text
@@ -376,8 +381,7 @@ const styles = StyleSheet.create({
     elevation: 100,
   },
   header: {
-    height: 56,
-    paddingHorizontal: 12,
+    paddingVertical: 8,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

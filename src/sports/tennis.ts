@@ -127,8 +127,47 @@ export const tennis: SportEngine = {
   },
 
   apply(state: MatchState, side: TeamSide, action: string): ApplyResult {
-    if (state.finished || action !== 'point') {
+    if (state.finished || (action !== 'point' && action !== 'nextset')) {
       return { next: state, periodEnded: false, matchEnded: false };
+    }
+
+    // Manual "next set": award the current set to whoever leads on games and
+    // advance. Points/games reset; sets credited to the leader (if any).
+    if (action === 'nextset') {
+      const meta = ensureMeta(state);
+      const winner: TeamSide | null =
+        meta.homeGames > meta.awayGames ? 'home' :
+        meta.awayGames > meta.homeGames ? 'away' : null;
+      const event = newEvent(state.id, winner ?? 'home', 'nextset', 0, state.currentPeriod);
+      const period: PeriodState = {
+        index: state.currentPeriod,
+        homeScore: meta.homeGames,
+        awayScore: meta.awayGames,
+        meta: winner ? { setWinner: winner } : undefined,
+      };
+      const newMeta: TennisMeta = {
+        ...meta,
+        homePoints: 0,
+        awayPoints: 0,
+        homeGames: 0,
+        awayGames: 0,
+        homeSets: meta.homeSets + (winner === 'home' ? 1 : 0),
+        awaySets: meta.awaySets + (winner === 'away' ? 1 : 0),
+        tiebreak: false,
+      };
+      return {
+        next: {
+          ...state,
+          homeScore: 0,
+          awayScore: 0,
+          currentPeriod: state.currentPeriod + 1,
+          periods: [...state.periods, period],
+          events: [...state.events, event],
+          meta: newMeta as unknown as Record<string, unknown>,
+        },
+        periodEnded: true,
+        matchEnded: false,
+      };
     }
 
     const event = newEvent(state.id, side, action, 1, state.currentPeriod);
@@ -240,6 +279,15 @@ export const tennis: SportEngine = {
     if (meta.homeSets > meta.awaySets) winner = 'home';
     else if (meta.awaySets > meta.homeSets) winner = 'away';
     return { ...state, finished: true, finishedAt: Date.now(), winner };
+  },
+
+  periodCount(state: MatchState): number {
+    // Max sets playable = (sets needed to win) * 2 - 1.
+    return setsToWin(state) * 2 - 1;
+  },
+
+  nextPeriod(state: MatchState): MatchState {
+    return tennis.apply(state, 'home', 'nextset').next;
   },
 
   getStatusLabel(state: MatchState): StatusLabel {
