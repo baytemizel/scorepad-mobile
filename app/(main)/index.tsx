@@ -1,14 +1,12 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/theme/ThemeProvider';
 import { fontFamilies } from '@/theme/fonts';
-import { Card } from '@/components/ui/Card';
-import { SportIcon } from '@/components/common/SportIcon';
 import { AdBanner } from '@/components/common/AdBanner';
 import { sportList } from '@/sports';
 import { useAuthStore } from '@/store/authStore';
@@ -101,21 +99,38 @@ export default function Home() {
               onPress={() => onSport(engine.meta.id)}
               style={styles.sportTileWrap}
             >
-              <Card style={styles.sportTile}>
-                <SportIcon sport={engine.meta.id} size={64} />
+              <LinearGradient
+                colors={engine.meta.gradient}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.sportTile}
+              >
+                <MaterialCommunityIcons
+                  name={
+                    engine.meta.mdiIcon as React.ComponentProps<
+                      typeof MaterialCommunityIcons
+                    >['name']
+                  }
+                  size={48}
+                  color="#fff"
+                  style={styles.tileGlyphShadow}
+                />
                 <Text
                   numberOfLines={1}
-                  style={{
-                    color: theme.colors.text,
-                    fontSize: 16,
-                    fontWeight: '700',
-                    marginTop: 12,
-                    textAlign: 'center',
-                  }}
+                  style={[
+                    styles.tileGlyphShadow,
+                    {
+                      color: '#fff',
+                      fontSize: 16,
+                      fontWeight: '700',
+                      marginTop: 8,
+                      textAlign: 'center',
+                    },
+                  ]}
                 >
                   {t(engine.meta.nameKey)}
                 </Text>
-              </Card>
+              </LinearGradient>
             </Pressable>
           ))}
         </View>
@@ -163,6 +178,13 @@ const styles = StyleSheet.create({
   sportTile: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 20,
+    paddingVertical: 24,
+    paddingHorizontal: 16,
+    borderRadius: 16,
+  },
+  tileGlyphShadow: {
+    textShadowColor: 'rgba(0, 0, 0, 0.25)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 3,
   },
 });
