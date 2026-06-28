@@ -9,7 +9,7 @@
  * before. RevenueCat is the single source of truth for premium.
  *
  * Dashboard setup expected (app.revenuecat.com):
- *   - Entitlement identifier: `premium`
+ *   - Entitlement identifier: `ScorePad Plus` (must match ENTITLEMENT_ID exactly)
  *   - A "current" Offering with `monthly` + `annual` packages
  *   - iOS / Android public SDK keys provided via env (see app.config.ts `extra`)
  */
@@ -25,8 +25,13 @@ import { useAuthStore } from '@/store/authStore';
 import { setUserPremiumFlag } from './firestore';
 import { logEvent } from './analytics';
 
-/** RevenueCat entitlement that unlocks all premium features. */
-export const ENTITLEMENT_ID = 'premium';
+/**
+ * RevenueCat entitlement that unlocks all premium features. This string must
+ * match the entitlement *identifier* in the RevenueCat dashboard EXACTLY
+ * (byte-for-byte, including spaces/casing) — `info.entitlements.active[...]` is
+ * keyed by that identifier.
+ */
+export const ENTITLEMENT_ID = 'ScorePad Plus';
 
 const extra = (Constants.expoConfig?.extra ?? {}) as {
   revenueCatIosKey?: string;
