@@ -7,7 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { I18nextProvider } from 'react-i18next';
-import { View } from 'react-native';
+import { AppState, View } from 'react-native';
 import Constants from 'expo-constants';
 
 import i18n, { applyRtl } from '@/localization/i18n';
@@ -16,7 +16,11 @@ import { ThemeProvider } from '@/theme/ThemeProvider';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useAuthStore } from '@/store/authStore';
 import { initializeAds } from '@/services/ads';
-import { initializePurchases, identifyPurchaseUser } from '@/services/purchases';
+import {
+  initializePurchases,
+  identifyPurchaseUser,
+  refreshPremiumStatus,
+} from '@/services/purchases';
 import { preloadSounds } from '@/services/feedback';
 import {
   subscribeToAuthChanges,
@@ -108,6 +112,17 @@ export default function RootLayout() {
       }
     });
     return unsubscribe;
+  }, []);
+
+  // Re-sync premium whenever the app returns to the foreground, so renewals,
+  // out-of-band purchases (Ask to Buy / deferred) and backend eventual
+  // consistency are reconciled. `refreshPremiumStatus` no-ops until the SDK is
+  // configured, so this is safe even before boot finishes.
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (state) => {
+      if (state === 'active') void refreshPremiumStatus();
+    });
+    return () => sub.remove();
   }, []);
 
   if (!bootReady || !fontsReady) {

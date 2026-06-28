@@ -67,11 +67,26 @@ function hasPremiumEntitlement(info: CustomerInfo): boolean {
 
 /**
  * Mirror RevenueCat's entitlement state into the local store + Firestore.
- * Only writes when the value actually changes to avoid redundant work.
+ * Only writes when the value actually changes to avoid redundant work. Used by
+ * the background customerInfo listener and the internal refresh paths.
  */
 function syncPremiumFromCustomerInfo(info: CustomerInfo): void {
   const active = hasPremiumEntitlement(info);
   if (useAuthStore.getState().isPremium === active) return;
+  useAuthStore.getState().setPremium(active);
+  void setUserPremiumFlag(active);
+}
+
+/**
+ * Force-mirror entitlement state into the store + Firestore, bypassing the
+ * "only on change" guard. Call this from the native paywall callbacks
+ * (`onPurchaseCompleted` / `onRestoreCompleted`), which hand us an authoritative
+ * `customerInfo`: we must propagate it ourselves rather than relying solely on
+ * the background `addCustomerInfoUpdateListener`, which isn't reliably delivered
+ * for the embedded `<RevenueCatUI.Paywall>` flow.
+ */
+export function forceSyncPremiumFromCustomerInfo(info: CustomerInfo): void {
+  const active = hasPremiumEntitlement(info);
   useAuthStore.getState().setPremium(active);
   void setUserPremiumFlag(active);
 }
@@ -82,7 +97,7 @@ function syncPremiumFromCustomerInfo(info: CustomerInfo): void {
  * who was actually charged isn't shown a false "purchase failed". Returns whether
  * premium is active after the refresh.
  */
-async function refreshPremiumStatus(): Promise<boolean> {
+export async function refreshPremiumStatus(): Promise<boolean> {
   if (!configured) return false;
   try {
     const info = await Purchases.getCustomerInfo();
@@ -106,6 +121,18 @@ export async function initializePurchases(): Promise<void> {
       console.warn(
         '[RevenueCat] No API key configured (REVENUECAT_IOS_API_KEY / ' +
           'REVENUECAT_ANDROID_API_KEY). In-app purchases are disabled.',
+      );
+    }
+    return;
+  }
+  // A placeholder key (the unfilled .env default) is non-empty, so the guard
+  // above doesn't catch it — but configuring with it makes every SDK call fail
+  // silently. Treat it as "not configured" so we don't pretend purchases work.
+  if (apiKey.includes('REPLACE')) {
+    if (__DEV__) {
+      console.warn(
+        `[RevenueCat] Placeholder API key for ${Platform.OS} ("${apiKey}"). ` +
+          'Fill in the real public SDK key in .env — purchases are disabled.',
       );
     }
     return;

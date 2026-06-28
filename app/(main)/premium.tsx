@@ -3,7 +3,11 @@ import { View } from 'react-native';
 import { router } from 'expo-router';
 import RevenueCatUI from 'react-native-purchases-ui';
 import { useAuthStore } from '@/store/authStore';
-import { ENTITLEMENT_ID } from '@/services/purchases';
+import {
+  ENTITLEMENT_ID,
+  forceSyncPremiumFromCustomerInfo,
+  refreshPremiumStatus,
+} from '@/services/purchases';
 import { logEvent } from '@/services/analytics';
 
 /**
@@ -33,19 +37,32 @@ export default function PremiumScreen() {
     if (isPremium) close();
   }, [isPremium, close]);
 
+  // Ekran açılışında RevenueCat'ten güncel durumu çek: daha önce satın almış
+  // ama state senkronize olmamış kullanıcı, paywall'ı görmeden premium'a geçip
+  // ekranı otomatik kapatır.
+  useEffect(() => {
+    void refreshPremiumStatus();
+  }, []);
+
   if (isPremium) return null;
 
   return (
     <View style={{ flex: 1 }}>
       <RevenueCatUI.Paywall
         style={{ flex: 1 }}
-        onPurchaseCompleted={({ storeTransaction }) => {
+        onPurchaseCompleted={({ customerInfo, storeTransaction }) => {
           void logEvent('premium_purchased', {
             product: storeTransaction.productIdentifier,
           });
+          // Native paywall'ın verdiği customerInfo yetkili kaynaktır — premium'u
+          // doğrudan buradan senkronize et; global listener'a güvenme. Ardından
+          // eventual-consistency'ye karşı bir kez daha RevenueCat'ten teyit al.
+          forceSyncPremiumFromCustomerInfo(customerInfo);
+          void refreshPremiumStatus();
           close();
         }}
         onRestoreCompleted={({ customerInfo }) => {
+          forceSyncPremiumFromCustomerInfo(customerInfo);
           if (customerInfo.entitlements.active[ENTITLEMENT_ID]) close();
         }}
         onPurchaseError={({ error }) => {
