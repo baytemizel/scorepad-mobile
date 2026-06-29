@@ -142,7 +142,16 @@ export function MatchSummaryModal({
       {/* Body */}
       <ScrollView
         style={styles.fill}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[
+          styles.scrollContent,
+          {
+            // Clear the system nav bar in both orientations (bottom in portrait,
+            // side in landscape).
+            paddingLeft: insets.left + 16,
+            paddingRight: insets.right + 16,
+            paddingBottom: insets.bottom + 24,
+          },
+        ]}
         showsVerticalScrollIndicator={false}
       >
         {/* Final score banner */}

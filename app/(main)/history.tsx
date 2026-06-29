@@ -58,7 +58,7 @@ export default function HistoryScreen() {
   // Guests have no account and nothing is saved for them — prompt to sign in.
   if (!user) {
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.bg }} edges={['top']}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.bg }} edges={['top', 'bottom']}>
         <Header onBack={() => router.back()} title={t('history.title')} />
         <View style={styles.empty}>
           <Text style={{ fontSize: 56, marginBottom: 12 }}>🔒</Text>
@@ -97,7 +97,7 @@ export default function HistoryScreen() {
   // history stays a premium feature.
   if (!isPremium) {
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.bg }} edges={['top']}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.bg }} edges={['top', 'bottom']}>
         <Header onBack={() => router.back()} title={t('history.title')} />
         <PremiumGate titleKey="history.lockedTitle" bodyKey="history.lockedBody" />
       </SafeAreaView>
@@ -203,7 +203,7 @@ export default function HistoryScreen() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.bg }} edges={['top']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.bg }} edges={['top', 'bottom']}>
       <Header onBack={() => router.back()} title={t('history.title')} />
 
       <View style={{ paddingHorizontal: 24, gap: 12 }}>

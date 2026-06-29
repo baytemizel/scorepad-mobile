@@ -43,7 +43,7 @@ export default function Terms() {
   const theme = useTheme();
   const { t } = useTranslation();
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.bg }} edges={['top']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.bg }} edges={['top', 'bottom']}>
       <View style={[styles.header, { borderBottomColor: theme.colors.border }]}>
         <Pressable onPress={() => router.back()} hitSlop={12} style={{ width: 44 }}>
           <Text style={{ color: theme.colors.text, fontSize: 24 }}>‹</Text>
