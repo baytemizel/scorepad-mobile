@@ -106,6 +106,7 @@
   },
   "score": {
     "undo": "Rückgängig",
+    "rotateHint": "Drehe dein Gerät für die volle Anzeigetafel",
     "swap": "Seiten tauschen",
     "finish": "Beenden",
     "endMatch": "Spiel beenden?",

@@ -9,6 +9,7 @@ import { useFonts } from 'expo-font';
 import { I18nextProvider } from 'react-i18next';
 import { AppState, View } from 'react-native';
 import Constants from 'expo-constants';
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 import i18n, { applyRtl } from '@/localization/i18n';
 import { fontAssets, installGlobalFont } from '@/theme/fonts';
@@ -48,6 +49,16 @@ export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts(fontAssets);
   const fontsReady = fontsLoaded || fontError != null;
   const language = useSettingsStore((s) => s.language);
+
+  // Portrait-only by default across the whole app. The match score screen is the
+  // sole exception — it unlocks both orientations on focus and re-locks portrait
+  // on blur (see useScoreOrientation). Native config stays permissive so iOS
+  // physically allows landscape there.
+  useEffect(() => {
+    void ScreenOrientation.lockAsync(
+      ScreenOrientation.OrientationLock.PORTRAIT_UP,
+    );
+  }, []);
 
   useEffect(() => {
     let cancelled = false;

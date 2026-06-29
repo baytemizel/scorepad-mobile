@@ -109,6 +109,7 @@
   },
   "score": {
     "undo": "Geri al",
+    "rotateHint": "Tam skor tablosu için cihazını çevir",
     "swap": "Tarafları değiştir",
     "finish": "Bitir",
     "nextPeriod": "Sonraki",

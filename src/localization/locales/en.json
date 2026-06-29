@@ -109,6 +109,7 @@
   },
   "score": {
     "undo": "Undo",
+    "rotateHint": "Rotate your device for the full scoreboard",
     "swap": "Swap sides",
     "finish": "Finish",
     "nextPeriod": "Next",

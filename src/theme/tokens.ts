@@ -172,6 +172,18 @@ export const shade = (hex: string, amount: number): string => {
   return `#${((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1)}`;
 };
 
+/** Lighten a hex color by mixing toward white. `amount` is 0..1 (0 = unchanged). */
+export const tint = (hex: string, amount: number): string => {
+  const m = hex.replace('#', '');
+  const full = m.length === 3 ? m.split('').map((c) => c + c).join('') : m;
+  const num = parseInt(full, 16);
+  const mix = (c: number) => Math.round(c + (255 - c) * amount);
+  const r = mix((num >> 16) & 0xff);
+  const g = mix((num >> 8) & 0xff);
+  const b = mix(num & 0xff);
+  return `#${((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1)}`;
+};
+
 export const gradients = {
   primary: ['#2563EB', '#06B6D4'] as [string, string],
   hero: ['#0B1220', '#1D4ED8'] as [string, string],

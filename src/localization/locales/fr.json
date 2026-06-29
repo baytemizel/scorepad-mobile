@@ -106,6 +106,7 @@
   },
   "score": {
     "undo": "Annuler",
+    "rotateHint": "Tournez l'appareil pour le tableau complet",
     "swap": "Inverser les côtés",
     "finish": "Terminer",
     "endMatch": "Terminer le match ?",

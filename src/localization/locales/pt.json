@@ -106,6 +106,7 @@
   },
   "score": {
     "undo": "Desfazer",
+    "rotateHint": "Gire o dispositivo para o placar completo",
     "swap": "Trocar lados",
     "finish": "Finalizar",
     "endMatch": "Finalizar partida?",

@@ -122,9 +122,9 @@ export function ScoreCenterBar({ state, onUndo, onFinish, onNextPeriod }: ScoreC
           style={({ pressed }) => [
             styles.iconButton,
             {
-              backgroundColor: theme.colors.surface,
+              backgroundColor: theme.colors.primary,
               opacity: pressed ? 0.7 : 1,
-              borderColor: theme.colors.border,
+              borderColor: theme.colors.primary,
               marginBottom: 8,
             },
           ]}
@@ -133,9 +133,9 @@ export function ScoreCenterBar({ state, onUndo, onFinish, onNextPeriod }: ScoreC
           <Text
             allowFontScaling={false}
             style={{
-              color: theme.colors.text,
+              color: theme.colors.textInverse,
               fontSize: 10,
-              fontWeight: '700',
+              fontWeight: '800',
             }}
           >
             {t('score.nextPeriod').toUpperCase()}
@@ -152,7 +152,7 @@ export function ScoreCenterBar({ state, onUndo, onFinish, onNextPeriod }: ScoreC
         style={({ pressed }) => [
           styles.iconButton,
           {
-            backgroundColor: theme.colors.surface,
+            backgroundColor: theme.colors.surfaceAlt,
             opacity: !canUndo ? 0.3 : pressed ? 0.7 : 1,
             borderColor: theme.colors.border,
           },

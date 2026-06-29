@@ -106,6 +106,7 @@
   },
   "score": {
     "undo": "Kumoa",
+    "rotateHint": "Käännä laite nähdäksesi koko tulostaulun",
     "swap": "Vaihda puolet",
     "finish": "Lopeta",
     "endMatch": "Lopeta ottelu?",

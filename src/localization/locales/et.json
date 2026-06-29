@@ -106,6 +106,7 @@
   },
   "score": {
     "undo": "Tühista",
+    "rotateHint": "Pööra seade täismõõdus tabloo jaoks",
     "swap": "Vaheta pooli",
     "finish": "Lõpeta",
     "endMatch": "Lõpetada matš?",

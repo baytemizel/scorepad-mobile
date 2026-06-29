@@ -7,17 +7,29 @@ import { getEngine, statsFitCenter } from '@/sports';
 import { BigScore } from './BigScore';
 import { ActionButton } from './ActionButton';
 
+type PanelOrientation = 'landscape' | 'portrait';
+
 interface TeamPanelProps {
   state: MatchState;
   side: TeamSide;
   onAction: (side: TeamSide, action: string) => void;
+  orientation?: PanelOrientation;
 }
 
 /**
- * Half-width panel of the score screen. Shows team name, big score,
- * sport-specific stats, and a single row of scoring actions.
+ * One team's panel of the score screen. Shows team name, big score,
+ * sport-specific stats, and the scoring actions.
+ *
+ * Landscape: a tall half-width column (name → score → actions in one row).
+ * Portrait: a short full-width block (name + score inline, actions wrapped),
+ * so two panels + the timeline + controls all fit stacked vertically.
  */
-export function TeamPanel({ state, side, onAction }: TeamPanelProps) {
+export function TeamPanel({
+  state,
+  side,
+  onAction,
+  orientation = 'landscape',
+}: TeamPanelProps) {
   const theme = useTheme();
   const { t } = useTranslation();
   const engine = getEngine(state.config.sport);
@@ -26,11 +38,100 @@ export function TeamPanel({ state, side, onAction }: TeamPanelProps) {
   const score = engine.getDisplayScore(state, side);
   const stats = engine.getStatLines?.(state, side) ?? [];
   const actions = engine.availableActions(state, side);
-  // Single-stat sports show the stat in the center bar instead of here.
+  // Single-stat sports show the stat in the center/control bar instead of here.
   const showStats = stats.length > 0 && !statsFitCenter(engine, state);
 
-  const teamColor = team.color || (side === 'home' ? theme.colors.homeTeam : theme.colors.awayTeam);
+  const teamColor =
+    team.color || (side === 'home' ? theme.colors.homeTeam : theme.colors.awayTeam);
   const isAway = side === 'away';
+  const isPortrait = orientation === 'portrait';
+  // Never use the tall "big" button size: on short landscape screens the extra
+  // height (plus the score area) pushed the bottom button — and its label — off
+  // screen. Standard-height buttons fit reliably in both orientations.
+  const big = false;
+
+  const teamName =
+    team.name || (side === 'home' ? t('common.home') : t('common.away'));
+
+  const statsBlock = showStats ? (
+    <View style={styles.statsRow}>
+      {stats.map((line, i) => (
+        <View key={i} style={styles.statBlock}>
+          <Text
+            allowFontScaling={false}
+            style={{ color: theme.colors.textMuted, fontSize: 11, fontWeight: '600' }}
+          >
+            {t(line.labelKey).toUpperCase()}
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={{
+              color: theme.colors.text,
+              fontSize: isPortrait ? 18 : 22,
+              fontWeight: '700',
+              marginTop: 2,
+            }}
+          >
+            {line.value}
+          </Text>
+        </View>
+      ))}
+    </View>
+  ) : null;
+
+  const actionRow = (
+    <View style={[styles.actionsRow, isPortrait && styles.actionsRowWrap]}>
+      {actions.map((action) => (
+        <ActionButton
+          key={action.id}
+          action={action}
+          onPress={() => onAction(side, action.id)}
+          baseColor={teamColor}
+          big={big}
+          compact={isPortrait}
+          style={isPortrait ? styles.actionPortrait : undefined}
+        />
+      ))}
+    </View>
+  );
+
+  if (isPortrait) {
+    return (
+      <View
+        style={[
+          styles.container,
+          styles.containerPortrait,
+          { backgroundColor: theme.colors.bgElevated },
+        ]}
+      >
+        {/* Compact header: color dot + name (left) + score (right). */}
+        <View style={styles.portraitHeader}>
+          <View style={[styles.colorDot, { backgroundColor: teamColor }]} />
+          <Text
+            numberOfLines={1}
+            allowFontScaling={false}
+            style={{
+              color: theme.colors.text,
+              fontSize: 18,
+              fontWeight: '700',
+              flex: 1,
+            }}
+          >
+            {teamName}
+          </Text>
+          <BigScore
+            key={`${side}-${score}`}
+            value={score}
+            color={teamColor}
+            style={styles.portraitScore}
+          />
+        </View>
+
+        {statsBlock}
+        {actionRow}
+      </View>
+    );
+  }
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.bgElevated }]}>
@@ -38,7 +139,9 @@ export function TeamPanel({ state, side, onAction }: TeamPanelProps) {
       <View
         style={[
           styles.nameRow,
-          isAway && { flexDirection: 'row-reverse' },
+          // Away sits under the floating rotate button (score.tsx) — reserve the
+          // top-right corner so a long name never slides beneath it.
+          isAway && { flexDirection: 'row-reverse', paddingRight: 44 },
           { borderBottomColor: theme.colors.border },
         ]}
       >
@@ -54,7 +157,7 @@ export function TeamPanel({ state, side, onAction }: TeamPanelProps) {
             textAlign: isAway ? 'right' : 'left',
           }}
         >
-          {team.name || (side === 'home' ? t('common.home') : t('common.away'))}
+          {teamName}
         </Text>
       </View>
 
@@ -63,45 +166,8 @@ export function TeamPanel({ state, side, onAction }: TeamPanelProps) {
         <BigScore key={`${side}-${score}`} value={score} color={teamColor} />
       </View>
 
-      {/* Stats row (multi-stat sports only; single-stat shows in center bar) */}
-      {showStats && (
-        <View style={styles.statsRow}>
-          {stats.map((line, i) => (
-            <View key={i} style={styles.statBlock}>
-              <Text
-                allowFontScaling={false}
-                style={{ color: theme.colors.textMuted, fontSize: 11, fontWeight: '600' }}
-              >
-                {t(line.labelKey).toUpperCase()}
-              </Text>
-              <Text
-                allowFontScaling={false}
-                style={{
-                  color: theme.colors.text,
-                  fontSize: 22,
-                  fontWeight: '700',
-                  marginTop: 2,
-                }}
-              >
-                {line.value}
-              </Text>
-            </View>
-          ))}
-        </View>
-      )}
-
-      {/* Action row — all actions on a single line, sized to fit */}
-      <View style={styles.actionsRow}>
-        {actions.map((action) => (
-          <ActionButton
-            key={action.id}
-            action={action}
-            onPress={() => onAction(side, action.id)}
-            baseColor={teamColor}
-            big={actions.length <= 2}
-          />
-        ))}
-      </View>
+      {statsBlock}
+      {actionRow}
     </View>
   );
 }
@@ -111,6 +177,19 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 12,
     gap: 8,
+  },
+  containerPortrait: {
+    flex: 0,
+    borderRadius: 16,
+  },
+  portraitHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  portraitScore: {
+    fontSize: 44,
+    lineHeight: 48,
   },
   nameRow: {
     flexDirection: 'row',
@@ -126,9 +205,10 @@ const styles = StyleSheet.create({
   },
   scoreArea: {
     flex: 1,
-    minHeight: 110,
+    minHeight: 64,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
   },
   statsRow: {
     flexDirection: 'row',
@@ -143,6 +223,13 @@ const styles = StyleSheet.create({
   actionsRow: {
     flexDirection: 'row',
     gap: 8,
+  },
+  actionsRowWrap: {
+    flexWrap: 'wrap',
+  },
+  actionPortrait: {
+    flexBasis: '47%',
+    flexGrow: 1,
   },
 });
 

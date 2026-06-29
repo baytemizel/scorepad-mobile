@@ -106,6 +106,7 @@
   },
   "score": {
     "undo": "Annulla",
+    "rotateHint": "Ruota il dispositivo per il tabellone completo",
     "swap": "Cambia lati",
     "finish": "Termina",
     "endMatch": "Terminare la partita?",

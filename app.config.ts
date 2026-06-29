@@ -5,6 +5,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   name: 'ScorePad',
   slug: 'scorepad',
   version: '1.0.0',
+  // Keep the native config permissive so iOS Info.plist
+  // (UISupportedInterfaceOrientations) includes landscape — required for the
+  // score screen to rotate. Portrait everywhere else is enforced at runtime via
+  // a root-level lock (app/_layout.tsx), overridden only on the score screen.
   orientation: 'default',
   icon: './assets/icons/icon.png',
   scheme: 'scorepad',

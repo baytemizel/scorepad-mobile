@@ -95,7 +95,7 @@ export function MatchSummaryModal({
           style={[
             styles.iconBtn,
             {
-              backgroundColor: theme.colors.surface,
+              backgroundColor: theme.colors.surfaceAlt,
               borderColor: theme.colors.border,
             },
           ]}
@@ -121,7 +121,7 @@ export function MatchSummaryModal({
           style={[
             styles.shareBtn,
             {
-              backgroundColor: theme.colors.surface,
+              backgroundColor: theme.colors.surfaceAlt,
               borderColor: theme.colors.border,
             },
           ]}
@@ -163,6 +163,8 @@ export function MatchSummaryModal({
               <Text
                 numberOfLines={1}
                 allowFontScaling={false}
+                adjustsFontSizeToFit
+                minimumFontScale={0.7}
                 style={[styles.finalName, { color: theme.colors.text }]}
               >
                 {homeName}
@@ -170,6 +172,9 @@ export function MatchSummaryModal({
             </View>
             <Text
               allowFontScaling={false}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.6}
               style={[styles.finalScore, { color: theme.colors.text }]}
             >
               {homeFinal} – {awayFinal}
@@ -178,6 +183,8 @@ export function MatchSummaryModal({
               <Text
                 numberOfLines={1}
                 allowFontScaling={false}
+                adjustsFontSizeToFit
+                minimumFontScale={0.7}
                 style={[
                   styles.finalName,
                   { color: theme.colors.text, textAlign: 'right' },

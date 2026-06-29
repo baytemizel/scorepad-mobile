@@ -106,6 +106,7 @@
   },
   "score": {
     "undo": "Ångra",
+    "rotateHint": "Vrid på enheten för hela poängtavlan",
     "swap": "Byt sida",
     "finish": "Avsluta",
     "endMatch": "Avsluta match?",

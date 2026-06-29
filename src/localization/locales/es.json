@@ -106,6 +106,7 @@
   },
   "score": {
     "undo": "Deshacer",
+    "rotateHint": "Gira el dispositivo para ver el marcador completo",
     "swap": "Cambiar lados",
     "finish": "Terminar",
     "endMatch": "¿Terminar partido?",
