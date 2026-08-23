@@ -4,7 +4,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: 'ScorePad',
   slug: 'scorepad',
-  version: '1.0.0',
+  version: '1.0.1',
   // Keep the native config permissive so iOS Info.plist
   // (UISupportedInterfaceOrientations) includes landscape — required for the
   // score screen to rotate. Portrait everywhere else is enforced at runtime via
@@ -78,8 +78,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
           deploymentTarget: '15.1',
         },
         android: {
-          compileSdkVersion: 35,
-          targetSdkVersion: 35,
+          // Google Play requires new releases to target Android 16 (API 36)
+          // from 2026-08-31. Expo SDK 52 ships AGP 8.6.0, which emits an
+          // "untested compileSdk" warning at 36 but builds successfully.
+          compileSdkVersion: 36,
+          targetSdkVersion: 36,
+          buildToolsVersion: '36.0.0',
           minSdkVersion: 24,
           kotlinVersion: '1.9.25',
         },
