@@ -56,9 +56,9 @@
   "submit": {
     "production": {
       "ios": {
-        "appleId": "YOUR_APPLE_ID",
-        "ascAppId": "YOUR_ASC_APP_ID",
-        "appleTeamId": "YOUR_APPLE_TEAM_ID"
+        "appleId": "tayfun.temizel@bodevoffice.com",
+        "ascAppId": "6777988462",
+        "appleTeamId": "88S58EEEDX"
       },
       "android": {
         "serviceAccountKeyPath": "./firebase/play-store-service-account.json",
