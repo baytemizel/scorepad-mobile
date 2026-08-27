@@ -38,6 +38,7 @@
     },
     "production": {
       "ios": {
+        "image": "macos-sequoia-15.6-xcode-26.0",
         "resourceClass": "m-medium",
         "autoIncrement": "buildNumber"
       },
