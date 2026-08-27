@@ -57,6 +57,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     favicon: './assets/images/favicon.png',
   },
   plugins: [
+    // Pin pods to the Swift 5 language mode so Expo SDK 52's Swift modules
+    // compile with the iOS 26 SDK (Xcode 26). See plugins/withIosSwiftVersion.js.
+    './plugins/withIosSwiftVersion',
     'expo-router',
     'expo-localization',
     'expo-screen-orientation',
