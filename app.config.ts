@@ -57,6 +57,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     favicon: './assets/images/favicon.png',
   },
   plugins: [
+    // Allow @react-native-firebase pods to include React-Core headers under
+    // static frameworks + Xcode 26. See plugins/withNonModularHeaders.js.
+    './plugins/withNonModularHeaders',
     'expo-router',
     'expo-localization',
     'expo-screen-orientation',
