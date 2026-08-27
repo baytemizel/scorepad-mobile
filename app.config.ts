@@ -79,6 +79,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         ios: {
           useFrameworks: 'static',
           deploymentTarget: '15.1',
+          // SDK 54 ships precompiled React Native by default, whose headers
+          // aren't visible to pods built as static frameworks (Firebase needs
+          // useFrameworks "static"). react-native-firebase then fails to find
+          // React-Core types (RCTPromiseRejectBlock, RCT_EXPORT_METHOD). Build
+          // RN from source to restore header visibility. See expo/expo#39233.
+          buildReactNativeFromSource: true,
         },
         android: {
           // Google Play requires new releases to target Android 16 (API 36)
