@@ -28,8 +28,8 @@
       "subtitle": "Kiireim viis skoori pidamiseks ükskõik millises spordis."
     },
     "sports": {
-      "title": "Viis spordiala, üks rakendus",
-      "subtitle": "Korvpall, jalgpall, võrkpall, tennis ja lauatennis — õigete reeglitega."
+      "title": "Kuus spordiala, üks rakendus",
+      "subtitle": "Korvpall, jalgpall, käsipall, võrkpall, tennis ja lauatennis — õigete reeglitega."
     },
     "language": {
       "title": "Vali keel",
@@ -205,6 +205,23 @@
         "yellow": "Kollased",
         "red": "Punased",
         "corners": "Nurgad"
+      },
+      "status": {
+        "half": "Poolaeg {{current}} / {{total}}"
+      }
+    },
+    "handball": {
+      "name": "Käsipall",
+      "actions": {
+        "goal": "Värav",
+        "twoMin": "2-minutiline eemaldamine",
+        "yellow": "Kollane kaart",
+        "red": "Punane kaart"
+      },
+      "stats": {
+        "twoMin": "2 min",
+        "yellow": "Kollased",
+        "red": "Punased"
       },
       "status": {
         "half": "Poolaeg {{current}} / {{total}}"

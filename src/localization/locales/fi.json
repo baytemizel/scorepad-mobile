@@ -28,8 +28,8 @@
       "subtitle": "Nopein tapa pitää pisteitä missä tahansa lajissa."
     },
     "sports": {
-      "title": "Viisi lajia, yksi sovellus",
-      "subtitle": "Koripallo, jalkapallo, lentopallo, tennis ja pöytätennis — oikeilla säännöillä."
+      "title": "Kuusi lajia, yksi sovellus",
+      "subtitle": "Koripallo, jalkapallo, käsipallo, lentopallo, tennis ja pöytätennis — oikeilla säännöillä."
     },
     "language": {
       "title": "Valitse kieli",
@@ -205,6 +205,23 @@
         "yellow": "Keltaiset",
         "red": "Punaiset",
         "corners": "Kulmat"
+      },
+      "status": {
+        "half": "Puoliaika {{current}} / {{total}}"
+      }
+    },
+    "handball": {
+      "name": "Käsipallo",
+      "actions": {
+        "goal": "Maali",
+        "twoMin": "2 min ulosajo",
+        "yellow": "Keltainen kortti",
+        "red": "Punainen kortti"
+      },
+      "stats": {
+        "twoMin": "2 min",
+        "yellow": "Keltaiset",
+        "red": "Punaiset"
       },
       "status": {
         "half": "Puoliaika {{current}} / {{total}}"

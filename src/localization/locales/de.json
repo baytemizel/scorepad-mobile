@@ -28,8 +28,8 @@
       "subtitle": "Der schnellste Weg, in jeder Sportart Punkte zu zählen."
     },
     "sports": {
-      "title": "Fünf Sportarten, eine App",
-      "subtitle": "Basketball, Fußball, Volleyball, Tennis und Tischtennis – mit den richtigen Regeln."
+      "title": "Sechs Sportarten, eine App",
+      "subtitle": "Basketball, Fußball, Handball, Volleyball, Tennis und Tischtennis – mit den richtigen Regeln."
     },
     "language": {
       "title": "Wähle deine Sprache",
@@ -205,6 +205,23 @@
         "yellow": "Gelb",
         "red": "Rot",
         "corners": "Ecken"
+      },
+      "status": {
+        "half": "Halbzeit {{current}} / {{total}}"
+      }
+    },
+    "handball": {
+      "name": "Handball",
+      "actions": {
+        "goal": "Tor",
+        "twoMin": "2-Minuten-Strafe",
+        "yellow": "Gelbe Karte",
+        "red": "Rote Karte"
+      },
+      "stats": {
+        "twoMin": "2 Min.",
+        "yellow": "Gelb",
+        "red": "Rot"
       },
       "status": {
         "half": "Halbzeit {{current}} / {{total}}"

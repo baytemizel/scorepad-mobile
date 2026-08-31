@@ -28,8 +28,8 @@
       "subtitle": "Det snabbaste sättet att räkna poäng i vilken sport som helst."
     },
     "sports": {
-      "title": "Fem sporter, en app",
-      "subtitle": "Basket, fotboll, volleyboll, tennis och bordtennis — med rätt regler."
+      "title": "Sex sporter, en app",
+      "subtitle": "Basket, fotboll, handboll, volleyboll, tennis och bordtennis — med rätt regler."
     },
     "language": {
       "title": "Välj språk",
@@ -205,6 +205,23 @@
         "yellow": "Gula",
         "red": "Röda",
         "corners": "Hörnor"
+      },
+      "status": {
+        "half": "Halvlek {{current}} / {{total}}"
+      }
+    },
+    "handball": {
+      "name": "Handboll",
+      "actions": {
+        "goal": "Mål",
+        "twoMin": "2-minutersutvisning",
+        "yellow": "Gult kort",
+        "red": "Rött kort"
+      },
+      "stats": {
+        "twoMin": "2 min",
+        "yellow": "Gula",
+        "red": "Röda"
       },
       "status": {
         "half": "Halvlek {{current}} / {{total}}"

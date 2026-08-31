@@ -28,8 +28,8 @@
       "subtitle": "La façon la plus rapide de marquer dans n'importe quel sport."
     },
     "sports": {
-      "title": "Cinq sports, une appli",
-      "subtitle": "Basket, foot, volley, tennis et tennis de table — avec les bonnes règles."
+      "title": "Six sports, une appli",
+      "subtitle": "Basket, foot, handball, volley, tennis et tennis de table — avec les bonnes règles."
     },
     "language": {
       "title": "Choisis ta langue",
@@ -205,6 +205,23 @@
         "yellow": "Jaune",
         "red": "Rouge",
         "corners": "Corners"
+      },
+      "status": {
+        "half": "Mi-temps {{current}} / {{total}}"
+      }
+    },
+    "handball": {
+      "name": "Handball",
+      "actions": {
+        "goal": "But",
+        "twoMin": "Exclusion 2 min",
+        "yellow": "Carton jaune",
+        "red": "Carton rouge"
+      },
+      "stats": {
+        "twoMin": "2 min",
+        "yellow": "Jaune",
+        "red": "Rouge"
       },
       "status": {
         "half": "Mi-temps {{current}} / {{total}}"

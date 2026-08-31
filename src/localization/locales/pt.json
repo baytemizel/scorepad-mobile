@@ -28,8 +28,8 @@
       "subtitle": "A forma mais rápida de marcar pontos em qualquer esporte."
     },
     "sports": {
-      "title": "Cinco esportes, um app",
-      "subtitle": "Basquete, futebol, vôlei, tênis e tênis de mesa — com as regras certas."
+      "title": "Seis esportes, um app",
+      "subtitle": "Basquete, futebol, handebol, vôlei, tênis e tênis de mesa — com as regras certas."
     },
     "language": {
       "title": "Escolha seu idioma",
@@ -205,6 +205,23 @@
         "yellow": "Amarelos",
         "red": "Vermelhos",
         "corners": "Escanteios"
+      },
+      "status": {
+        "half": "Tempo {{current}} / {{total}}"
+      }
+    },
+    "handball": {
+      "name": "Handebol",
+      "actions": {
+        "goal": "Gol",
+        "twoMin": "Exclusão de 2 min",
+        "yellow": "Cartão amarelo",
+        "red": "Cartão vermelho"
+      },
+      "stats": {
+        "twoMin": "2 min",
+        "yellow": "Amarelos",
+        "red": "Vermelhos"
       },
       "status": {
         "half": "Tempo {{current}} / {{total}}"

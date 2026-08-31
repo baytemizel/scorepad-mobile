@@ -28,8 +28,8 @@
       "subtitle": "Il modo più veloce per tenere il punteggio in qualsiasi sport."
     },
     "sports": {
-      "title": "Cinque sport, un'app",
-      "subtitle": "Basket, calcio, pallavolo, tennis e tennis tavolo — con le regole giuste."
+      "title": "Sei sport, un'app",
+      "subtitle": "Basket, calcio, pallamano, pallavolo, tennis e tennis tavolo — con le regole giuste."
     },
     "language": {
       "title": "Scegli la lingua",
@@ -205,6 +205,23 @@
         "yellow": "Gialli",
         "red": "Rossi",
         "corners": "Angoli"
+      },
+      "status": {
+        "half": "Tempo {{current}} / {{total}}"
+      }
+    },
+    "handball": {
+      "name": "Pallamano",
+      "actions": {
+        "goal": "Gol",
+        "twoMin": "Esclusione 2 min",
+        "yellow": "Cartellino giallo",
+        "red": "Cartellino rosso"
+      },
+      "stats": {
+        "twoMin": "2 min",
+        "yellow": "Gialli",
+        "red": "Rossi"
       },
       "status": {
         "half": "Tempo {{current}} / {{total}}"

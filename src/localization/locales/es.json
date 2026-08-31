@@ -28,8 +28,8 @@
       "subtitle": "La forma más rápida de llevar la cuenta en cualquier deporte."
     },
     "sports": {
-      "title": "Cinco deportes, una app",
-      "subtitle": "Baloncesto, fútbol, voleibol, tenis y tenis de mesa — con las reglas oficiales."
+      "title": "Seis deportes, una app",
+      "subtitle": "Baloncesto, fútbol, balonmano, voleibol, tenis y tenis de mesa — con las reglas oficiales."
     },
     "language": {
       "title": "Elige tu idioma",
@@ -205,6 +205,23 @@
         "yellow": "Amarillas",
         "red": "Rojas",
         "corners": "Córners"
+      },
+      "status": {
+        "half": "Tiempo {{current}} / {{total}}"
+      }
+    },
+    "handball": {
+      "name": "Balonmano",
+      "actions": {
+        "goal": "Gol",
+        "twoMin": "Exclusión de 2 min",
+        "yellow": "Tarjeta amarilla",
+        "red": "Tarjeta roja"
+      },
+      "stats": {
+        "twoMin": "2 min",
+        "yellow": "Amarillas",
+        "red": "Rojas"
       },
       "status": {
         "half": "Tiempo {{current}} / {{total}}"
