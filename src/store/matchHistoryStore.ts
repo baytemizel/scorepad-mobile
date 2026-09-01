@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { storageAdapter } from '@/services/storage';
+import { getEngine } from '@/sports';
 import { MatchRecord, MatchState, SportId, TeamSide } from '@/types';
 
 interface MatchHistoryState {
@@ -21,6 +22,12 @@ const toRecord = (state: MatchState): MatchRecord | null => {
       : state.awayScore > state.homeScore
         ? 'away'
         : 'draw');
+  // Set-based sports only. Left off the record entirely for the others —
+  // Firestore rejects explicit `undefined` values on write.
+  const setScore = getEngine(state.config.sport).getSetScore;
+  const sets = setScore
+    ? { homeSets: setScore(state, 'home'), awaySets: setScore(state, 'away') }
+    : null;
   return {
     id: state.id,
     sport: state.config.sport,
@@ -28,6 +35,7 @@ const toRecord = (state: MatchState): MatchRecord | null => {
     awayName: state.config.away.name,
     homeFinalScore: state.homeScore,
     awayFinalScore: state.awayScore,
+    ...sets,
     winner,
     startedAt: state.startedAt,
     finishedAt: state.finishedAt,

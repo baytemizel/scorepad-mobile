@@ -10,7 +10,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/theme/ThemeProvider';
-import { getEngine } from '@/sports';
+import { getEngine, matchHeadlineScore } from '@/sports';
 import { MatchState } from '@/types';
 
 interface MatchSummaryModalProps {
@@ -49,8 +49,9 @@ export function MatchSummaryModal({
   const awayColor =
     state.config.away.color || theme.colors.awayTeam;
 
-  const homeFinal = engine.getDisplayScore(state, 'home');
-  const awayFinal = engine.getDisplayScore(state, 'away');
+  // Sets for a set-based match, points otherwise — the per-period rows below
+  // carry the detail either way.
+  const final = matchHeadlineScore(state);
 
   const winnerLabel =
     state.winner === 'home'
@@ -186,7 +187,7 @@ export function MatchSummaryModal({
               minimumFontScale={0.6}
               style={[styles.finalScore, { color: theme.colors.text }]}
             >
-              {homeFinal} – {awayFinal}
+              {final.home} – {final.away}
             </Text>
             <View style={[styles.finalTeam, styles.finalTeamRight]}>
               <Text

@@ -21,7 +21,7 @@ import { PremiumGate } from '@/components/common/PremiumGate';
 import { MatchPeriodTimeline } from '@/components/scoring/MatchPeriodTimeline';
 import { useAuthStore } from '@/store/authStore';
 import { useMatchHistoryStore } from '@/store/matchHistoryStore';
-import { sportList } from '@/sports';
+import { sportList, headlineScore } from '@/sports';
 import { SportId, MatchRecord } from '@/types';
 import { deleteMatchFromCloud } from '@/services/firestore';
 import { haptic } from '@/services/feedback';
@@ -135,6 +135,13 @@ export default function HistoryScreen() {
       year: 'numeric',
     });
     const expanded = expandedId === item.id;
+    // Sets headline a set-based match; per-set points live in the timeline below.
+    const score = headlineScore(
+      { home: item.homeFinalScore, away: item.awayFinalScore },
+      item.homeSets === undefined
+        ? null
+        : { home: item.homeSets, away: item.awaySets ?? 0 },
+    );
     return (
       <Pressable
         onPress={() => toggleExpanded(item.id)}
@@ -163,7 +170,7 @@ export default function HistoryScreen() {
                     fontWeight: '900',
                   }}
                 >
-                  {item.homeFinalScore}–{item.awayFinalScore}
+                  {score.home}–{score.away}
                 </Text>
               </View>
               <View style={styles.metaRow}>

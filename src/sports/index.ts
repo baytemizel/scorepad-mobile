@@ -57,6 +57,14 @@ export interface SportEngine {
   /** Optional secondary stats line shown below score (e.g. set wins, fouls). */
   getStatLines?: (state: MatchState, side: TeamSide) => StatLine[];
 
+  /**
+   * Sets won so far. Only set-based sports implement this: their running
+   * `homeScore`/`awayScore` is the current set's points, which is the live
+   * score but not the score a finished match is remembered by. See
+   * `headlineScore`.
+   */
+  getSetScore?: (state: MatchState, side: TeamSide) => number;
+
   /** Optional per-period breakdown used by the end-of-match summary modal. */
   getPeriodSummary?: (
     state: MatchState,
@@ -140,6 +148,36 @@ export const sportList: SportEngine[] = [
 ];
 
 export const getEngine = (sport: SportId): SportEngine => sportEngines[sport];
+
+export interface Scoreline {
+  home: number;
+  away: number;
+}
+
+/**
+ * The two numbers a finished match is headlined by. Set-based sports lead with
+ * the set score — "2 – 0", not the 25-20 of whichever set happened to be last
+ * — and leave the per-set points to the period breakdown. A match ended inside
+ * its very first set has no set score to show yet, so it keeps the points on
+ * the board. Period sports have no set score at all and always do.
+ */
+export const headlineScore = (points: Scoreline, sets: Scoreline | null): Scoreline =>
+  sets && sets.home + sets.away > 0 ? sets : points;
+
+/** `headlineScore` for a live match state. */
+export const matchHeadlineScore = (state: MatchState): Scoreline => {
+  const engine = getEngine(state.config.sport);
+  const setScore = engine.getSetScore;
+  return headlineScore(
+    {
+      home: engine.getDisplayScore(state, 'home'),
+      away: engine.getDisplayScore(state, 'away'),
+    },
+    setScore
+      ? { home: setScore(state, 'home'), away: setScore(state, 'away') }
+      : null,
+  );
+};
 
 /**
  * True when each side exposes exactly one stat line, so it can be shown compactly

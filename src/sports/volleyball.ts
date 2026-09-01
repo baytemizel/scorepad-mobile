@@ -273,6 +273,11 @@ export const volleyball: SportEngine = {
     return side === 'home' ? state.homeScore : state.awayScore;
   },
 
+  getSetScore(state: MatchState, side: TeamSide): number {
+    const meta = ensureMeta(state);
+    return side === 'home' ? meta.homeSets : meta.awaySets;
+  },
+
   getStatLines(state: MatchState, side: TeamSide): StatLine[] {
     const meta = ensureMeta(state);
     return [

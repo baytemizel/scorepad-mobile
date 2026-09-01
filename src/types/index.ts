@@ -120,8 +120,12 @@ export interface MatchRecord {
   sport: SportId;
   homeName: string;
   awayName: string;
+  /** Points on the board at the final whistle — the last set's, for set-based sports. */
   homeFinalScore: number;
   awayFinalScore: number;
+  /** Sets won. Set-based sports only; absent on records saved before v1.1. */
+  homeSets?: number;
+  awaySets?: number;
   winner: TeamSide | 'draw';
   startedAt: number;
   finishedAt: number;

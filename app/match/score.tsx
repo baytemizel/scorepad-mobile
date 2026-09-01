@@ -27,7 +27,7 @@ import { syncMatchToCloud } from '@/services/firestore';
 import { interstitial } from '@/services/ads';
 import { haptic, playWhistle } from '@/services/feedback';
 import { logEvent } from '@/services/analytics';
-import { sportEngines, getEngine } from '@/sports';
+import { getEngine, matchHeadlineScore } from '@/sports';
 import { MatchState, TeamSide } from '@/types';
 
 export default function ScoreScreen() {
@@ -132,11 +132,9 @@ export default function ScoreScreen() {
   };
 
   const onShare = async () => {
-    const eng = sportEngines[state.config.sport];
     const home = state.config.home.name || t('common.home');
     const away = state.config.away.name || t('common.away');
-    const homeScore = eng.getDisplayScore(state, 'home');
-    const awayScore = eng.getDisplayScore(state, 'away');
+    const { home: homeScore, away: awayScore } = matchHeadlineScore(state);
     const winner =
       state.winner === 'home' ? home : state.winner === 'away' ? away : null;
     const message = winner
