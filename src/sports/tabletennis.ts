@@ -227,12 +227,19 @@ export const tabletennis: SportEngine = {
     return { ...replay, events };
   },
 
+  /**
+   * Finish can land mid-game, so level sets — 0-0 included, when the first
+   * game is still running — fall back to the points scored in that unfinished
+   * game rather than reporting a draw.
+   */
   finish(state: MatchState): MatchState {
     if (state.finished) return state;
     const meta = ensureMeta(state);
     let winner: TeamSide | 'draw' = 'draw';
     if (meta.homeSets > meta.awaySets) winner = 'home';
     else if (meta.awaySets > meta.homeSets) winner = 'away';
+    else if (state.homeScore > state.awayScore) winner = 'home';
+    else if (state.awayScore > state.homeScore) winner = 'away';
     return { ...state, finished: true, finishedAt: Date.now(), winner };
   },
 

@@ -236,12 +236,21 @@ export const volleyball: SportEngine = {
     };
   },
 
+  /**
+   * The user can hit Finish at any moment, which in practice is usually
+   * mid-set. Sets decide the match, but when they are level — including the
+   * common 0-0 case where the first set is still on court — the points in the
+   * unfinished set break the tie. Ending at 20-11 in set 1 is a home win, not
+   * a draw.
+   */
   finish(state: MatchState): MatchState {
     if (state.finished) return state;
     const meta = ensureMeta(state);
     let winner: TeamSide | 'draw' = 'draw';
     if (meta.homeSets > meta.awaySets) winner = 'home';
     else if (meta.awaySets > meta.homeSets) winner = 'away';
+    else if (state.homeScore > state.awayScore) winner = 'home';
+    else if (state.awayScore > state.homeScore) winner = 'away';
     return { ...state, finished: true, finishedAt: Date.now(), winner };
   },
 

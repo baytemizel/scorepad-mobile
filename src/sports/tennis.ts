@@ -272,12 +272,23 @@ export const tennis: SportEngine = {
     return replay;
   },
 
+  /**
+   * Finish usually lands mid-set, so walk the scoring hierarchy the way an
+   * umpire would read the board: sets first, then games in the set on court,
+   * then points in the current game. Only a board that is level all the way
+   * down is a genuine draw.
+   */
   finish(state: MatchState): MatchState {
     if (state.finished) return state;
     const meta = ensureMeta(state);
     let winner: TeamSide | 'draw' = 'draw';
-    if (meta.homeSets > meta.awaySets) winner = 'home';
-    else if (meta.awaySets > meta.homeSets) winner = 'away';
+    if (meta.homeSets !== meta.awaySets) {
+      winner = meta.homeSets > meta.awaySets ? 'home' : 'away';
+    } else if (meta.homeGames !== meta.awayGames) {
+      winner = meta.homeGames > meta.awayGames ? 'home' : 'away';
+    } else if (meta.homePoints !== meta.awayPoints) {
+      winner = meta.homePoints > meta.awayPoints ? 'home' : 'away';
+    }
     return { ...state, finished: true, finishedAt: Date.now(), winner };
   },
 
