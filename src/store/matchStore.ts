@@ -71,10 +71,17 @@ export const useMatchStore = create<MatchStoreState>((set, get) => ({
       return;
     }
     const periodCount = cur.config.periodCount ?? 1;
+    // `homeScore`/`awayScore` run for the whole match in period-based sports,
+    // so this period's own score is what is left after the periods already
+    // banked — otherwise every entry would store the running total.
+    const banked = cur.periods.reduce(
+      (acc, p) => ({ home: acc.home + p.homeScore, away: acc.away + p.awayScore }),
+      { home: 0, away: 0 },
+    );
     const completedPeriod = {
       index: cur.currentPeriod,
-      homeScore: cur.homeScore,
-      awayScore: cur.awayScore,
+      homeScore: cur.homeScore - banked.home,
+      awayScore: cur.awayScore - banked.away,
     };
     const isLast = cur.currentPeriod + 1 >= periodCount;
     if (isLast) {

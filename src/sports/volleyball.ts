@@ -96,18 +96,27 @@ export const volleyball: SportEngine = {
         homeSets: meta.homeSets + (winner === 'home' ? 1 : 0),
         awaySets: meta.awaySets + (winner === 'away' ? 1 : 0),
       };
+      // Closing this set by hand can be the set that wins the match, in which
+      // case it ends here rather than opening a set that will never be played.
+      const requiredSets = setsToWin(state.config.bestOf ?? 3);
+      const matchWinner: TeamSide | null =
+        newSets.homeSets >= requiredSets ? 'home' :
+        newSets.awaySets >= requiredSets ? 'away' : null;
       return {
         next: {
           ...state,
-          homeScore: 0,
-          awayScore: 0,
-          currentPeriod: state.currentPeriod + 1,
+          homeScore: matchWinner ? home : 0,
+          awayScore: matchWinner ? away : 0,
+          currentPeriod: matchWinner ? state.currentPeriod : state.currentPeriod + 1,
           periods: [...state.periods, completedPeriod],
           events: [...state.events, event],
           meta: newSets as unknown as Record<string, unknown>,
+          finished: matchWinner !== null,
+          finishedAt: matchWinner ? Date.now() : undefined,
+          winner: matchWinner ?? undefined,
         },
         periodEnded: true,
-        matchEnded: false,
+        matchEnded: matchWinner !== null,
       };
     }
 
@@ -201,12 +210,15 @@ export const volleyball: SportEngine = {
       };
     }
 
-    // If the last event ended a set, revert sets count and pop the period.
-    const periodEnded = state.periods.length > 0 &&
-      state.periods[state.periods.length - 1]!.index === last.periodIndex &&
-      state.currentPeriod !== last.periodIndex;
+    // If the last event ended a set, revert sets count and pop the period. The
+    // set that wins the match leaves `currentPeriod` where it is, so it is
+    // recognised by its period being the stored one — which also keeps a match
+    // ended from the Finish button mid-set out of this branch.
+    const closedPeriod = state.periods[state.periods.length - 1];
+    const periodEnded = !!closedPeriod && closedPeriod.index === last.periodIndex &&
+      (state.currentPeriod !== last.periodIndex || state.finished);
 
-    if (periodEnded || state.finished) {
+    if (periodEnded) {
       const lastPeriod = state.periods[state.periods.length - 1]!;
       const setWonBy: TeamSide =
         lastPeriod.homeScore > lastPeriod.awayScore ? 'home' : 'away';

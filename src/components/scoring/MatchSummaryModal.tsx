@@ -60,13 +60,15 @@ export function MatchSummaryModal({
         ? awayName
         : null;
 
-  // Render one period per configured period, plus any extra completed periods
-  // (set-based sports can run beyond config.periodCount in deciding sets).
-  const periodCount = Math.max(
-    state.config.periodCount,
-    state.periods.length,
-    state.currentPeriod + 1,
-  );
+  // Period sports play their whole schedule, so every configured period gets a
+  // row. Set-based sports stop as soon as the match is decided — `periodCount`
+  // is the best-of ceiling there, not a promise — so only sets that were
+  // actually played get one: the ones banked, plus the one on court when the
+  // match was ended mid-set.
+  const playedPeriods = Math.max(state.periods.length, state.currentPeriod + 1);
+  const periodCount = engine.meta.setBased
+    ? playedPeriods
+    : Math.max(state.config.periodCount, playedPeriods);
   const periods = Array.from({ length: periodCount }, (_, i) => i);
 
   if (!visible) return null;

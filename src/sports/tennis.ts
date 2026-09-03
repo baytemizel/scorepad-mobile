@@ -155,18 +155,27 @@ export const tennis: SportEngine = {
         awaySets: meta.awaySets + (winner === 'away' ? 1 : 0),
         tiebreak: false,
       };
+      // Closing this set by hand can be the set that wins the match, in which
+      // case it ends here rather than opening a set that will never be played.
+      const required = setsToWin(state);
+      const matchWinner: TeamSide | null =
+        newMeta.homeSets >= required ? 'home' :
+        newMeta.awaySets >= required ? 'away' : null;
       return {
         next: {
           ...state,
-          homeScore: 0,
-          awayScore: 0,
-          currentPeriod: state.currentPeriod + 1,
+          homeScore: matchWinner ? meta.homeGames : 0,
+          awayScore: matchWinner ? meta.awayGames : 0,
+          currentPeriod: matchWinner ? state.currentPeriod : state.currentPeriod + 1,
           periods: [...state.periods, period],
           events: [...state.events, event],
           meta: newMeta as unknown as Record<string, unknown>,
+          finished: matchWinner !== null,
+          finishedAt: matchWinner ? Date.now() : undefined,
+          winner: matchWinner ?? undefined,
         },
         periodEnded: true,
-        matchEnded: false,
+        matchEnded: matchWinner !== null,
       };
     }
 
@@ -190,6 +199,8 @@ export const tennis: SportEngine = {
     let newPeriods = state.periods;
     let newCurrentPeriod = state.currentPeriod;
     let winner: TeamSide | undefined;
+    /** Games left on the board once the match ends — see below. */
+    let finalGames: PeriodState | null = null;
 
     if (gameWinner) {
       // Game won. Reset points; increment games.
@@ -224,7 +235,6 @@ export const tennis: SportEngine = {
           awaySets: meta.awaySets + (setWinner === 'away' ? 1 : 0),
           tiebreak: false,
         };
-        newCurrentPeriod = state.currentPeriod + 1;
         periodEnded = true;
 
         const required = setsToWin(state);
@@ -235,14 +245,20 @@ export const tennis: SportEngine = {
           matchEnded = true;
           winner = 'away';
         }
+
+        // The match-winning set is where the match stops: stay on it with its
+        // games still on the board, so nothing downstream reads a set that was
+        // never played. Otherwise the next set opens at 0-0.
+        if (matchEnded) finalGames = period;
+        else newCurrentPeriod = state.currentPeriod + 1;
       }
     }
 
     return {
       next: {
         ...state,
-        homeScore: meta.homeGames,
-        awayScore: meta.awayGames,
+        homeScore: finalGames ? finalGames.homeScore : meta.homeGames,
+        awayScore: finalGames ? finalGames.awayScore : meta.awayGames,
         currentPeriod: newCurrentPeriod,
         periods: newPeriods,
         events: [...state.events, event],

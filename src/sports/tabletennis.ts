@@ -14,9 +14,17 @@ interface TableTennisMeta {
   awaySets: number;
   /** Side that holds service. */
   serving: TeamSide;
+  /**
+   * Side that opened the current set's service. The rule alternates the
+   * *opening* server each set, which is not the same as the server of the last
+   * point played, so it has to be tracked separately from `serving`.
+   */
+  startServer: TeamSide;
   /** Total points played in the current set (used for service rotation). */
   pointsInSet: number;
 }
+
+const other = (side: TeamSide): TeamSide => (side === 'home' ? 'away' : 'home');
 
 const ACTIONS: SportAction[] = [
   { id: 'point', labelKey: 'sport.tabletennis.actions.point', short: '+1', variant: 'primary' },
@@ -33,6 +41,7 @@ const ensureMeta = (state: MatchState): TableTennisMeta => {
     homeSets: m.homeSets ?? 0,
     awaySets: m.awaySets ?? 0,
     serving: m.serving ?? 'home',
+    startServer: m.startServer ?? 'home',
     pointsInSet: m.pointsInSet ?? 0,
   };
 };
@@ -82,6 +91,7 @@ export const tabletennis: SportEngine = {
       meta: {
         homeSets: 0, awaySets: 0,
         serving: 'home',
+        startServer: 'home',
         pointsInSet: 0,
       } as Record<string, unknown>,
       finished: false,
@@ -130,21 +140,31 @@ export const tabletennis: SportEngine = {
         homeSets: meta.homeSets + (winner === 'home' ? 1 : 0),
         awaySets: meta.awaySets + (winner === 'away' ? 1 : 0),
         pointsInSet: 0,
-        // Server alternates between sets.
-        serving: meta.serving === 'home' ? 'away' : 'home',
+        // Whoever received first in this set serves first in the next one.
+        startServer: other(meta.startServer),
+        serving: other(meta.startServer),
       };
+      // Closing this set by hand can be the set that wins the match, in which
+      // case it ends here rather than opening a set that will never be played.
+      const required = setsToWin(state.config.bestOf ?? 5);
+      const matchWinner: TeamSide | null =
+        newMeta.homeSets >= required ? 'home' :
+        newMeta.awaySets >= required ? 'away' : null;
       return {
         next: {
           ...state,
-          homeScore: 0,
-          awayScore: 0,
-          currentPeriod: state.currentPeriod + 1,
+          homeScore: matchWinner ? home : 0,
+          awayScore: matchWinner ? away : 0,
+          currentPeriod: matchWinner ? state.currentPeriod : state.currentPeriod + 1,
           periods: [...state.periods, completedPeriod],
           events: [...state.events, event],
           meta: newMeta as unknown as Record<string, unknown>,
+          finished: matchWinner !== null,
+          finishedAt: matchWinner ? Date.now() : undefined,
+          winner: matchWinner ?? undefined,
         },
         periodEnded: true,
-        matchEnded: false,
+        matchEnded: matchWinner !== null,
       };
     }
 
@@ -188,8 +208,9 @@ export const tabletennis: SportEngine = {
       homeSets: meta.homeSets + (setWinner === 'home' ? 1 : 0),
       awaySets: meta.awaySets + (setWinner === 'away' ? 1 : 0),
       pointsInSet: 0,
-      // Server alternates between sets
-      serving: meta.serving === 'home' ? 'away' : 'home',
+      // Whoever received first in this set serves first in the next one.
+      startServer: other(meta.startServer),
+      serving: other(meta.startServer),
     };
     const required = setsToWin(state.config.bestOf ?? 5);
     const matchWinner: TeamSide | null =
