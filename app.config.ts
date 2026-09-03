@@ -4,7 +4,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: 'ScorePad',
   slug: 'scorepad',
-  version: '1.0.1',
+  version: '1.0.2',
   // Keep the native config permissive so iOS Info.plist
   // (UISupportedInterfaceOrientations) includes landscape — required for the
   // score screen to rotate. Portrait everywhere else is enforced at runtime via
@@ -18,7 +18,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     supportsTablet: true,
     bundleIdentifier: 'com.oditteknoloji.scorepad',
-    buildNumber: '1',
+    buildNumber: '2',
     infoPlist: {
       ITSAppUsesNonExemptEncryption: false,
       NSUserTrackingUsageDescription:
@@ -40,7 +40,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       backgroundColor: '#0B1220',
     },
     package: 'com.oditteknoloji.scorepad',
-    versionCode: 1,
+    versionCode: 2,
     googleServicesFile: process.env.GOOGLE_SERVICES_JSON ?? './firebase/google-services.json',
     permissions: [
       'com.google.android.gms.permission.AD_ID',
