@@ -88,13 +88,16 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         },
         android: {
           // Google Play requires new releases to target Android 16 (API 36)
-          // from 2026-08-31. Expo SDK 52 ships AGP 8.6.0, which emits an
-          // "untested compileSdk" warning at 36 but builds successfully.
+          // from 2026-08-31.
           compileSdkVersion: 36,
           targetSdkVersion: 36,
           buildToolsVersion: '36.0.0',
           minSdkVersion: 24,
-          kotlinVersion: '1.9.25',
+          // React Native 0.81 ships its Android artifacts compiled with Kotlin
+          // 2.1.20. Building against an older compiler fails to read them
+          // ("compiled with an incompatible version of Kotlin"), so this has to
+          // track the version React Native itself was built with.
+          kotlinVersion: '2.1.20',
         },
       },
     ],
