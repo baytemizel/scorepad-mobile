@@ -3,6 +3,22 @@
 Notable changes per released version. Store-facing copy for each release lives
 in `store-assets/release-notes/`.
 
+## 1.0.3
+
+A brand refresh — no behaviour changes.
+
+### Changed
+
+- **New app icon.** The scoreboard mock-up with "PLAYER 1 / PLAYER 2" headers
+  and tally marks is replaced by a flat two-tone mark: a blue and orange split
+  behind a cream "6:7". The old artwork lost its detail at launcher sizes,
+  where an icon is 29–60px.
+- The Android adaptive icon keeps the two-tone plate full-bleed, but pulls the
+  digits into the safe circle so no launcher mask clips them. Its background
+  colour follows the mark's blue rather than the splash navy, so a launcher
+  that insets the foreground layer shows no seam.
+- The splash screen carries the new mark in place of the placeholder ring.
+
 ## 1.0.2
 
 The scoring engines were audited sport by sport against the real rules, and the
