@@ -235,7 +235,7 @@ export default function Settings() {
         <Section title={t('settings.support')}>
           <Card>
             <Pressable
-              onPress={() => Linking.openURL('mailto:support@scorepad.app')}
+              onPress={() => Linking.openURL('mailto:support@scorepad.best')}
               style={styles.row}
             >
               <Text style={{ color: theme.colors.text, fontSize: 16, flex: 1 }}>

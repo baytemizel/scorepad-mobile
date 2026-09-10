@@ -29,10 +29,10 @@ Premium is a one-time purchase processed by Apple App Store or Google Play Store
 ScorePad is not directed at children under 13.
 
 8. DATA REMOVAL
-You can delete your account and all associated cloud data by emailing support@scorepad.app from the address linked to your account. Local data is removed when you uninstall the app.
+You can delete your account and all associated cloud data by emailing support@scorepad.best from the address linked to your account. Local data is removed when you uninstall the app.
 
 9. CONTACT
-Questions? Email support@scorepad.app.
+Questions? Email support@scorepad.best.
 
 Last updated: 2025`;
 

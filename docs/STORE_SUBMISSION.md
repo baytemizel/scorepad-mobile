@@ -38,9 +38,9 @@
 - **Promotional Text** (170 chars): see `store-assets/ios/description.md`
 - **Description** (4000 chars): see `store-assets/ios/description.md`
 - **Keywords** (100 chars): see `store-assets/ios/description.md`
-- **Support URL**: https://scorepad.app/support
-- **Marketing URL**: https://scorepad.app
-- **Privacy Policy URL**: https://scorepad.app/privacy
+- **Support URL**: https://scorepad.best/support
+- **Marketing URL**: https://scorepad.best
+- **Privacy Policy URL**: https://scorepad.best/privacy
 
 ### Common rejection reasons to avoid
 
@@ -58,7 +58,7 @@
 
 1. Create the app at https://play.google.com/console (Package: `com.oditteknoloji.scorepad`).
 2. **App content**:
-   - Privacy policy URL: https://scorepad.app/privacy
+   - Privacy policy URL: https://scorepad.best/privacy
    - Ads: **Yes, app contains ads**
    - Data safety: declare same as iOS App Privacy (above)
    - Target audience: 13+ (Sports category, no kid-focused features)

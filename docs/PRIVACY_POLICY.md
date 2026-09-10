@@ -48,7 +48,7 @@ ScorePad is not directed at children under 13. We do not knowingly collect data 
 ## 8. Data retention & removal
 
 - **Local data**: removed automatically when you uninstall the app.
-- **Cloud data**: retained while your account exists. To delete your account and all associated cloud data, email **support@scorepad.app** from the address linked to your account. We will delete within 30 days.
+- **Cloud data**: retained while your account exists. To delete your account and all associated cloud data, email **support@scorepad.best** from the address linked to your account. We will delete within 30 days.
 - **Analytics**: aggregated, retained per Firebase Analytics defaults (14 months).
 
 ## 9. Your rights (GDPR / CCPA / similar)
@@ -61,7 +61,7 @@ Depending on your jurisdiction you have the right to:
 - Export your data
 - Object to processing
 
-Email **support@scorepad.app** to exercise any of these rights.
+Email **support@scorepad.best** to exercise any of these rights.
 
 ## 10. Changes
 
@@ -70,4 +70,4 @@ We may update this policy. Material changes will be highlighted in-app the next 
 ## 11. Contact
 
 ScorePad Support
-support@scorepad.app
+support@scorepad.best

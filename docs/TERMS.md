@@ -56,7 +56,7 @@ We may suspend or terminate accounts that:
 - Engage in fraudulent purchases or chargebacks
 - Abuse our infrastructure or other users
 
-You may stop using the app at any time. Account deletion is available by emailing **support@scorepad.app**.
+You may stop using the app at any time. Account deletion is available by emailing **support@scorepad.best**.
 
 ## 8. Changes to these terms
 
@@ -69,4 +69,4 @@ These terms are governed by the laws of your country of residence to the extent 
 ## 10. Contact
 
 ScorePad Support
-support@scorepad.app
+support@scorepad.best

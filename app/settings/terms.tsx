@@ -35,7 +35,7 @@ We may terminate accounts that abuse the service. You may stop using the app at 
 These terms are governed by the laws of your country of residence to the extent applicable.
 
 10. CONTACT
-Questions about these terms? Email support@scorepad.app.
+Questions about these terms? Email support@scorepad.best.
 
 Last updated: 2025`;
 

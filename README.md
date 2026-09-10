@@ -151,4 +151,4 @@ Proprietary. All rights reserved.
 
 ## Support
 
-Email: support@scorepad.app
+Email: support@scorepad.best
