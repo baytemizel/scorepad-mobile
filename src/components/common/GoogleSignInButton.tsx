@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { haptic } from '@/services/feedback';
+import { SOCIAL_BUTTON_HEIGHT, SOCIAL_BUTTON_RADIUS } from './socialButtonMetrics';
 
 /** Official Google "G" mark in its four brand colors. */
 function GoogleG({ size = 20 }: { size?: number }) {
@@ -98,8 +99,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderColor: '#DADCE0',
     borderWidth: 1,
-    borderRadius: 16,
-    paddingVertical: 15,
+    borderRadius: SOCIAL_BUTTON_RADIUS,
+    height: SOCIAL_BUTTON_HEIGHT,
     paddingHorizontal: 16,
   },
   // Google's layout fixes the mark to the leading edge while the label stays

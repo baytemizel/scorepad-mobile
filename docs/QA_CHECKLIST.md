@@ -87,10 +87,28 @@ Run through this end-to-end on **at least one physical iOS device** and **one ph
 - [ ] Email sign-up creates a new Firebase account
 - [ ] Email sign-in with valid credentials succeeds
 - [ ] Wrong password shows the right error message
-- [ ] Apple Sign-In works on iOS only (button hidden on Android)
+- [ ] iOS: Apple's button sits directly below Google on both the onboarding and the sign-in screen, same width and height
+- [ ] iOS: on an iPhone SE-sized screen the Apple button is visible without scrolling
+- [ ] Android: no Apple button on either screen
+- [ ] Apple Sign-In with "Share My Email" creates an account; Settings shows that email
+- [ ] Apple Sign-In with "Hide My Email" works; Settings shows the `privaterelay.appleid.com` address
+- [ ] Signing in with Apple again lands in the same account (cloud history and Premium come back)
+- [ ] Closing the Apple or Google sheet shows no error
+- [ ] Apple/Google sign-in with an email already registered through another method shows the "different sign-in method" message
 - [ ] Google Sign-In works on both platforms
 - [ ] Sign Out from Settings returns to sign-in
 - [ ] After sign-out, guest mode is cleanly available again
+
+## Account deletion
+
+- [ ] Settings → Delete account is only shown when signed in, and asks for confirmation (the text says an active subscription isn't cancelled)
+- [ ] Apple account: Apple's sheet appears again, then the app returns to sign-in with a "deleted" message
+- [ ] Apple account: afterwards ScorePad is gone from iOS Settings → Apple Account → Sign-In & Security → Sign in with Apple
+- [ ] Google account: deletion works (re-authentication is silent or shows Google's sheet)
+- [ ] Email account: a password prompt appears; a wrong password shows an error and keeps the prompt open
+- [ ] The account's `users/{uid}` document and its matches are gone from Firestore, and the user is gone from Firebase Authentication
+- [ ] Signing in again with the same Apple ID / Google account starts a fresh, empty account
+- [ ] Offline: deletion shows an error and the account stays intact
 
 ## Settings
 

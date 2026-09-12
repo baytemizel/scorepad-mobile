@@ -57,7 +57,6 @@
     "email": "E-mail",
     "password": "Mot de passe",
     "forgotPassword": "Mot de passe oublié ?",
-    "signInApple": "Se connecter avec Apple",
     "signInGoogle": "Se connecter avec Google",
     "signInFacebook": "Se connecter avec Facebook",
     "continueGuest": "Continuer en invité",
@@ -68,7 +67,8 @@
       "weakPassword": "Le mot de passe doit faire au moins 6 caractères",
       "wrongPassword": "E-mail ou mot de passe incorrect",
       "generic": "Quelque chose a mal tourné. Réessaie.",
-      "emailInUse": "Cet e-mail est déjà utilisé. Essayez plutôt de vous connecter."
+      "emailInUse": "Cet e-mail est déjà utilisé. Essayez plutôt de vous connecter.",
+      "accountExistsOtherMethod": "Cet e-mail est déjà associé à une autre méthode de connexion. Veuillez vous connecter avec celle-ci."
     }
   },
   "home": {
@@ -149,6 +149,12 @@
     "haptics": "Retour haptique",
     "account": "Compte",
     "signOut": "Se déconnecter",
+    "deleteAccount": "Supprimer le compte",
+    "deleteAccountTitle": "Supprimer votre compte ?",
+    "deleteAccountBody": "Votre compte et votre historique des matchs dans le cloud seront définitivement supprimés. Cette action est irréversible.\n\nCela n'annule pas un abonnement Premium actif. Vous pouvez le gérer dans les réglages de votre compte App Store ou Google Play.",
+    "deleteAccountPassword": "Saisissez votre mot de passe pour confirmer.",
+    "deleteAccountDone": "Votre compte a été supprimé.",
+    "deleteAccountReauth": "Pour votre sécurité, déconnectez-vous, reconnectez-vous, puis réessayez.",
     "premium": "Premium",
     "restorePurchases": "Restaurer les achats",
     "support": "Support",

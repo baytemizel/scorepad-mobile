@@ -60,7 +60,6 @@
     "email": "Email",
     "password": "Password",
     "forgotPassword": "Forgot password?",
-    "signInApple": "Sign in with Apple",
     "signInGoogle": "Sign in with Google",
     "signInFacebook": "Sign in with Facebook",
     "continueGuest": "Continue as Guest",
@@ -71,7 +70,8 @@
       "weakPassword": "Password must be at least 6 characters",
       "wrongPassword": "Email or password is incorrect",
       "generic": "Something went wrong. Please try again.",
-      "emailInUse": "This email is already in use. Try signing in instead."
+      "emailInUse": "This email is already in use. Try signing in instead.",
+      "accountExistsOtherMethod": "This email is already registered with a different sign-in method. Please sign in that way."
     }
   },
   "home": {
@@ -153,6 +153,12 @@
     "haptics": "Haptic feedback",
     "account": "Account",
     "signOut": "Sign out",
+    "deleteAccount": "Delete account",
+    "deleteAccountTitle": "Delete your account?",
+    "deleteAccountBody": "Your account and your match history in the cloud will be permanently deleted. This can't be undone.\n\nThis doesn't cancel an active Premium subscription. You can manage it in your App Store or Google Play account settings.",
+    "deleteAccountPassword": "Enter your password to confirm.",
+    "deleteAccountDone": "Your account has been deleted.",
+    "deleteAccountReauth": "For your security, sign out and sign back in, then try again.",
     "premium": "Premium",
     "restorePurchases": "Restore purchases",
     "manageSubscription": "Manage subscription",

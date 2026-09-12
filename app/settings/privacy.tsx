@@ -11,7 +11,7 @@ const PRIVACY_BODY = `ScorePad ("we", "our", or "us") respects your privacy. Thi
 ScorePad requires you to sign in with email, Apple, or Google to use the app. Match data is stored locally on your device. Without a Premium subscription, no match data leaves your device.
 
 2. ACCOUNT DATA
-If you sign in via email, Apple, or Google, we receive your email address and a unique account identifier from the provider. We do NOT receive your password.
+If you sign in via email, Apple, or Google, we receive your email address and a unique account identifier from the provider. We do NOT receive your password. If you use Sign in with Apple and choose to hide your email, we only receive an anonymous relay address.
 
 3. CLOUD SYNC (PREMIUM ONLY)
 If you purchase Premium, completed match records are synced to Firebase Firestore so they are available across your devices. Synced data includes: team names, scores, sport, period information, timestamps, and event log. We do not collect contacts, photos, or location.
@@ -29,12 +29,12 @@ Premium is a one-time purchase processed by Apple App Store or Google Play Store
 ScorePad is not directed at children under 13.
 
 8. DATA REMOVAL
-You can delete your account and all associated cloud data by emailing support@scorepad.best from the address linked to your account. Local data is removed when you uninstall the app.
+You can delete your account and all associated cloud data at any time in Settings → Delete account. If you can't access the app, email support@scorepad.best. Local data is removed when you uninstall the app.
 
 9. CONTACT
 Questions? Email support@scorepad.best.
 
-Last updated: 2025`;
+Last updated: 2026`;
 
 export default function Privacy() {
   const theme = useTheme();

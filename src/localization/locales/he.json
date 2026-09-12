@@ -57,7 +57,6 @@
     "email": "אימייל",
     "password": "סיסמה",
     "forgotPassword": "שכחת סיסמה?",
-    "signInApple": "התחבר עם Apple",
     "signInGoogle": "התחבר עם Google",
     "signInFacebook": "התחבר עם פייסבוק",
     "continueGuest": "המשך כאורח",
@@ -68,7 +67,8 @@
       "weakPassword": "הסיסמה חייבת להיות לפחות 6 תווים",
       "wrongPassword": "אימייל או סיסמה שגויים",
       "generic": "משהו השתבש. נסה שוב.",
-      "emailInUse": "אימייל זה כבר בשימוש. נסה להתחבר במקום."
+      "emailInUse": "אימייל זה כבר בשימוש. נסה להתחבר במקום.",
+      "accountExistsOtherMethod": "כתובת האימייל הזו כבר רשומה עם שיטת התחברות אחרת. התחבר באמצעותה."
     }
   },
   "home": {
@@ -149,6 +149,12 @@
     "haptics": "רטט",
     "account": "חשבון",
     "signOut": "התנתק",
+    "deleteAccount": "מחק חשבון",
+    "deleteAccountTitle": "למחוק את החשבון?",
+    "deleteAccountBody": "החשבון שלך והיסטוריית המשחקים שלך בענן יימחקו לצמיתות. לא ניתן לבטל פעולה זו.\n\nפעולה זו אינה מבטלת מינוי Premium פעיל. ניתן לנהל אותו בהגדרות החשבון שלך ב-App Store או ב-Google Play.",
+    "deleteAccountPassword": "הזן את הסיסמה שלך לאישור.",
+    "deleteAccountDone": "החשבון שלך נמחק.",
+    "deleteAccountReauth": "מטעמי אבטחה, התנתק והתחבר מחדש ולאחר מכן נסה שוב.",
     "premium": "Premium",
     "restorePurchases": "שחזר רכישות",
     "support": "תמיכה",

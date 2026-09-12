@@ -57,7 +57,6 @@
     "email": "Email",
     "password": "Senha",
     "forgotPassword": "Esqueceu a senha?",
-    "signInApple": "Entrar com Apple",
     "signInGoogle": "Entrar com Google",
     "signInFacebook": "Entrar com o Facebook",
     "continueGuest": "Continuar como convidado",
@@ -68,7 +67,8 @@
       "weakPassword": "A senha deve ter pelo menos 6 caracteres",
       "wrongPassword": "Email ou senha incorretos",
       "generic": "Algo deu errado. Tente novamente.",
-      "emailInUse": "Este e-mail já está em uso. Tente fazer login."
+      "emailInUse": "Este e-mail já está em uso. Tente fazer login.",
+      "accountExistsOtherMethod": "Este e-mail já está cadastrado com outro método de login. Entre usando esse método."
     }
   },
   "home": {
@@ -149,6 +149,12 @@
     "haptics": "Vibração",
     "account": "Conta",
     "signOut": "Sair",
+    "deleteAccount": "Excluir conta",
+    "deleteAccountTitle": "Excluir sua conta?",
+    "deleteAccountBody": "Sua conta e seu histórico de partidas na nuvem serão excluídos permanentemente. Essa ação não pode ser desfeita.\n\nIsso não cancela uma assinatura Premium ativa. Você pode gerenciá-la nas configurações da sua conta da App Store ou do Google Play.",
+    "deleteAccountPassword": "Digite sua senha para confirmar.",
+    "deleteAccountDone": "Sua conta foi excluída.",
+    "deleteAccountReauth": "Por segurança, saia e entre novamente, depois tente de novo.",
     "premium": "Premium",
     "restorePurchases": "Restaurar compras",
     "support": "Suporte",

@@ -9,6 +9,9 @@ import {
   Alert,
   Linking,
   Modal,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -18,9 +21,16 @@ import { useTheme } from '@/theme/ThemeProvider';
 import { useThemeControls } from '@/theme/ThemeProvider';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useAuthStore } from '@/store/authStore';
-import { signOut } from '@/services/auth';
+import {
+  signOut,
+  deleteAccount,
+  currentSignInProvider,
+  authErrorCode,
+  isAuthCancelled,
+} from '@/services/auth';
 import { restorePurchases, openManageSubscriptions } from '@/services/purchases';
 import { supportedLanguages, changeLanguage } from '@/localization/i18n';
 
@@ -39,6 +49,10 @@ export default function Settings() {
 
   const [langModal, setLangModal] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [passwordModal, setPasswordModal] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState<string | null>(null);
 
   const onSignOut = () => {
     Alert.alert(t('settings.signOut'), '', [
@@ -49,6 +63,59 @@ export default function Settings() {
         onPress: async () => {
           await signOut();
           router.replace('/(auth)/sign-in');
+        },
+      },
+    ]);
+  };
+
+  const runDeleteAccount = async (accountPassword?: string) => {
+    setDeleting(true);
+    try {
+      await deleteAccount(accountPassword);
+      setPasswordModal(false);
+      Alert.alert(t('settings.deleteAccountDone'));
+      router.replace('/(auth)/sign-in');
+    } catch (e) {
+      if (isAuthCancelled(e)) return; // closed the Apple/Google sheet
+      const code = authErrorCode(e);
+      if (
+        accountPassword !== undefined &&
+        /wrong-password|invalid-(login-)?credential/.test(code)
+      ) {
+        // Keep the sheet open so the password can be retyped.
+        setPasswordError(t('auth.errors.wrongPassword'));
+        return;
+      }
+      console.error('[DeleteAccount] error:', e);
+      setPasswordModal(false);
+      Alert.alert(
+        t(
+          code === 'auth/requires-recent-login'
+            ? 'settings.deleteAccountReauth'
+            : 'auth.errors.generic',
+        ),
+      );
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  // Apple and Google re-authenticate through their own sheets inside
+  // deleteAccount; a password account confirms its password here first.
+  const onDeleteAccount = () => {
+    Alert.alert(t('settings.deleteAccountTitle'), t('settings.deleteAccountBody'), [
+      { text: t('common.cancel'), style: 'cancel' },
+      {
+        text: t('settings.deleteAccount'),
+        style: 'destructive',
+        onPress: () => {
+          if (currentSignInProvider() === 'password') {
+            setPassword('');
+            setPasswordError(null);
+            setPasswordModal(true);
+          } else {
+            void runDeleteAccount();
+          }
         },
       },
     ]);
@@ -114,12 +181,35 @@ export default function Settings() {
             </Text>
           )}
           {isAuthed ? (
-            <Button
-              label={t('settings.signOut')}
-              variant="danger"
-              onPress={onSignOut}
-              fullWidth
-            />
+            <>
+              <Button
+                label={t('settings.signOut')}
+                variant="danger"
+                onPress={onSignOut}
+                disabled={deleting}
+                fullWidth
+              />
+              <Pressable
+                onPress={onDeleteAccount}
+                disabled={deleting}
+                hitSlop={8}
+                style={styles.deleteAccountRow}
+              >
+                {deleting ? (
+                  <ActivityIndicator color={theme.colors.danger} />
+                ) : (
+                  <Text
+                    style={{
+                      color: theme.colors.danger,
+                      fontSize: 14,
+                      fontWeight: '600',
+                    }}
+                  >
+                    {t('settings.deleteAccount')}
+                  </Text>
+                )}
+              </Pressable>
+            </>
           ) : (
             <Button
               label={t('auth.signIn')}
@@ -351,6 +441,57 @@ export default function Settings() {
           </ScrollView>
         </SafeAreaView>
       </Modal>
+
+      {/* Password confirmation before deleting a password account. */}
+      <Modal
+        visible={passwordModal}
+        transparent
+        animationType="fade"
+        onRequestClose={() => {
+          if (!deleting) setPasswordModal(false);
+        }}
+      >
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          style={styles.dialogBackdrop}
+        >
+          <View style={[styles.dialog, { backgroundColor: theme.colors.surface }]}>
+            <Text style={{ color: theme.colors.text, fontSize: 18, fontWeight: '700' }}>
+              {t('settings.deleteAccountTitle')}
+            </Text>
+            <Text style={{ color: theme.colors.textMuted, fontSize: 14 }}>
+              {t('settings.deleteAccountPassword')}
+            </Text>
+            <Input
+              label={t('auth.password')}
+              secureTextEntry
+              autoFocus
+              autoComplete="password"
+              value={password}
+              onChangeText={(value) => {
+                setPassword(value);
+                setPasswordError(null);
+              }}
+              errorText={passwordError ?? undefined}
+            />
+            <Button
+              label={t('settings.deleteAccount')}
+              variant="danger"
+              loading={deleting}
+              disabled={!password}
+              onPress={() => void runDeleteAccount(password)}
+              fullWidth
+            />
+            <Button
+              label={t('common.cancel')}
+              variant="ghost"
+              disabled={deleting}
+              onPress={() => setPasswordModal(false)}
+              fullWidth
+            />
+          </View>
+        </KeyboardAvoidingView>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -418,4 +559,12 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     minHeight: 32,
   },
+  deleteAccountRow: { alignItems: 'center', justifyContent: 'center', minHeight: 32 },
+  dialogBackdrop: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 24,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  dialog: { borderRadius: 20, padding: 20, gap: 12 },
 });

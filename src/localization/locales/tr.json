@@ -60,7 +60,6 @@
     "email": "E-posta",
     "password": "Şifre",
     "forgotPassword": "Şifremi unuttum",
-    "signInApple": "Apple ile giriş yap",
     "signInGoogle": "Google ile giriş yap",
     "signInFacebook": "Facebook ile giriş yap",
     "continueGuest": "Misafir olarak devam et",
@@ -71,7 +70,8 @@
       "weakPassword": "Şifre en az 6 karakter olmalı",
       "wrongPassword": "E-posta veya şifre hatalı",
       "generic": "Bir şeyler ters gitti. Lütfen tekrar dene.",
-      "emailInUse": "Bu e-posta zaten kullanılıyor. Bunun yerine giriş yapın."
+      "emailInUse": "Bu e-posta zaten kullanılıyor. Bunun yerine giriş yapın.",
+      "accountExistsOtherMethod": "Bu e-posta başka bir giriş yöntemiyle kayıtlı. Lütfen o yöntemle giriş yapın."
     }
   },
   "home": {
@@ -153,6 +153,12 @@
     "haptics": "Titreşim",
     "account": "Hesap",
     "signOut": "Çıkış yap",
+    "deleteAccount": "Hesabı sil",
+    "deleteAccountTitle": "Hesabınız silinsin mi?",
+    "deleteAccountBody": "Hesabınız ve buluttaki maç geçmişiniz kalıcı olarak silinecek. Bu işlem geri alınamaz.\n\nBu işlem aktif bir Premium aboneliğini iptal etmez. Aboneliğinizi App Store veya Google Play hesap ayarlarından yönetebilirsiniz.",
+    "deleteAccountPassword": "Onaylamak için şifrenizi girin.",
+    "deleteAccountDone": "Hesabınız silindi.",
+    "deleteAccountReauth": "Güvenliğiniz için çıkış yapıp tekrar giriş yapın, ardından yeniden deneyin.",
     "premium": "Premium",
     "restorePurchases": "Satın alımları geri yükle",
     "manageSubscription": "Aboneliği yönet",

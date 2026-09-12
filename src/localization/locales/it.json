@@ -57,7 +57,6 @@
     "email": "Email",
     "password": "Password",
     "forgotPassword": "Password dimenticata?",
-    "signInApple": "Accedi con Apple",
     "signInGoogle": "Accedi con Google",
     "signInFacebook": "Accedi con Facebook",
     "continueGuest": "Continua come ospite",
@@ -68,7 +67,8 @@
       "weakPassword": "La password deve avere almeno 6 caratteri",
       "wrongPassword": "Email o password errata",
       "generic": "Qualcosa è andato storto. Riprova.",
-      "emailInUse": "Questa email è già in uso. Prova ad accedere invece."
+      "emailInUse": "Questa email è già in uso. Prova ad accedere invece.",
+      "accountExistsOtherMethod": "Questa email è già registrata con un altro metodo di accesso. Accedi con quel metodo."
     }
   },
   "home": {
@@ -149,6 +149,12 @@
     "haptics": "Feedback aptico",
     "account": "Account",
     "signOut": "Esci",
+    "deleteAccount": "Elimina account",
+    "deleteAccountTitle": "Eliminare l'account?",
+    "deleteAccountBody": "Il tuo account e lo storico partite nel cloud verranno eliminati definitivamente. L'operazione non può essere annullata.\n\nQuesto non annulla un abbonamento Premium attivo. Puoi gestirlo nelle impostazioni del tuo account App Store o Google Play.",
+    "deleteAccountPassword": "Inserisci la password per confermare.",
+    "deleteAccountDone": "Il tuo account è stato eliminato.",
+    "deleteAccountReauth": "Per sicurezza, esci e accedi di nuovo, poi riprova.",
     "premium": "Premium",
     "restorePurchases": "Ripristina acquisti",
     "support": "Supporto",

@@ -57,7 +57,6 @@
     "email": "Email",
     "password": "Пароль",
     "forgotPassword": "Забыли пароль?",
-    "signInApple": "Войти через Apple",
     "signInGoogle": "Войти через Google",
     "signInFacebook": "Войти через Facebook",
     "continueGuest": "Продолжить как гость",
@@ -68,7 +67,8 @@
       "weakPassword": "Пароль должен быть не короче 6 символов",
       "wrongPassword": "Неверный email или пароль",
       "generic": "Что-то пошло не так. Попробуйте ещё раз.",
-      "emailInUse": "Эта почта уже используется. Попробуйте войти."
+      "emailInUse": "Эта почта уже используется. Попробуйте войти.",
+      "accountExistsOtherMethod": "Эта почта уже зарегистрирована с другим способом входа. Войдите этим способом."
     }
   },
   "home": {
@@ -149,6 +149,12 @@
     "haptics": "Вибрация",
     "account": "Аккаунт",
     "signOut": "Выйти",
+    "deleteAccount": "Удалить аккаунт",
+    "deleteAccountTitle": "Удалить аккаунт?",
+    "deleteAccountBody": "Ваш аккаунт и история матчей в облаке будут удалены навсегда. Это действие нельзя отменить.\n\nАктивная подписка Premium при этом не отменяется. Управлять ею можно в настройках аккаунта App Store или Google Play.",
+    "deleteAccountPassword": "Введите пароль для подтверждения.",
+    "deleteAccountDone": "Ваш аккаунт удалён.",
+    "deleteAccountReauth": "В целях безопасности выйдите и снова войдите, затем повторите попытку.",
     "premium": "Premium",
     "restorePurchases": "Восстановить покупки",
     "support": "Поддержка",

@@ -57,7 +57,6 @@
     "email": "E-post",
     "password": "Lösenord",
     "forgotPassword": "Glömt lösenord?",
-    "signInApple": "Logga in med Apple",
     "signInGoogle": "Logga in med Google",
     "signInFacebook": "Logga in med Facebook",
     "continueGuest": "Fortsätt som gäst",
@@ -68,7 +67,8 @@
       "weakPassword": "Lösenordet måste vara minst 6 tecken",
       "wrongPassword": "Fel e-post eller lösenord",
       "generic": "Något gick fel. Försök igen.",
-      "emailInUse": "Denna e-post används redan. Försök logga in istället."
+      "emailInUse": "Denna e-post används redan. Försök logga in istället.",
+      "accountExistsOtherMethod": "Den här e-postadressen är redan registrerad med en annan inloggningsmetod. Logga in med den istället."
     }
   },
   "home": {
@@ -149,6 +149,12 @@
     "haptics": "Vibration",
     "account": "Konto",
     "signOut": "Logga ut",
+    "deleteAccount": "Ta bort konto",
+    "deleteAccountTitle": "Ta bort ditt konto?",
+    "deleteAccountBody": "Ditt konto och din matchhistorik i molnet raderas permanent. Det går inte att ångra.\n\nEtt aktivt Premium-abonnemang avslutas inte av detta. Du kan hantera det i inställningarna för ditt App Store- eller Google Play-konto.",
+    "deleteAccountPassword": "Ange ditt lösenord för att bekräfta.",
+    "deleteAccountDone": "Ditt konto har tagits bort.",
+    "deleteAccountReauth": "Av säkerhetsskäl behöver du logga ut och logga in igen innan du försöker på nytt.",
     "premium": "Premium",
     "restorePurchases": "Återställ köp",
     "support": "Support",

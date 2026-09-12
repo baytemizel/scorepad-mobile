@@ -68,6 +68,29 @@ export async function fetchMatchesFromCloud(): Promise<MatchRecord[]> {
   }
 }
 
+/**
+ * Delete everything stored in the cloud for `uid`: every match, then the user
+ * document. Used by account deletion, so unlike the helpers above it throws —
+ * the caller must not delete the account unless this finished. Reads go to the
+ * server so an offline device fails fast instead of waiting on deletes that
+ * can't reach it.
+ */
+export async function deleteUserDataFromCloud(uid: string): Promise<void> {
+  const userDoc = firestore().collection(COL_USERS).doc(uid);
+  // A batch holds at most 500 writes, so delete page by page until none remain.
+  for (;;) {
+    const page = await userDoc
+      .collection(COL_MATCHES)
+      .limit(500)
+      .get({ source: 'server' });
+    if (page.empty) break;
+    const batch = firestore().batch();
+    page.docs.forEach((d) => batch.delete(d.ref));
+    await batch.commit();
+  }
+  await userDoc.delete();
+}
+
 export async function setUserPremiumFlag(isPremium: boolean): Promise<void> {
   const user = useAuthStore.getState().user;
   if (!user) return;

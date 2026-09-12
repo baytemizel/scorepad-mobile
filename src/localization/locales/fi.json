@@ -57,7 +57,6 @@
     "email": "Sähköposti",
     "password": "Salasana",
     "forgotPassword": "Unohditko salasanan?",
-    "signInApple": "Kirjaudu Applella",
     "signInGoogle": "Kirjaudu Googlella",
     "signInFacebook": "Kirjaudu Facebookilla",
     "continueGuest": "Jatka vieraana",
@@ -68,7 +67,8 @@
       "weakPassword": "Salasanan on oltava vähintään 6 merkkiä",
       "wrongPassword": "Väärä sähköposti tai salasana",
       "generic": "Jokin meni pieleen. Yritä uudelleen.",
-      "emailInUse": "Sähköposti on jo käytössä. Yritä kirjautua sisään."
+      "emailInUse": "Sähköposti on jo käytössä. Yritä kirjautua sisään.",
+      "accountExistsOtherMethod": "Tämä sähköposti on jo rekisteröity toisella kirjautumistavalla. Kirjaudu sisään sillä."
     }
   },
   "home": {
@@ -149,6 +149,12 @@
     "haptics": "Värinä",
     "account": "Tili",
     "signOut": "Kirjaudu ulos",
+    "deleteAccount": "Poista tili",
+    "deleteAccountTitle": "Poistetaanko tilisi?",
+    "deleteAccountBody": "Tilisi ja pilveen tallennettu otteluhistoriasi poistetaan pysyvästi. Toimintoa ei voi perua.\n\nTämä ei peruuta aktiivista Premium-tilausta. Voit hallita sitä App Store- tai Google Play -tilisi asetuksissa.",
+    "deleteAccountPassword": "Vahvista antamalla salasanasi.",
+    "deleteAccountDone": "Tilisi on poistettu.",
+    "deleteAccountReauth": "Kirjaudu turvallisuussyistä ulos ja takaisin sisään ja yritä sitten uudelleen.",
     "premium": "Premium",
     "restorePurchases": "Palauta ostot",
     "support": "Tuki",

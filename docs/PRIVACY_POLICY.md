@@ -1,6 +1,6 @@
 # Privacy Policy — ScorePad
 
-_Last updated: 2025_
+_Last updated: 2026_
 
 ScorePad ("we", "our", or "us") respects your privacy. This document explains what data the app collects, why, and how it is used. By using the app, you agree to this policy.
 
@@ -10,7 +10,7 @@ You can use ScorePad without creating an account. In guest mode, **all match dat
 
 ## 2. Account data
 
-If you sign in via email, Apple, or Google, we receive your email address and a unique account identifier from the provider. We **do not** receive your password.
+If you sign in via email, Apple, or Google, we receive your email address and a unique account identifier from the provider. We **do not** receive your password. If you use Sign in with Apple and choose to hide your email, we only receive an anonymous relay address.
 
 We use Firebase Authentication (a Google service) to manage your account. Their privacy policy applies in addition to ours: https://firebase.google.com/support/privacy
 
@@ -48,7 +48,7 @@ ScorePad is not directed at children under 13. We do not knowingly collect data 
 ## 8. Data retention & removal
 
 - **Local data**: removed automatically when you uninstall the app.
-- **Cloud data**: retained while your account exists. To delete your account and all associated cloud data, email **support@scorepad.best** from the address linked to your account. We will delete within 30 days.
+- **Cloud data**: retained while your account exists. You can delete your account and all associated cloud data at any time in the app under **Settings → Delete account**; the deletion is immediate. If you can't access the app, email **support@scorepad.best** and we will delete within 30 days.
 - **Analytics**: aggregated, retained per Firebase Analytics defaults (14 months).
 
 ## 9. Your rights (GDPR / CCPA / similar)

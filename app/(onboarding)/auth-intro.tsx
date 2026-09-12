@@ -13,19 +13,28 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/Button';
 import { GoogleSignInButton } from '@/components/common/GoogleSignInButton';
+import { AppleSignInButton } from '@/components/common/AppleSignInButton';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useAuthStore } from '@/store/authStore';
-import { signInWithGoogle } from '@/services/auth';
+import {
+  signInWithApple,
+  signInWithGoogle,
+  socialSignInErrorKey,
+} from '@/services/auth';
 import { logEvent } from '@/services/analytics';
 import { UserProfile } from '@/types';
 
 const sportsBg = require('../../assets/images/sports-bg.jpg');
 
+type SocialProvider = 'google' | 'apple';
+
 export default function AuthIntro() {
   const { t } = useTranslation();
   const setOnboardingCompleted = useSettingsStore((s) => s.setOnboardingCompleted);
   const continueAsGuest = useAuthStore((s) => s.continueAsGuest);
-  const [loading, setLoading] = useState(false);
+  // The provider sign-in in flight: both buttons are disabled meanwhile, only
+  // the pressed one spins.
+  const [busy, setBusy] = useState<SocialProvider | null>(null);
 
   const goAfterAuth = (profile: UserProfile) => {
     router.replace(profile.isPremium ? '/(main)' : '/(main)/premium');
@@ -43,18 +52,23 @@ export default function AuthIntro() {
     router.replace('/(auth)/sign-in');
   };
 
-  const onGoogle = async () => {
+  const runSocialSignIn = async (
+    provider: SocialProvider,
+    signIn: () => Promise<UserProfile>,
+  ) => {
     try {
-      setLoading(true);
-      const profile = await signInWithGoogle();
+      setBusy(provider);
+      const profile = await signIn();
       setOnboardingCompleted(true);
-      void logEvent('onboarding_complete', { mode: 'google' });
+      void logEvent('onboarding_complete', { mode: provider });
       goAfterAuth(profile);
     } catch (e) {
-      console.error('[GoogleSignIn] error:', e);
-      Alert.alert(t('auth.errors.generic'));
+      const errorKey = socialSignInErrorKey(e);
+      if (!errorKey) return; // the user closed the provider's sheet
+      console.error(`[SignIn:${provider}] error:`, e);
+      Alert.alert(t(errorKey));
     } finally {
-      setLoading(false);
+      setBusy(null);
     }
   };
 
@@ -101,9 +115,16 @@ export default function AuthIntro() {
 
           <GoogleSignInButton
             label={t('auth.signInGoogle')}
-            loading={loading}
+            loading={busy === 'google'}
+            disabled={busy !== null}
             fullWidth
-            onPress={onGoogle}
+            onPress={() => void runSocialSignIn('google', signInWithGoogle)}
+          />
+
+          <AppleSignInButton
+            loading={busy === 'apple'}
+            disabled={busy !== null}
+            onPress={() => void runSocialSignIn('apple', signInWithApple)}
           />
 
           <Pressable onPress={onGuest} hitSlop={8} style={styles.guestRow}>

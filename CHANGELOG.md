@@ -3,6 +3,39 @@
 Notable changes per released version. Store-facing copy for each release lives
 in `store-assets/release-notes/`.
 
+## 1.0.4
+
+Sign in with Apple sits below Google on every sign-in screen, and accounts can
+be deleted from inside the app.
+
+### Added
+
+- **Sign in with Apple on the onboarding screen.** It appears directly below
+  "Sign in with Google" on iOS; the onboarding screen used to offer Google
+  alone.
+- **Delete account** in Settings. The user confirms who they are again —
+  through Apple's or Google's sheet, or their password — and the app then
+  deletes their cloud match history, their user document and the Firebase
+  account. For Apple accounts it also revokes the app's Apple token, so
+  ScorePad leaves the user's Apple ID settings. App Store guideline 5.1.1(v)
+  requires in-app deletion from any app that lets people create an account.
+
+### Changed
+
+- The sign-in screen's Apple button is now Apple's system button, placed below
+  Google. It was a translucent button without the Apple logo, above Google,
+  which App Review can reject under Apple's Sign in with Apple design rules.
+- Apple sign-in sends a nonce, as Firebase requires, and asks for the email
+  address only. The name was requested but never stored or shown.
+
+### Fixed
+
+- Closing the Google or Apple sign-in sheet showed "Something went wrong".
+  Since Google Sign-In SDK 13, a closed sheet resolves as "cancelled" instead
+  of rejecting, and the app read that as a missing token.
+- Signing in with an email already registered through a different method now
+  says so instead of showing the generic error.
+
 ## 1.0.3
 
 A brand refresh — no behaviour changes.

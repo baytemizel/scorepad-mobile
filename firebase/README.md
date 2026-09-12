@@ -73,11 +73,30 @@ This means:
 
 ### Apple Sign-In Setup
 
-For Apple sign-in to work via Firebase, also do this in **Firebase Console → Authentication → Sign-in method**:
+The app signs in with Apple natively on iOS (`expo-apple-authentication`, with a
+nonce) and revokes the Apple token when a user deletes their account. That needs
+three things in the [Apple Developer portal](https://developer.apple.com/account/resources/identifiers/list)
+and one in Firebase. `<project-id>` below is `PROJECT_ID` from
+`GoogleService-Info.plist`.
 
-1. Enable "Apple"
-2. Add your Service ID and Team ID from [Apple Developer Portal](https://developer.apple.com/account/resources/identifiers/list/serviceId)
-3. Upload your `.p8` Apple authentication key
+1. **Identifiers → App ID `com.oditteknoloji.scorepad`**: the **Sign In with Apple**
+   capability must be ticked. EAS enables it during a build because the
+   `expo-apple-authentication` config plugin adds the entitlement.
+2. **Keys**: create a key with **Sign in with Apple** enabled and
+   `com.oditteknoloji.scorepad` as its primary App ID. Download the `.p8` (Apple
+   only lets you download it once) and note the Key ID.
+3. **Identifiers → Services IDs**: create one (e.g. `com.oditteknoloji.scorepad.signin`)
+   with Sign in with Apple enabled, configured with
+   - Domain: `<project-id>.firebaseapp.com`
+   - Return URL: `https://<project-id>.firebaseapp.com/__/auth/handler`
+4. **Firebase Console → Authentication → Sign-in method → Apple**: enable it and
+   fill in the Services ID, the Apple Team ID (`88S58EEEDX`), the Key ID and the
+   `.p8` private key.
+
+Token revocation (`auth().revokeToken`) depends on the Services ID and key from
+steps 2–4. If revocation fails, account deletion logs a warning and still deletes
+the account, so check that ScorePad disappears from the test Apple ID's
+"Sign in with Apple" list after a deletion.
 
 ### Google Sign-In Setup
 

@@ -20,7 +20,7 @@
 6. **Age Rating** — 4+.
 7. **App Review Information**:
    - Demo account: provide test credentials for email auth.
-   - Notes: "Multi-sport score tracker. Premium IAP unlocks match history, removes ads, and enables cloud sync."
+   - Notes: "Multi-sport score tracker. Premium IAP unlocks match history, removes ads, and enables cloud sync. Accounts can be deleted in Settings → Delete account."
 
 ### Required assets (per locale)
 
@@ -45,7 +45,8 @@
 ### Common rejection reasons to avoid
 
 - ❌ App lets a guest use Premium features → **fixed**: history & cloud sync are gated.
-- ❌ Sign in with Apple missing on iOS while other social providers are offered → **fixed**: Apple sign-in is on the iOS sign-in screen.
+- ❌ Sign in with Apple missing on iOS while other social providers are offered (guideline 4.8), or drawn as a custom button that breaks Apple's design rules → **fixed**: Apple's system button sits directly below Google on both the onboarding and the sign-in screen.
+- ❌ No way to delete an account inside the app (guideline 5.1.1(v)) → **fixed**: Settings → Delete account removes the Firebase account and its Firestore data, and revokes the Apple token for Apple accounts.
 - ❌ Restore Purchases missing → **fixed**: present in Settings + Premium screens.
 - ❌ Misleading IAP price → ensure price displayed in app comes from `fetchPremiumProduct()`, never hardcoded.
 - ❌ Tracking without ATT prompt → **fixed**: `initializeAds` requests permission on iOS.

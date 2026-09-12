@@ -57,7 +57,6 @@
     "email": "E-post",
     "password": "Parool",
     "forgotPassword": "Unustasid parooli?",
-    "signInApple": "Logi sisse Apple'iga",
     "signInGoogle": "Logi sisse Google'iga",
     "signInFacebook": "Logi sisse Facebookiga",
     "continueGuest": "Jätka külalisena",
@@ -68,7 +67,8 @@
       "weakPassword": "Parool peab olema vähemalt 6 tähemärki",
       "wrongPassword": "Vale e-post või parool",
       "generic": "Midagi läks valesti. Proovi uuesti.",
-      "emailInUse": "See e-post on juba kasutusel. Proovige hoopis sisse logida."
+      "emailInUse": "See e-post on juba kasutusel. Proovige hoopis sisse logida.",
+      "accountExistsOtherMethod": "See e-post on juba registreeritud teise sisselogimisviisiga. Palun logige sisse sellega."
     }
   },
   "home": {
@@ -149,6 +149,12 @@
     "haptics": "Vibratsioon",
     "account": "Konto",
     "signOut": "Logi välja",
+    "deleteAccount": "Kustuta konto",
+    "deleteAccountTitle": "Kustutada konto?",
+    "deleteAccountBody": "Teie konto ja matšide ajalugu pilves kustutatakse jäädavalt. Seda ei saa tagasi võtta.\n\nSee ei tühista aktiivset Premium-tellimust. Saate seda hallata oma App Store'i või Google Play konto seadetes.",
+    "deleteAccountPassword": "Kinnitamiseks sisestage oma parool.",
+    "deleteAccountDone": "Teie konto on kustutatud.",
+    "deleteAccountReauth": "Turvalisuse huvides logige välja ja uuesti sisse ning proovige siis uuesti.",
     "premium": "Premium",
     "restorePurchases": "Taasta ostud",
     "support": "Tugi",

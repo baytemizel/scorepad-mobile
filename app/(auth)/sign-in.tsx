@@ -19,6 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { GoogleSignInButton } from '@/components/common/GoogleSignInButton';
+import { AppleSignInButton } from '@/components/common/AppleSignInButton';
 import { haptic } from '@/services/feedback';
 import { useAuthStore } from '@/store/authStore';
 import {
@@ -26,11 +27,14 @@ import {
   signInWithApple,
   signInWithGoogle,
   signInWithFacebook,
+  socialSignInErrorKey,
 } from '@/services/auth';
 import { UserProfile } from '@/types';
 
 const sportsBg = require('../../assets/images/sports-bg.jpg');
 const facebookEnabled = Constants.expoConfig?.extra?.facebookEnabled === true;
+
+type SignInMethod = 'email' | 'google' | 'apple' | 'facebook';
 
 /**
  * After any successful sign-in/sign-up, send the user to the premium upsell
@@ -45,23 +49,26 @@ function SocialButton({
   label,
   onPress,
   loading,
+  disabled,
 }: {
   label: string;
   onPress: () => void;
   loading?: boolean;
+  disabled?: boolean;
 }) {
+  const isDisabled = disabled || loading;
   return (
     <Pressable
       onPress={() => {
-        if (loading) return;
+        if (isDisabled) return;
         haptic('light');
         onPress();
       }}
-      disabled={loading}
+      disabled={isDisabled}
       style={({ pressed }) => [
         styles.socialBtn,
         pressed && { backgroundColor: 'rgba(255,255,255,0.2)' },
-        loading && { opacity: 0.6 },
+        isDisabled && { opacity: 0.6 },
       ]}
     >
       {loading ? (
@@ -78,7 +85,9 @@ export default function SignIn() {
   const continueAsGuest = useAuthStore((s) => s.continueAsGuest);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
+  // The sign-in in flight: every option is disabled meanwhile, only the
+  // pressed one spins.
+  const [busy, setBusy] = useState<SignInMethod | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const onGuest = () => {
@@ -96,7 +105,7 @@ export default function SignIn() {
       setError(t('auth.errors.weakPassword'));
       return;
     }
-    setLoading(true);
+    setBusy('email');
     try {
       const profile = await signInWithEmail(email.trim(), password);
       goAfterAuth(profile);
@@ -106,38 +115,30 @@ export default function SignIn() {
         ? t('auth.errors.wrongPassword')
         : t('auth.errors.generic'));
     } finally {
-      setLoading(false);
+      setBusy(null);
     }
   };
 
-  const onApple = async () => {
+  const runSocialSignIn = async (
+    method: Exclude<SignInMethod, 'email'>,
+    signIn: () => Promise<UserProfile>,
+  ) => {
     try {
-      setLoading(true);
-      const profile = await signInWithApple();
+      setBusy(method);
+      const profile = await signIn();
       goAfterAuth(profile);
     } catch (e) {
-      console.error('[AppleSignIn] error:', e);
-      Alert.alert(t('auth.errors.generic'));
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const onGoogle = async () => {
-    try {
-      setLoading(true);
-      const profile = await signInWithGoogle();
-      goAfterAuth(profile);
-    } catch (e) {
-      console.error('[GoogleSignIn] error:', e);
-      if (__DEV__) {
+      const errorKey = socialSignInErrorKey(e);
+      if (!errorKey) return; // the user closed the provider's sheet
+      console.error(`[SignIn:${method}] error:`, e);
+      if (__DEV__ && errorKey === 'auth.errors.generic') {
         const err = e as {
           code?: string | number;
           message?: string;
           userInfo?: unknown;
         };
         Alert.alert(
-          '[DEV] Google Sign-In error',
+          `[DEV] ${method} sign-in error`,
           [
             `code: ${err.code ?? 'n/a'}`,
             `message: ${err.message ?? String(e)}`,
@@ -149,25 +150,10 @@ export default function SignIn() {
             .join('\n\n'),
         );
       } else {
-        Alert.alert(t('auth.errors.generic'));
+        Alert.alert(t(errorKey));
       }
     } finally {
-      setLoading(false);
-    }
-  };
-
-  const onFacebook = async () => {
-    try {
-      setLoading(true);
-      const profile = await signInWithFacebook();
-      goAfterAuth(profile);
-    } catch (e) {
-      const msg = e instanceof Error ? e.message : '';
-      if (!/cancelled/i.test(msg)) {
-        Alert.alert(t('auth.errors.generic'));
-      }
-    } finally {
-      setLoading(false);
+      setBusy(null);
     }
   };
 
@@ -217,7 +203,8 @@ export default function SignIn() {
                 label={t('auth.signIn')}
                 variant="primary"
                 size="lg"
-                loading={loading}
+                loading={busy === 'email'}
+                disabled={busy !== null}
                 fullWidth
                 onPress={onEmailSignIn}
               />
@@ -240,24 +227,24 @@ export default function SignIn() {
             </View>
 
             <View style={styles.socialGroup}>
-              {Platform.OS === 'ios' && (
-                <SocialButton
-                  label={t('auth.signInApple')}
-                  loading={loading}
-                  onPress={onApple}
-                />
-              )}
               <GoogleSignInButton
                 label={t('auth.signInGoogle')}
-                loading={loading}
+                loading={busy === 'google'}
+                disabled={busy !== null}
                 fullWidth
-                onPress={onGoogle}
+                onPress={() => void runSocialSignIn('google', signInWithGoogle)}
+              />
+              <AppleSignInButton
+                loading={busy === 'apple'}
+                disabled={busy !== null}
+                onPress={() => void runSocialSignIn('apple', signInWithApple)}
               />
               {facebookEnabled && (
                 <SocialButton
                   label={t('auth.signInFacebook')}
-                  loading={loading}
-                  onPress={onFacebook}
+                  loading={busy === 'facebook'}
+                  disabled={busy !== null}
+                  onPress={() => void runSocialSignIn('facebook', signInWithFacebook)}
                 />
               )}
             </View>
