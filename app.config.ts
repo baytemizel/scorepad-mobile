@@ -70,10 +70,21 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       'expo-splash-screen',
       {
+        // `splash.png` is the bare app mark on a transparent canvas — no baked-in
+        // background. The navy below is the whole splash, on both platforms.
+        // (It used to be a full-bleed 1242x2436 artwork with its own blue
+        // gradient; Android squeezes the splash image into a 288dp icon slot, so
+        // that artwork landed there as a cropped blue rectangle with a tiny mark
+        // inside it.)
         image: './assets/images/splash.png',
         resizeMode: 'contain',
         backgroundColor: '#0B1220',
-        imageWidth: 420,
+        imageWidth: 300,
+        android: {
+          // Android composites the mark onto a fixed 288dp canvas, so anything
+          // wider than that is cropped. 200dp leaves the mark a normal margin.
+          imageWidth: 200,
+        },
       },
     ],
     [
