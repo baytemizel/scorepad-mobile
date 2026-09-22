@@ -1,5 +1,13 @@
-import React from 'react';
-import { Pressable, Text, View, StyleProp, ViewStyle } from 'react-native';
+import React, { useState } from 'react';
+import {
+  LayoutChangeEvent,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '@/theme/ThemeProvider';
 import { shade, tint } from '@/theme/tokens';
@@ -13,8 +21,30 @@ interface ActionButtonProps {
   baseColor: string;
   style?: StyleProp<ViewStyle>;
   big?: boolean;
-  /** Tighter sizing for the portrait layout (smaller height, symbol, padding). */
-  compact?: boolean;
+  /**
+   * Portrait layout: the parent row sets the height (it grows into the screen's
+   * free space), and the symbol + label are sized to whatever height that is,
+   * instead of the fixed landscape metrics.
+   */
+  fill?: boolean;
+}
+
+/** Height a `fill` button is laid out for until it has measured itself. */
+const FILL_BASE_HEIGHT = 46;
+
+/**
+ * Text sizes for a `fill` button of the given height: a fixed share of the
+ * height, kept a notch below the landscape sizes (28 / 12) so a tall portrait
+ * button reads as roomy rather than shouty.
+ *
+ * Always fits: Poppins sets about 1.5x its font size per line, and
+ * 1.5 * (0.3h + 0.145h) + 8pt of padding stays under h for any h >= 46.
+ */
+function fillTextSizes(height: number): { symbol: number; label: number } {
+  const h = Math.max(height, FILL_BASE_HEIGHT);
+  const symbol = Math.min(26, Math.max(14, Math.round(h * 0.3)));
+  const label = Math.min(12, Math.max(10, Math.round(h * 0.145)));
+  return { symbol, label };
 }
 
 /**
@@ -27,10 +57,15 @@ export function ActionButton({
   baseColor,
   style,
   big,
-  compact,
+  fill,
 }: ActionButtonProps) {
   const theme = useTheme();
   const { t } = useTranslation();
+  const [fillHeight, setFillHeight] = useState(0);
+  const onLayout = fill
+    ? (e: LayoutChangeEvent) => setFillHeight(Math.round(e.nativeEvent.layout.height))
+    : undefined;
+  const fillSizes = fill ? fillTextSizes(fillHeight) : null;
 
   const handlePress = () => {
     haptic('medium');
@@ -65,10 +100,12 @@ export function ActionButton({
   return (
     <Pressable
       onPress={handlePress}
+      onLayout={onLayout}
       style={({ pressed }) => [
         {
           flex: 1,
-          minHeight: compact ? 46 : big ? 88 : 64,
+          // A `fill` button takes its height from the row it is stretched in.
+          minHeight: fill ? undefined : big ? 88 : 64,
           borderRadius: theme.radii.lg,
           overflow: 'hidden',
           transform: [{ scale: pressed ? 0.97 : 1 }],
@@ -86,20 +123,21 @@ export function ActionButton({
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
-          paddingHorizontal: theme.spacing.md,
-          paddingVertical: compact ? theme.spacing.xs : theme.spacing.sm,
-          borderWidth: isSecondary ? 1 : 0,
-          borderColor: isSecondary ? tint(baseColor, 0.4) : undefined,
+          // Same radius as the clipping parent, so the fill's own rounded
+          // corners (anti-aliased) line up with the clip.
+          borderRadius: theme.radii.lg,
+          paddingHorizontal: theme.spacing.sm,
+          paddingVertical: fill ? theme.spacing.xs : theme.spacing.sm,
         }}
       >
-        <View style={{ alignSelf: 'stretch', alignItems: 'center', gap: compact ? 0 : 2 }}>
+        <View style={{ alignSelf: 'stretch', alignItems: 'center', gap: fill ? 0 : 2 }}>
           <Text
             allowFontScaling={false}
             adjustsFontSizeToFit
             numberOfLines={1}
             style={{
               color: fg,
-              fontSize: compact ? 20 : big ? 40 : 28,
+              fontSize: fillSizes ? fillSizes.symbol : big ? 40 : 28,
               fontWeight: '900',
               letterSpacing: -1,
             }}
@@ -113,7 +151,7 @@ export function ActionButton({
             minimumFontScale={0.5}
             style={{
               color: fg,
-              fontSize: compact ? 10 : big ? 14 : 12,
+              fontSize: fillSizes ? fillSizes.label : big ? 14 : 12,
               fontWeight: '600',
               opacity: 0.9,
               alignSelf: 'stretch',
@@ -124,6 +162,25 @@ export function ActionButton({
           </Text>
         </View>
       </LinearGradient>
+      {isSecondary && (
+        // The outline is its own layer on top of the fill, never the
+        // gradient's border. On Android expo-linear-gradient draws the border
+        // on a wrapper view and paints the fill as a separate view *inside* it,
+        // yet rounds that inner view with the full outer radius — so at every
+        // corner a light crescent opened up between outline and fill, and the
+        // edge looked broken (free throw, corner, 2-min: all `secondary`).
+        <View
+          pointerEvents="none"
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              borderRadius: theme.radii.lg,
+              borderWidth: 1,
+              borderColor: tint(baseColor, 0.4),
+            },
+          ]}
+        />
+      )}
     </Pressable>
   );
 }

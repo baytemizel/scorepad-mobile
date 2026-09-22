@@ -1,12 +1,15 @@
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '@/theme/ThemeProvider';
 import { shade } from '@/theme/tokens';
 import { useTranslation } from 'react-i18next';
 import { MatchState } from '@/types';
 import { getEngine, statsFitCenter } from '@/sports';
 import { haptic } from '@/services/feedback';
+import { useBottomButtonGap } from '@/hooks/useBottomButtonGap';
 
 interface PortraitControlBarProps {
   state: MatchState;
@@ -21,6 +24,10 @@ interface PortraitControlBarProps {
  * "home – away" center stat plus Undo / Next / Finish. No white buttons:
  * Undo uses a neutral surface tone, Next a light primary tint, Finish its
  * semantic danger gradient.
+ *
+ * Owns the bottom safe-area inset (the score screen leaves that edge to us in
+ * portrait), so the row clears an Android navigation bar or an iOS home
+ * indicator instead of sitting underneath it.
  */
 export function PortraitControlBar({
   state,
@@ -30,6 +37,8 @@ export function PortraitControlBar({
 }: PortraitControlBarProps) {
   const theme = useTheme();
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
+  const bottomGap = useBottomButtonGap();
   const engine = getEngine(state.config.sport);
 
   const canUndo = state.events.length > 0 && !state.finished;
@@ -41,7 +50,7 @@ export function PortraitControlBar({
   const awayStat = showCenterStat ? (engine.getStatLines?.(state, 'away') ?? [])[0] ?? null : null;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingBottom: insets.bottom + bottomGap }]}>
       {homeStat && awayStat && (
         <View style={styles.stat}>
           <Text
@@ -102,7 +111,7 @@ export function PortraitControlBar({
             },
           ]}
         >
-          <Text style={{ fontSize: 18 }}>⏭</Text>
+          <MaterialCommunityIcons name="skip-next" size={20} color={theme.colors.textInverse} />
           <Text
             allowFontScaling={false}
             adjustsFontSizeToFit
@@ -127,7 +136,7 @@ export function PortraitControlBar({
           end={{ x: 1, y: 1 }}
           style={styles.finishGradient}
         >
-          <Text style={{ fontSize: 18 }}>⏹</Text>
+          <MaterialCommunityIcons name="whistle" size={20} color={theme.colors.textInverse} />
           <Text
             allowFontScaling={false}
             adjustsFontSizeToFit

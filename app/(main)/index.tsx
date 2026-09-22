@@ -49,7 +49,7 @@ export default function Home() {
               hitSlop={12}
               accessibilityLabel={t('home.history')}
             >
-              <Ionicons name="stats-chart-outline" size={20} color={theme.colors.text} />
+              <MaterialCommunityIcons name="history" size={22} color={theme.colors.text} />
             </Pressable>
             <Pressable
               onPress={() => router.push('/(main)/settings')}

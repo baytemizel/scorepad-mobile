@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from '@/theme/ThemeProvider';
 import { shade } from '@/theme/tokens';
 import { useTranslation } from 'react-i18next';
@@ -129,7 +130,7 @@ export function ScoreCenterBar({ state, onUndo, onFinish, onNextPeriod }: ScoreC
             },
           ]}
         >
-          <Text style={{ fontSize: 18 }}>⏭</Text>
+          <MaterialCommunityIcons name="skip-next" size={20} color={theme.colors.textInverse} />
           <Text
             allowFontScaling={false}
             style={{
@@ -184,7 +185,7 @@ export function ScoreCenterBar({ state, onUndo, onFinish, onNextPeriod }: ScoreC
           end={{ x: 1, y: 1 }}
           style={styles.finishGradient}
         >
-          <Text style={{ fontSize: 18 }}>⏹</Text>
+          <MaterialCommunityIcons name="whistle" size={20} color={theme.colors.textInverse} />
           <Text
             allowFontScaling={false}
             style={{

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useBottomButtonGap } from '@/hooks/useBottomButtonGap';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Button } from '@/components/ui/Button';
@@ -71,6 +72,7 @@ const PRESETS: Record<SportId, Preset[]> = {
 
 export default function MatchSetup() {
   const theme = useTheme();
+  const bottomGap = useBottomButtonGap();
   const { t } = useTranslation();
   const params = useLocalSearchParams<{ sport: string }>();
   const sportId = (params.sport as SportId) || 'basketball';
@@ -333,7 +335,7 @@ export default function MatchSetup() {
           )}
         </ScrollView>
 
-        <View style={{ padding: 20, paddingBottom: 8 }}>
+        <View style={{ padding: 20, paddingBottom: bottomGap }}>
           <Button
             label={t('setup.startMatch')}
             variant="gradient"
