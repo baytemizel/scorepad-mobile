@@ -3,6 +3,55 @@
 Notable changes per released version. Store-facing copy for each release lives
 in `store-assets/release-notes/`.
 
+## 1.0.5
+
+The score screen gets a way out, rotates on iPhone, and makes room for bigger
+buttons in portrait.
+
+### Added
+
+- **Back button on the score screen**: top-left in portrait, in the top-left
+  corner in landscape. Leaving a match still in progress asks first, since
+  the score is discarded. A finished match (already saved) leaves straight
+  away.
+- Android's back button and back gesture go through the same confirmation.
+  They used to pop the screen and silently discard a running match.
+
+### Fixed
+
+- **The score screen did not rotate on iPhone.** It asked for every
+  orientation including upside-down portrait, which notched iPhones do not
+  support, so iOS rejected the request and the screen stayed on the app's
+  portrait lock. It now asks for the orientations the device supports.
+- **The rotate button's flip no longer snaps back.** Half a second after a
+  manual flip the screen handed control back to the sensor, which turned it
+  straight back to the way the phone was being held. The chosen orientation
+  now holds until the button is tapped again or the screen is left.
+- **Android splash screen.** The splash was a full-screen artwork with its own
+  gradient; Android fits the splash image into a 288dp icon slot, so it showed
+  up as a cropped blue rectangle with a tiny mark inside. The splash is now
+  the mark alone on the navy background, sized to fit that slot.
+- **Bottom buttons clear the navigation bar.** The score screen's control row
+  and the match setup's Start button sat flush against Android's 3-button
+  bar, the gesture handle or the screen edge. They now keep a 20pt gap
+  above a 3-button bar or a bare edge, and 8pt above a gesture handle or the
+  iOS home indicator. This also covers devices that lay the app out above the
+  bar (ColorOS on Android 12), where no inset is reported.
+- The outlined action buttons (free throw, corner, 2-min) showed a light gap
+  at each corner on Android.
+- The Next button was in English in 13 of the 15 languages; it is now
+  translated.
+
+### Changed
+
+- **Portrait scoring buttons fill the screen.** They sit two to a row and grow
+  into the height a tall phone has, with the symbol and label sized to the
+  button, instead of staying at a fixed 46pt and leaving the space empty.
+- Next and Finish use icons (skip and whistle) in place of the ⏭ and ⏹
+  emoji, which each platform drew differently.
+- The home screen's Match History icon is a history clock instead of a bar
+  chart.
+
 ## 1.0.4
 
 Sign in with Apple sits below Google on every sign-in screen, and accounts can
