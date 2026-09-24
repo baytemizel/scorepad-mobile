@@ -84,18 +84,22 @@ Run through this end-to-end on **at least one physical iOS device** and **one ph
 
 ## Auth
 
-- [ ] Email sign-up creates a new Firebase account
-- [ ] Email sign-in with valid credentials succeeds
-- [ ] Wrong password shows the right error message
+- [ ] No email/password form, "Create account" button or sign-up link on the onboarding or the sign-in screen
+- [ ] Opening `scorepad://sign-up` lands on the sign-in screen
 - [ ] iOS: Apple's button sits directly below Google on both the onboarding and the sign-in screen, same width and height
+- [ ] Facebook's button sits below Apple (below Google on Android) on both screens, same width and height; it is absent from builds without `FACEBOOK_APP_ID`
 - [ ] iOS: on an iPhone SE-sized screen the Apple button is visible without scrolling
 - [ ] Android: no Apple button on either screen
 - [ ] Apple Sign-In with "Share My Email" creates an account; Settings shows that email
 - [ ] Apple Sign-In with "Hide My Email" works; Settings shows the `privaterelay.appleid.com` address
 - [ ] Signing in with Apple again lands in the same account (cloud history and Premium come back)
-- [ ] Closing the Apple or Google sheet shows no error
-- [ ] Apple/Google sign-in with an email already registered through another method shows the "different sign-in method" message
+- [ ] Closing the Apple, Google or Facebook sheet shows no error
+- [ ] Facebook sign-in with an email that already has a Google/Apple account asks to link: choosing the original provider signs in to the same account (same history, same Premium), and the next Facebook sign-in goes straight in
+- [ ] In that prompt, choosing a provider never used with this email (or a different account) shows "That isn't the account registered with this email", stays signed out, and leaves no new empty account in Firebase Authentication
+- [ ] Cancelling the link prompt leaves the user signed out with no error
 - [ ] Google Sign-In works on both platforms
+- [ ] Facebook Login works on both platforms; on iOS both with tracking allowed and with "Ask App Not to Track"
+- [ ] Signing in with Facebook again lands in the same account
 - [ ] Sign Out from Settings returns to sign-in
 - [ ] After sign-out, guest mode is cleanly available again
 
@@ -105,9 +109,11 @@ Run through this end-to-end on **at least one physical iOS device** and **one ph
 - [ ] Apple account: Apple's sheet appears again, then the app returns to sign-in with a "deleted" message
 - [ ] Apple account: afterwards ScorePad is gone from iOS Settings → Apple Account → Sign-In & Security → Sign in with Apple
 - [ ] Google account: deletion works (re-authentication is silent or shows Google's sheet)
-- [ ] Email account: a password prompt appears; a wrong password shows an error and keeps the prompt open
+- [ ] Facebook account: Facebook's login appears again, then the account is deleted
+- [ ] Android, account linked to Apple and Google: deletion re-authenticates with Google (Apple's sheet isn't available there)
+- [ ] Email account (created in 1.0.5 or earlier, still signed in): a password prompt appears; a wrong password shows an error and keeps the prompt open
 - [ ] The account's `users/{uid}` document and its matches are gone from Firestore, and the user is gone from Firebase Authentication
-- [ ] Signing in again with the same Apple ID / Google account starts a fresh, empty account
+- [ ] Signing in again with the same Apple ID / Google / Facebook account starts a fresh, empty account
 - [ ] Offline: deletion shows an error and the account stays intact
 
 ## Settings

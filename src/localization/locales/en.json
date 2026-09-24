@@ -71,7 +71,12 @@
       "wrongPassword": "Email or password is incorrect",
       "generic": "Something went wrong. Please try again.",
       "emailInUse": "This email is already in use. Try signing in instead.",
-      "accountExistsOtherMethod": "This email is already registered with a different sign-in method. Please sign in that way."
+      "accountExistsOtherMethod": "This email is already registered with a different sign-in method. Please sign in that way.",
+      "linkWrongAccount": "That isn't the account registered with this email. Sign in with the account you used before."
+    },
+    "link": {
+      "title": "Link your accounts",
+      "message": "This email already has a ScorePad account that uses a different sign-in method. Sign in the way you did before, and {{provider}} will be added to that account."
     }
   },
   "home": {

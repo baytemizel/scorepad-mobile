@@ -7,34 +7,37 @@ import {
   Platform,
   ScrollView,
   Pressable,
-  ActivityIndicator,
   ImageBackground,
   Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Constants from 'expo-constants';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { GoogleSignInButton } from '@/components/common/GoogleSignInButton';
 import { AppleSignInButton } from '@/components/common/AppleSignInButton';
-import { haptic } from '@/services/feedback';
+import { FacebookSignInButton } from '@/components/common/FacebookSignInButton';
 import { useAuthStore } from '@/store/authStore';
 import {
   signInWithEmail,
   signInWithApple,
   signInWithGoogle,
   signInWithFacebook,
+  signInAndLink,
   socialSignInErrorKey,
+  emailAuthEnabled,
+  facebookEnabled,
+  AccountExistsError,
+  SocialProvider,
 } from '@/services/auth';
+import { promptLinkProvider } from '@/services/accountLink';
 import { UserProfile } from '@/types';
 
 const sportsBg = require('../../assets/images/sports-bg.jpg');
-const facebookEnabled = Constants.expoConfig?.extra?.facebookEnabled === true;
 
-type SignInMethod = 'email' | 'google' | 'apple' | 'facebook';
+type SignInMethod = 'email' | SocialProvider;
 
 /**
  * After any successful sign-in/sign-up, send the user to the premium upsell
@@ -42,42 +45,6 @@ type SignInMethod = 'email' | 'google' | 'apple' | 'facebook';
  */
 function goAfterAuth(profile: UserProfile): void {
   router.replace(profile.isPremium ? '/(main)' : '/(main)/premium');
-}
-
-/** Translucent-white social button that stays legible over the dark hero. */
-function SocialButton({
-  label,
-  onPress,
-  loading,
-  disabled,
-}: {
-  label: string;
-  onPress: () => void;
-  loading?: boolean;
-  disabled?: boolean;
-}) {
-  const isDisabled = disabled || loading;
-  return (
-    <Pressable
-      onPress={() => {
-        if (isDisabled) return;
-        haptic('light');
-        onPress();
-      }}
-      disabled={isDisabled}
-      style={({ pressed }) => [
-        styles.socialBtn,
-        pressed && { backgroundColor: 'rgba(255,255,255,0.2)' },
-        isDisabled && { opacity: 0.6 },
-      ]}
-    >
-      {loading ? (
-        <ActivityIndicator color="#FFFFFF" />
-      ) : (
-        <Text style={styles.socialBtnText}>{label}</Text>
-      )}
-    </Pressable>
-  );
 }
 
 export default function SignIn() {
@@ -120,14 +87,22 @@ export default function SignIn() {
   };
 
   const runSocialSignIn = async (
-    method: Exclude<SignInMethod, 'email'>,
+    method: SocialProvider,
     signIn: () => Promise<UserProfile>,
-  ) => {
+  ): Promise<void> => {
     try {
       setBusy(method);
       const profile = await signIn();
       goAfterAuth(profile);
     } catch (e) {
+      if (e instanceof AccountExistsError) {
+        // The email already has an account: sign in the way it was set up
+        // and add this provider to it.
+        setBusy(null);
+        const provider = await promptLinkProvider(e.provider);
+        if (provider) await runSocialSignIn(provider, () => signInAndLink(provider, e));
+        return;
+      }
       const errorKey = socialSignInErrorKey(e);
       if (!errorKey) return; // the user closed the provider's sheet
       console.error(`[SignIn:${method}] error:`, e);
@@ -179,52 +154,56 @@ export default function SignIn() {
             <Text style={styles.title}>{t('auth.signIn')}</Text>
             <Text style={styles.subtitle}>{t('app.tagline')}</Text>
 
-            <View style={styles.form}>
-              <Input
-                tone="onDark"
-                label={t('auth.email')}
-                autoCapitalize="none"
-                keyboardType="email-address"
-                value={email}
-                onChangeText={setEmail}
-                autoComplete="email"
-              />
-              <Input
-                tone="onDark"
-                label={t('auth.password')}
-                secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-                autoComplete="password"
-                errorText={error ?? undefined}
-              />
+            {emailAuthEnabled && (
+              <>
+                <View style={styles.form}>
+                  <Input
+                    tone="onDark"
+                    label={t('auth.email')}
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    value={email}
+                    onChangeText={setEmail}
+                    autoComplete="email"
+                  />
+                  <Input
+                    tone="onDark"
+                    label={t('auth.password')}
+                    secureTextEntry
+                    value={password}
+                    onChangeText={setPassword}
+                    autoComplete="password"
+                    errorText={error ?? undefined}
+                  />
 
-              <Button
-                label={t('auth.signIn')}
-                variant="primary"
-                size="lg"
-                loading={busy === 'email'}
-                disabled={busy !== null}
-                fullWidth
-                onPress={onEmailSignIn}
-              />
+                  <Button
+                    label={t('auth.signIn')}
+                    variant="primary"
+                    size="lg"
+                    loading={busy === 'email'}
+                    disabled={busy !== null}
+                    fullWidth
+                    onPress={onEmailSignIn}
+                  />
 
-              <Pressable
-                onPress={() => router.replace('/(auth)/sign-up')}
-                hitSlop={8}
-                style={styles.linkRow}
-              >
-                <Text style={styles.linkText}>
-                  {t('auth.noAccount')}
-                </Text>
-              </Pressable>
-            </View>
+                  <Pressable
+                    onPress={() => router.replace('/(auth)/sign-up')}
+                    hitSlop={8}
+                    style={styles.linkRow}
+                  >
+                    <Text style={styles.linkText}>
+                      {t('auth.noAccount')}
+                    </Text>
+                  </Pressable>
+                </View>
 
-            <View style={styles.dividerRow}>
-              <View style={styles.dividerLine} />
-              <Text style={styles.dividerText}>{t('common.or')}</Text>
-              <View style={styles.dividerLine} />
-            </View>
+                <View style={styles.dividerRow}>
+                  <View style={styles.dividerLine} />
+                  <Text style={styles.dividerText}>{t('common.or')}</Text>
+                  <View style={styles.dividerLine} />
+                </View>
+              </>
+            )}
 
             <View style={styles.socialGroup}>
               <GoogleSignInButton
@@ -240,7 +219,7 @@ export default function SignIn() {
                 onPress={() => void runSocialSignIn('apple', signInWithApple)}
               />
               {facebookEnabled && (
-                <SocialButton
+                <FacebookSignInButton
                   label={t('auth.signInFacebook')}
                   loading={busy === 'facebook'}
                   disabled={busy !== null}
@@ -301,17 +280,5 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textDecorationLine: 'underline',
   },
-  socialGroup: { gap: 12 },
-  socialBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.12)',
-    borderColor: 'rgba(255,255,255,0.28)',
-    borderWidth: 1,
-    borderRadius: 16,
-    paddingVertical: 15,
-    paddingHorizontal: 16,
-  },
-  socialBtnText: { color: '#FFFFFF', fontSize: 16, fontWeight: '600' },
+  socialGroup: { gap: 12, marginTop: 8 },
 });

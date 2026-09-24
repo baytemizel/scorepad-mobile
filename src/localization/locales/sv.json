@@ -68,7 +68,12 @@
       "wrongPassword": "Fel e-post eller lösenord",
       "generic": "Något gick fel. Försök igen.",
       "emailInUse": "Denna e-post används redan. Försök logga in istället.",
-      "accountExistsOtherMethod": "Den här e-postadressen är redan registrerad med en annan inloggningsmetod. Logga in med den istället."
+      "accountExistsOtherMethod": "Den här e-postadressen är redan registrerad med en annan inloggningsmetod. Logga in med den istället.",
+      "linkWrongAccount": "Det är inte kontot som är registrerat med den här e-postadressen. Logga in med kontot du använde tidigare."
+    },
+    "link": {
+      "title": "Koppla ihop dina konton",
+      "message": "Det finns redan ett ScorePad-konto med den här e-postadressen som använder en annan inloggningsmetod. Logga in som förra gången så läggs {{provider}} till på det kontot."
     }
   },
   "home": {

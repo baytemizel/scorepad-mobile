@@ -68,7 +68,12 @@
       "wrongPassword": "Vale e-post või parool",
       "generic": "Midagi läks valesti. Proovi uuesti.",
       "emailInUse": "See e-post on juba kasutusel. Proovige hoopis sisse logida.",
-      "accountExistsOtherMethod": "See e-post on juba registreeritud teise sisselogimisviisiga. Palun logige sisse sellega."
+      "accountExistsOtherMethod": "See e-post on juba registreeritud teise sisselogimisviisiga. Palun logige sisse sellega.",
+      "linkWrongAccount": "See ei ole selle e-posti aadressiga registreeritud konto. Logige sisse kontoga, mida varem kasutasite."
+    },
+    "link": {
+      "title": "Ühendage kontod",
+      "message": "Selle e-posti aadressiga on juba ScorePadi konto, mis kasutab teist sisselogimisviisi. Logige sisse nagu eelmisel korral ja {{provider}} lisatakse sellele kontole."
     }
   },
   "home": {

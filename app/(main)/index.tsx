@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
@@ -57,7 +57,7 @@ export default function Home() {
               hitSlop={12}
               accessibilityLabel={t('settings.title')}
             >
-              <Ionicons name="cog-outline" size={22} color={theme.colors.text} />
+              <MaterialCommunityIcons name="cog-outline" size={22} color={theme.colors.text} />
             </Pressable>
           </View>
         </View>

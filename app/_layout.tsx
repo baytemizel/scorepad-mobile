@@ -69,10 +69,7 @@ export default function RootLayout() {
         }
         applyRtl(i18n.language);
 
-        configureFacebookSignIn(
-          process.env.FACEBOOK_APP_ID,
-          process.env.FACEBOOK_CLIENT_TOKEN,
-        );
+        configureFacebookSignIn();
 
         configureGoogleSignIn(
           Constants.expoConfig?.extra?.firebaseGoogleWebClientId,

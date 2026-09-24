@@ -18,7 +18,9 @@
         "APP_ENV": "development",
         "FIREBASE_GOOGLE_WEB_CLIENT_ID": "492816893459-ujods52onrp2k80v58ucf6e8v0pt2bnd.apps.googleusercontent.com",
         "REVENUECAT_IOS_API_KEY": "appl_NQHxnWhbGsaCjsDauqTlTclDebR",
-        "REVENUECAT_ANDROID_API_KEY": "goog_DawdXqqrMlYJlPUISXinDHIHCWI"
+        "REVENUECAT_ANDROID_API_KEY": "goog_DawdXqqrMlYJlPUISXinDHIHCWI",
+        "FACEBOOK_APP_ID": "1597884818755508",
+        "FACEBOOK_CLIENT_TOKEN": "4d9d9928e86945f30721c41c31f452fc"
       }
     },
     "preview": {
@@ -33,7 +35,9 @@
         "APP_ENV": "preview",
         "FIREBASE_GOOGLE_WEB_CLIENT_ID": "492816893459-ujods52onrp2k80v58ucf6e8v0pt2bnd.apps.googleusercontent.com",
         "REVENUECAT_IOS_API_KEY": "appl_NQHxnWhbGsaCjsDauqTlTclDebR",
-        "REVENUECAT_ANDROID_API_KEY": "goog_DawdXqqrMlYJlPUISXinDHIHCWI"
+        "REVENUECAT_ANDROID_API_KEY": "goog_DawdXqqrMlYJlPUISXinDHIHCWI",
+        "FACEBOOK_APP_ID": "1597884818755508",
+        "FACEBOOK_CLIENT_TOKEN": "4d9d9928e86945f30721c41c31f452fc"
       }
     },
     "production": {
@@ -50,7 +54,9 @@
         "APP_ENV": "production",
         "FIREBASE_GOOGLE_WEB_CLIENT_ID": "492816893459-ujods52onrp2k80v58ucf6e8v0pt2bnd.apps.googleusercontent.com",
         "REVENUECAT_IOS_API_KEY": "appl_NQHxnWhbGsaCjsDauqTlTclDebR",
-        "REVENUECAT_ANDROID_API_KEY": "goog_DawdXqqrMlYJlPUISXinDHIHCWI"
+        "REVENUECAT_ANDROID_API_KEY": "goog_DawdXqqrMlYJlPUISXinDHIHCWI",
+        "FACEBOOK_APP_ID": "1597884818755508",
+        "FACEBOOK_CLIENT_TOKEN": "4d9d9928e86945f30721c41c31f452fc"
       }
     }
   },

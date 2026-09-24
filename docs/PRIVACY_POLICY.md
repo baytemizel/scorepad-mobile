@@ -10,7 +10,9 @@ You can use ScorePad without creating an account. In guest mode, **all match dat
 
 ## 2. Account data
 
-If you sign in via email, Apple, or Google, we receive your email address and a unique account identifier from the provider. We **do not** receive your password. If you use Sign in with Apple and choose to hide your email, we only receive an anonymous relay address.
+If you sign in with Apple, Google, or Facebook (earlier versions also offered email and password), we receive your email address and a unique account identifier from the provider. We **do not** receive your password. If you use Sign in with Apple and choose to hide your email, we only receive an anonymous relay address. Facebook also shares your public profile name and picture; the app does not display them.
+
+Facebook Login is provided by Meta. Meta's privacy policy applies when you use it: https://www.facebook.com/privacy/policy/
 
 We use Firebase Authentication (a Google service) to manage your account. Their privacy policy applies in addition to ours: https://firebase.google.com/support/privacy
 

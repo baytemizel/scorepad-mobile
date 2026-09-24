@@ -14,25 +14,31 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/Button';
 import { GoogleSignInButton } from '@/components/common/GoogleSignInButton';
 import { AppleSignInButton } from '@/components/common/AppleSignInButton';
+import { FacebookSignInButton } from '@/components/common/FacebookSignInButton';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useAuthStore } from '@/store/authStore';
 import {
   signInWithApple,
+  signInWithFacebook,
   signInWithGoogle,
+  signInAndLink,
   socialSignInErrorKey,
+  emailAuthEnabled,
+  facebookEnabled,
+  AccountExistsError,
+  SocialProvider,
 } from '@/services/auth';
+import { promptLinkProvider } from '@/services/accountLink';
 import { logEvent } from '@/services/analytics';
 import { UserProfile } from '@/types';
 
 const sportsBg = require('../../assets/images/sports-bg.jpg');
 
-type SocialProvider = 'google' | 'apple';
-
 export default function AuthIntro() {
   const { t } = useTranslation();
   const setOnboardingCompleted = useSettingsStore((s) => s.setOnboardingCompleted);
   const continueAsGuest = useAuthStore((s) => s.continueAsGuest);
-  // The provider sign-in in flight: both buttons are disabled meanwhile, only
+  // The provider sign-in in flight: every button is disabled meanwhile, only
   // the pressed one spins.
   const [busy, setBusy] = useState<SocialProvider | null>(null);
 
@@ -55,7 +61,7 @@ export default function AuthIntro() {
   const runSocialSignIn = async (
     provider: SocialProvider,
     signIn: () => Promise<UserProfile>,
-  ) => {
+  ): Promise<void> => {
     try {
       setBusy(provider);
       const profile = await signIn();
@@ -63,6 +69,14 @@ export default function AuthIntro() {
       void logEvent('onboarding_complete', { mode: provider });
       goAfterAuth(profile);
     } catch (e) {
+      if (e instanceof AccountExistsError) {
+        // The email already has an account: sign in the way it was set up
+        // and add this provider to it.
+        setBusy(null);
+        const linkWith = await promptLinkProvider(e.provider);
+        if (linkWith) await runSocialSignIn(linkWith, () => signInAndLink(linkWith, e));
+        return;
+      }
       const errorKey = socialSignInErrorKey(e);
       if (!errorKey) return; // the user closed the provider's sheet
       console.error(`[SignIn:${provider}] error:`, e);
@@ -92,26 +106,30 @@ export default function AuthIntro() {
         <View style={styles.spacer} />
 
         <View style={styles.footer}>
-          <Button
-            label={t('onboarding.auth.createAccount')}
-            variant="primary"
-            size="lg"
-            fullWidth
-            onPress={onCreateAccount}
-          />
+          {emailAuthEnabled && (
+            <>
+              <Button
+                label={t('onboarding.auth.createAccount')}
+                variant="primary"
+                size="lg"
+                fullWidth
+                onPress={onCreateAccount}
+              />
 
-          <Pressable onPress={onLogIn} hitSlop={8} style={styles.logInRow}>
-            <Text style={styles.logInText}>
-              {t('onboarding.auth.alreadyHaveAccount')}{' '}
-              <Text style={styles.logInLink}>{t('onboarding.auth.logIn')}</Text>
-            </Text>
-          </Pressable>
+              <Pressable onPress={onLogIn} hitSlop={8} style={styles.logInRow}>
+                <Text style={styles.logInText}>
+                  {t('onboarding.auth.alreadyHaveAccount')}{' '}
+                  <Text style={styles.logInLink}>{t('onboarding.auth.logIn')}</Text>
+                </Text>
+              </Pressable>
 
-          <View style={styles.dividerRow}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>{t('common.or')}</Text>
-            <View style={styles.dividerLine} />
-          </View>
+              <View style={styles.dividerRow}>
+                <View style={styles.dividerLine} />
+                <Text style={styles.dividerText}>{t('common.or')}</Text>
+                <View style={styles.dividerLine} />
+              </View>
+            </>
+          )}
 
           <GoogleSignInButton
             label={t('auth.signInGoogle')}
@@ -126,6 +144,15 @@ export default function AuthIntro() {
             disabled={busy !== null}
             onPress={() => void runSocialSignIn('apple', signInWithApple)}
           />
+
+          {facebookEnabled && (
+            <FacebookSignInButton
+              label={t('auth.signInFacebook')}
+              loading={busy === 'facebook'}
+              disabled={busy !== null}
+              onPress={() => void runSocialSignIn('facebook', signInWithFacebook)}
+            />
+          )}
 
           <Pressable onPress={onGuest} hitSlop={8} style={styles.guestRow}>
             <Text style={styles.guestText}>{t('onboarding.auth.useGuest')}</Text>

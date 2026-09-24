@@ -68,7 +68,12 @@
       "wrongPassword": "Email o password errata",
       "generic": "Qualcosa è andato storto. Riprova.",
       "emailInUse": "Questa email è già in uso. Prova ad accedere invece.",
-      "accountExistsOtherMethod": "Questa email è già registrata con un altro metodo di accesso. Accedi con quel metodo."
+      "accountExistsOtherMethod": "Questa email è già registrata con un altro metodo di accesso. Accedi con quel metodo.",
+      "linkWrongAccount": "Questo non è l'account registrato con questa email. Accedi con l'account che hai usato in precedenza."
+    },
+    "link": {
+      "title": "Collega i tuoi account",
+      "message": "Esiste già un account ScorePad con questa email che usa un altro metodo di accesso. Accedi come hai fatto la volta scorsa e {{provider}} verrà aggiunto a quell'account."
     }
   },
   "home": {

@@ -2,13 +2,6 @@
   "name": "scorepad",
   "version": "1.0.0",
   "main": "expo-router/entry",
-  "expo": {
-    "autolinking": {
-      "exclude": [
-        "react-native-fbsdk-next"
-      ]
-    }
-  },
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",

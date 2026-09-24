@@ -14,12 +14,12 @@
    - Localized name + description in all 15 supported languages.
    - State must be **"Ready to Submit"** before review.
 5. **App Privacy** — declare:
-   - Data linked to user: Email, Purchase history (sync only)
+   - Data linked to user: Email, Name (Google and Facebook share it with Firebase Authentication), Purchase history (sync only)
    - Data not linked: Crash data, Performance data, Product interaction (analytics)
    - Data used to track you: Device ID (for ads, only if user grants ATT)
 6. **Age Rating** — 4+.
 7. **App Review Information**:
-   - Demo account: provide test credentials for email auth.
+   - Demo account: none needed. Sign-in is optional (guest mode covers the whole free app) and only goes through Apple, Google or Facebook, so there are no credentials to hand over.
    - Notes: "Multi-sport score tracker. Premium IAP unlocks match history, removes ads, and enables cloud sync. Accounts can be deleted in Settings → Delete account."
 
 ### Required assets (per locale)

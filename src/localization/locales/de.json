@@ -68,7 +68,12 @@
       "wrongPassword": "E-Mail oder Passwort ist falsch",
       "generic": "Etwas ist schiefgelaufen. Bitte erneut versuchen.",
       "emailInUse": "Diese E-Mail wird bereits verwendet. Versuchen Sie sich stattdessen anzumelden.",
-      "accountExistsOtherMethod": "Diese E-Mail ist bereits mit einer anderen Anmeldemethode registriert. Bitte melden Sie sich damit an."
+      "accountExistsOtherMethod": "Diese E-Mail ist bereits mit einer anderen Anmeldemethode registriert. Bitte melden Sie sich damit an.",
+      "linkWrongAccount": "Das ist nicht das Konto, das mit dieser E-Mail-Adresse registriert ist. Melden Sie sich mit dem Konto an, das Sie zuvor verwendet haben."
+    },
+    "link": {
+      "title": "Konten verknüpfen",
+      "message": "Für diese E-Mail-Adresse gibt es bereits ein ScorePad-Konto mit einer anderen Anmeldemethode. Melden Sie sich so an wie beim letzten Mal, dann wird {{provider}} diesem Konto hinzugefügt."
     }
   },
   "home": {

@@ -71,7 +71,12 @@
       "wrongPassword": "E-posta veya şifre hatalı",
       "generic": "Bir şeyler ters gitti. Lütfen tekrar dene.",
       "emailInUse": "Bu e-posta zaten kullanılıyor. Bunun yerine giriş yapın.",
-      "accountExistsOtherMethod": "Bu e-posta başka bir giriş yöntemiyle kayıtlı. Lütfen o yöntemle giriş yapın."
+      "accountExistsOtherMethod": "Bu e-posta başka bir giriş yöntemiyle kayıtlı. Lütfen o yöntemle giriş yapın.",
+      "linkWrongAccount": "Bu, bu e-postayla kayıtlı hesap değil. Daha önce kullandığın hesapla giriş yap."
+    },
+    "link": {
+      "title": "Hesaplarını birleştir",
+      "message": "Bu e-postayla kayıtlı, başka bir giriş yöntemi kullanan bir ScorePad hesabın var. Daha önce nasıl giriş yaptıysan öyle giriş yap, {{provider}} o hesaba eklensin."
     }
   },
   "home": {

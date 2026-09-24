@@ -9,7 +9,7 @@ A production-ready React Native + Expo mobile app for tracking scores across **b
 - 📱 Forced **landscape** during scoring with massive tap targets
 - 💾 **Match history** with search, filter, and cloud sync (Premium)
 - 💎 **One-time Premium** ($2.99) — removes ads, unlocks history & sync
-- 🔐 **Auth**: email, Apple, Google, or guest
+- 🔐 **Auth**: Apple, Google, Facebook, or guest (email/password is built but switched off: `emailAuthEnabled` in `src/services/auth.ts`)
 - 🎨 Dark mode, haptics, sound effects, polished animations
 - 📊 **Firebase Analytics** + **AdMob** banners and interstitials
 
@@ -144,6 +144,7 @@ See `.env.example`. Production must override:
 - `ADMOB_INTERSTITIAL_IOS`, `ADMOB_INTERSTITIAL_ANDROID`
 - `IAP_PRODUCT_PREMIUM` (default: `com.oditteknoloji.scorepad.premium`)
 - `FIREBASE_GOOGLE_WEB_CLIENT_ID` (for Google Sign-In)
+- `FACEBOOK_APP_ID`, `FACEBOOK_CLIENT_TOKEN` (for Facebook Login; without them the Facebook button is hidden)
 
 ## License
 

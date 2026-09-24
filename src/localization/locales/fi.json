@@ -68,7 +68,12 @@
       "wrongPassword": "Väärä sähköposti tai salasana",
       "generic": "Jokin meni pieleen. Yritä uudelleen.",
       "emailInUse": "Sähköposti on jo käytössä. Yritä kirjautua sisään.",
-      "accountExistsOtherMethod": "Tämä sähköposti on jo rekisteröity toisella kirjautumistavalla. Kirjaudu sisään sillä."
+      "accountExistsOtherMethod": "Tämä sähköposti on jo rekisteröity toisella kirjautumistavalla. Kirjaudu sisään sillä.",
+      "linkWrongAccount": "Tämä ei ole tällä sähköpostiosoitteella rekisteröity tili. Kirjaudu sisään tilillä, jota käytit aiemmin."
+    },
+    "link": {
+      "title": "Yhdistä tilisi",
+      "message": "Tällä sähköpostiosoitteella on jo ScorePad-tili, joka käyttää toista kirjautumistapaa. Kirjaudu sisään samalla tavalla kuin viimeksi, niin {{provider}} lisätään siihen tiliin."
     }
   },
   "home": {

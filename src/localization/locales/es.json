@@ -68,7 +68,12 @@
       "wrongPassword": "Correo o contraseña incorrectos",
       "generic": "Algo salió mal. Inténtalo de nuevo.",
       "emailInUse": "Este correo ya está en uso. Inicia sesión en su lugar.",
-      "accountExistsOtherMethod": "Este correo ya está registrado con otro método de inicio de sesión. Inicia sesión con ese método."
+      "accountExistsOtherMethod": "Este correo ya está registrado con otro método de inicio de sesión. Inicia sesión con ese método.",
+      "linkWrongAccount": "Esa no es la cuenta registrada con este correo. Inicia sesión con la cuenta que usaste antes."
+    },
+    "link": {
+      "title": "Vincula tus cuentas",
+      "message": "Ya existe una cuenta de ScorePad con este correo que usa otro método de inicio de sesión. Inicia sesión como lo hiciste antes y se añadirá {{provider}} a esa cuenta."
     }
   },
   "home": {

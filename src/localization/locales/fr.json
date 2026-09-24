@@ -68,7 +68,12 @@
       "wrongPassword": "E-mail ou mot de passe incorrect",
       "generic": "Quelque chose a mal tourné. Réessaie.",
       "emailInUse": "Cet e-mail est déjà utilisé. Essayez plutôt de vous connecter.",
-      "accountExistsOtherMethod": "Cet e-mail est déjà associé à une autre méthode de connexion. Veuillez vous connecter avec celle-ci."
+      "accountExistsOtherMethod": "Cet e-mail est déjà associé à une autre méthode de connexion. Veuillez vous connecter avec celle-ci.",
+      "linkWrongAccount": "Ce n'est pas le compte associé à cette adresse e-mail. Connectez-vous avec le compte utilisé auparavant."
+    },
+    "link": {
+      "title": "Associer vos comptes",
+      "message": "Un compte ScorePad utilisant une autre méthode de connexion existe déjà pour cette adresse e-mail. Connectez-vous comme la dernière fois pour y ajouter {{provider}}."
     }
   },
   "home": {

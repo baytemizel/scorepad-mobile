@@ -3,6 +3,37 @@
 Notable changes per released version. Store-facing copy for each release lives
 in `store-assets/release-notes/`.
 
+## Unreleased
+
+### Added
+
+- **Sign in with Facebook** on the onboarding and the sign-in screen, below
+  Google and Apple. iOS uses Facebook's Limited Login, so it works whether or
+  not tracking was allowed. Facebook accounts can be deleted from Settings like
+  the others. The button only appears in builds made with `FACEBOOK_APP_ID`
+  (setup in `firebase/README.md`).
+- **Linking accounts with the same email.** A Google, Apple or Facebook
+  sign-in whose email already has an account under another provider used to
+  stop with "already registered with a different sign-in method". The app now
+  asks which provider the account uses, signs in with it and links the new
+  one, so both open the same account with its history and Premium. Signing in
+  to a different account in that step links nothing.
+
+### Changed
+
+- **Email sign-up and sign-in are switched off.** The onboarding no longer
+  offers "Create account" / "Log in", and the sign-in screen shows only the
+  provider buttons and guest mode. The code stays in place behind
+  `emailAuthEnabled` in `src/services/auth.ts`. Existing email accounts stay
+  signed in and can still delete themselves; once signed out they cannot sign
+  back in with a password.
+
+### Fixed
+
+- The Facebook SDK was excluded from native linking since 1.0.1 (its iOS
+  adapter did not compile against Expo SDK 52), so a Facebook button would have
+  had no SDK behind it. It links again now that the adapter builds on SDK 54.
+
 ## 1.0.5
 
 The score screen gets a way out, rotates on iPhone, and makes room for bigger

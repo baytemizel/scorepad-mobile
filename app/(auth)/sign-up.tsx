@@ -11,16 +11,23 @@ import {
   Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { router } from 'expo-router';
+import { Redirect, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { signUpWithEmail } from '@/services/auth';
+import { emailAuthEnabled, signUpWithEmail } from '@/services/auth';
 
 const sportsBg = require('../../assets/images/sports-bg.jpg');
 
-export default function SignUp() {
+export default function SignUpRoute() {
+  // Email sign-up is switched off for now (see emailAuthEnabled); anything
+  // that still links here lands on the provider sign-in instead.
+  if (!emailAuthEnabled) return <Redirect href="/(auth)/sign-in" />;
+  return <SignUp />;
+}
+
+function SignUp() {
   const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

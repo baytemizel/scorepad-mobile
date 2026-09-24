@@ -76,7 +76,7 @@ export default function Settings() {
       Alert.alert(t('settings.deleteAccountDone'));
       router.replace('/(auth)/sign-in');
     } catch (e) {
-      if (isAuthCancelled(e)) return; // closed the Apple/Google sheet
+      if (isAuthCancelled(e)) return; // closed the provider's sheet
       const code = authErrorCode(e);
       if (
         accountPassword !== undefined &&
@@ -100,7 +100,7 @@ export default function Settings() {
     }
   };
 
-  // Apple and Google re-authenticate through their own sheets inside
+  // Apple, Google and Facebook re-authenticate through their own sheets inside
   // deleteAccount; a password account confirms its password here first.
   const onDeleteAccount = () => {
     Alert.alert(t('settings.deleteAccountTitle'), t('settings.deleteAccountBody'), [

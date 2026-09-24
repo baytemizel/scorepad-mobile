@@ -15,7 +15,18 @@ import { identifyPurchaseUser, resetPurchaseUser } from './purchases';
 import { deleteUserDataFromCloud, fetchMatchesFromCloud } from './firestore';
 import { UserProfile } from '@/types';
 
-const facebookEnabled = Constants.expoConfig?.extra?.facebookEnabled === true;
+/**
+ * Email/password sign-up and sign-in are switched off for now: people sign in
+ * with Google, Apple or Facebook, or continue as a guest. The screens and the
+ * functions below stay in place so the flow can come back by flipping this.
+ * Accounts that already use a password can still delete themselves from
+ * Settings.
+ */
+export const emailAuthEnabled = false;
+
+/** Facebook login exists only in builds made with a FACEBOOK_APP_ID. */
+export const facebookEnabled =
+  Constants.expoConfig?.extra?.facebookEnabled === true;
 
 // Load the Facebook SDK lazily and only when enabled. Importing it eagerly
 // instantiates native modules whose constructors throw FacebookSdkNotInitialized
@@ -86,6 +97,7 @@ export function socialSignInErrorKey(e: unknown): string | null {
   if (authErrorCode(e) === 'auth/account-exists-with-different-credential') {
     return 'auth.errors.accountExistsOtherMethod';
   }
+  if (e instanceof WrongLinkAccountError) return 'auth.errors.linkWrongAccount';
   return 'auth.errors.generic';
 }
 
@@ -175,57 +187,78 @@ async function requestAppleCredential(): Promise<{
   };
 }
 
-export async function signInWithApple(): Promise<UserProfile> {
-  if (Platform.OS !== 'ios') throw new Error('Apple Sign In is iOS only');
-  const { credential } = await requestAppleCredential();
-  const { user } = await auth().signInWithCredential(credential);
-  const profile = profileFromUser(user, useAuthStore.getState().isPremium);
-  useAuthStore.getState().signInWithProfile(profile);
-  // Restore this account's match history from the cloud (free + premium).
-  void hydrateUserData();
-  // Tie RevenueCat entitlements to this account so premium follows the user
-  // across devices and reinstalls.
-  void identifyPurchaseUser(profile.uid);
-  await setUserId(user.uid);
-  await logEvent('login', { method: 'apple' });
-  return profile;
+/**
+ * The app ID and client token reach the native SDK through the config plugin
+ * (Info.plist / AndroidManifest), so there is nothing to pass here.
+ */
+export function configureFacebookSignIn(): void {
+  if (!facebookEnabled) return;
+  getFBSDK().Settings.initializeSDK();
 }
 
-export function configureFacebookSignIn(appId?: string, clientToken?: string): void {
-  if (!facebookEnabled || !appId || !clientToken) return;
-  const { Settings } = getFBSDK();
-  Settings.setAppID(appId);
-  Settings.setClientToken(clientToken);
-  Settings.initializeSDK();
-}
+/**
+ * Show Facebook's login and turn the result into a Firebase credential.
+ *
+ * iOS uses Limited Login: classic login needs App Tracking Transparency
+ * consent, and without it the SDK quietly falls back to Limited Login, which
+ * yields no access token for Firebase. Limited Login returns an OpenID token
+ * bound to a nonce instead, checked the same way as Apple's (hash to Facebook,
+ * raw value to Firebase). Android has no Limited Login and uses the classic
+ * access token.
+ */
+async function requestFacebookCredential(): Promise<FirebaseAuthTypes.AuthCredential> {
+  const { LoginManager, AccessToken, AuthenticationToken } = getFBSDK();
+  const permissions = ['public_profile', 'email'];
 
-export async function signInWithFacebook(): Promise<UserProfile> {
-  const { LoginManager, AccessToken } = getFBSDK();
-  const result = await LoginManager.logInWithPermissions([
-    'public_profile',
-    'email',
-  ]);
-  if (result.isCancelled) {
-    throw new Error('Facebook Sign In cancelled');
+  if (Platform.OS === 'ios') {
+    const rawNonce = Crypto.randomUUID();
+    const hashedNonce = await Crypto.digestStringAsync(
+      Crypto.CryptoDigestAlgorithm.SHA256,
+      rawNonce,
+    );
+    const result = await LoginManager.logInWithPermissions(
+      permissions,
+      'limited',
+      hashedNonce,
+    );
+    if (result.isCancelled) throw new Error('Facebook Sign In cancelled');
+    const token = await AuthenticationToken.getAuthenticationTokenIOS();
+    if (!token?.authenticationToken) {
+      throw new Error('Facebook Sign In failed: no authentication token');
+    }
+    return auth.FacebookAuthProvider.credential(token.authenticationToken, rawNonce);
   }
-  const tokenData = await AccessToken.getCurrentAccessToken();
-  if (!tokenData?.accessToken) {
+
+  const result = await LoginManager.logInWithPermissions(permissions);
+  if (result.isCancelled) throw new Error('Facebook Sign In cancelled');
+  const token = await AccessToken.getCurrentAccessToken();
+  if (!token?.accessToken) {
     throw new Error('Facebook Sign In failed: no access token');
   }
-  const credential = auth.FacebookAuthProvider.credential(
-    tokenData.accessToken,
-  );
-  const { user } = await auth().signInWithCredential(credential);
-  const profile = profileFromUser(user, useAuthStore.getState().isPremium);
-  useAuthStore.getState().signInWithProfile(profile);
-  // Restore this account's match history from the cloud (free + premium).
-  void hydrateUserData();
-  // Tie RevenueCat entitlements to this account so premium follows the user
-  // across devices and reinstalls.
-  void identifyPurchaseUser(profile.uid);
-  await setUserId(user.uid);
-  await logEvent('login', { method: 'facebook' });
-  return profile;
+  return auth.FacebookAuthProvider.credential(token.accessToken);
+}
+
+/**
+ * The email of the Facebook user who just logged in, or null when Facebook
+ * didn't share one. iOS reads it from Limited Login's profile; Android has no
+ * email on its profile, so it asks the Graph API with the access token.
+ */
+async function facebookEmail(): Promise<string | null> {
+  try {
+    const { Profile, AccessToken } = getFBSDK();
+    if (Platform.OS === 'ios') {
+      return (await Profile.getCurrentProfile())?.email ?? null;
+    }
+    const token = await AccessToken.getCurrentAccessToken();
+    if (!token?.accessToken) return null;
+    const response = await fetch('https://graph.facebook.com/me?fields=email', {
+      headers: { Authorization: `Bearer ${token.accessToken}` },
+    });
+    const body = (await response.json()) as { email?: unknown };
+    return typeof body.email === 'string' ? body.email : null;
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -259,10 +292,59 @@ async function requestGoogleIdToken({ silent = false } = {}): Promise<string> {
   return idToken;
 }
 
-export async function signInWithGoogle(): Promise<UserProfile> {
-  const idToken = await requestGoogleIdToken();
-  const credential = auth.GoogleAuthProvider.credential(idToken);
-  const { user } = await auth().signInWithCredential(credential);
+export type SocialProvider = 'google' | 'apple' | 'facebook';
+
+/**
+ * Firebase keeps one account per email. Thrown when a Google, Apple or
+ * Facebook sign-in reaches an address that already belongs to an account
+ * using another provider. It keeps the refused credential so `signInAndLink`
+ * can add it to that account once the person signs in the way they did
+ * before.
+ */
+export class AccountExistsError extends Error {
+  constructor(
+    readonly provider: SocialProvider,
+    readonly credential: FirebaseAuthTypes.AuthCredential,
+    /** The email the refused provider reported, when it is known. */
+    readonly email: string | null,
+  ) {
+    super('An account already exists with the same email address');
+    this.name = 'AccountExistsError';
+  }
+}
+
+/** `signInAndLink` reached an account other than the one that owns the email. */
+export class WrongLinkAccountError extends Error {
+  constructor() {
+    super('Signed in to a different account than the one to link');
+    this.name = 'WrongLinkAccountError';
+  }
+}
+
+/** Show the provider's own sign-in and return its Firebase credential. */
+async function requestProviderCredential(
+  provider: SocialProvider,
+): Promise<FirebaseAuthTypes.AuthCredential> {
+  switch (provider) {
+    case 'google':
+      return auth.GoogleAuthProvider.credential(await requestGoogleIdToken());
+    case 'apple':
+      if (Platform.OS !== 'ios') throw new Error('Apple Sign In is iOS only');
+      return (await requestAppleCredential()).credential;
+    case 'facebook':
+      if (!facebookEnabled) throw new Error('Facebook Sign In is not configured');
+      return requestFacebookCredential();
+  }
+}
+
+/**
+ * Make `user` the app's signed-in account: store it, restore its matches, and
+ * point purchases and analytics at it.
+ */
+async function completeSignIn(
+  user: FirebaseAuthTypes.User,
+  provider: SocialProvider,
+): Promise<UserProfile> {
   const profile = profileFromUser(user, useAuthStore.getState().isPremium);
   useAuthStore.getState().signInWithProfile(profile);
   // Restore this account's match history from the cloud (free + premium).
@@ -271,8 +353,65 @@ export async function signInWithGoogle(): Promise<UserProfile> {
   // across devices and reinstalls.
   void identifyPurchaseUser(profile.uid);
   await setUserId(user.uid);
-  await logEvent('login', { method: 'google' });
+  await logEvent('login', { method: provider });
   return profile;
+}
+
+async function signInWithProvider(provider: SocialProvider): Promise<UserProfile> {
+  const credential = await requestProviderCredential(provider);
+  let user: FirebaseAuthTypes.User;
+  try {
+    ({ user } = await auth().signInWithCredential(credential));
+  } catch (e) {
+    if (authErrorCode(e) === 'auth/account-exists-with-different-credential') {
+      const email = provider === 'facebook' ? await facebookEmail() : null;
+      throw new AccountExistsError(provider, credential, email);
+    }
+    throw e;
+  }
+  return completeSignIn(user, provider);
+}
+
+export const signInWithGoogle = () => signInWithProvider('google');
+export const signInWithApple = () => signInWithProvider('apple');
+export const signInWithFacebook = () => signInWithProvider('facebook');
+
+/**
+ * Finish a sign-in refused with AccountExistsError by merging the two
+ * identities: sign in with `provider`, the method the existing account uses,
+ * then link the refused credential to that account. From then on both
+ * providers sign in to the same account.
+ *
+ * Two checks keep the merge on the right account. If the sign-in creates a
+ * new account, `provider` was never used with this email, so that empty
+ * account is deleted again. If the account's email differs from the one the
+ * refused provider reported, it belongs to someone else's address. Either way
+ * nothing is linked and the person stays signed out.
+ */
+export async function signInAndLink(
+  provider: SocialProvider,
+  conflict: AccountExistsError,
+): Promise<UserProfile> {
+  const result = await auth().signInWithCredential(
+    await requestProviderCredential(provider),
+  );
+  const { user } = result;
+  const isNewAccount = result.additionalUserInfo?.isNewUser === true;
+  const expectedEmail = conflict.email?.toLowerCase();
+  if (isNewAccount || (expectedEmail && user.email?.toLowerCase() !== expectedEmail)) {
+    if (isNewAccount) await user.delete().catch(() => undefined);
+    await abandonSignIn();
+    throw new WrongLinkAccountError();
+  }
+  try {
+    await user.linkWithCredential(conflict.credential);
+    void logEvent('link_provider', { method: conflict.provider });
+  } catch (e) {
+    // They are in their account either way; without the link the refused
+    // provider just asks to merge again next time.
+    console.warn('[Auth] linking the refused provider failed', e);
+  }
+  return completeSignIn(user, provider);
 }
 
 /**
@@ -281,6 +420,15 @@ export async function signInWithGoogle(): Promise<UserProfile> {
  * account deletion.
  */
 async function resetLocalSession(): Promise<void> {
+  await signOutProviders();
+  // Also clears the local match cache (see authStore.signOut).
+  useAuthStore.getState().signOut();
+  void resetPurchaseUser();
+  await setUserId(null);
+}
+
+/** End the Google and Facebook SDK sessions, so their next sign-in asks again. */
+async function signOutProviders(): Promise<void> {
   try {
     await GoogleSignin.signOut();
   } catch {
@@ -293,10 +441,17 @@ async function resetLocalSession(): Promise<void> {
       // ignore
     }
   }
-  // Also clears the local match cache (see authStore.signOut).
-  useAuthStore.getState().signOut();
+}
+
+/**
+ * Back out of a Firebase sign-in the app never finished. Unlike sign-out it
+ * leaves the auth store alone, so a guest keeps their local matches, and it
+ * only undoes the RevenueCat alias the auth listener set for that account.
+ */
+async function abandonSignIn(): Promise<void> {
+  await auth().signOut().catch(() => undefined);
+  await signOutProviders();
   void resetPurchaseUser();
-  await setUserId(null);
 }
 
 export async function signOut(): Promise<void> {
@@ -309,19 +464,26 @@ export async function signOut(): Promise<void> {
   await logEvent('sign_out');
 }
 
-export type SignInProvider = 'apple.com' | 'google.com' | 'password' | 'other';
+export type SignInProvider =
+  | 'apple.com'
+  | 'google.com'
+  | 'facebook.com'
+  | 'password'
+  | 'other';
 
 /**
  * How the signed-in Firebase user authenticates, which decides how account
- * deletion re-authenticates. Apple wins when several are linked, because its
- * token must be revoked on deletion.
+ * deletion re-authenticates. On iOS Apple wins when several are linked,
+ * because its token must be revoked on deletion; Android can't show Apple's
+ * sheet, so a merged account re-authenticates with Google or Facebook there.
  */
 export function currentSignInProvider(): SignInProvider | null {
   const user = auth().currentUser;
   if (!user) return null;
   const ids = user.providerData.map((p) => p.providerId);
-  if (ids.includes('apple.com')) return 'apple.com';
+  if (Platform.OS === 'ios' && ids.includes('apple.com')) return 'apple.com';
   if (ids.includes('google.com')) return 'google.com';
+  if (ids.includes('facebook.com')) return 'facebook.com';
   if (ids.includes('password')) return 'password';
   return 'other';
 }
@@ -331,8 +493,8 @@ export function currentSignInProvider(): SignInProvider | null {
  * guideline 5.1.1(v) requires of apps that let people create accounts.
  *
  * Firebase only deletes an account that signed in recently, so the user
- * re-authenticates with the same provider first: Apple and Google through
- * their own sheets, password accounts by passing `password`. Apple's fresh
+ * re-authenticates with the same provider first: Apple, Google and Facebook
+ * through their own sheets, password accounts by passing `password`. Apple's fresh
  * sign-in also yields the one-time authorization code used to revoke the
  * app's Apple token, which Apple expects on deletion.
  */
@@ -351,6 +513,8 @@ export async function deleteAccount(password?: string): Promise<void> {
     await user.reauthenticateWithCredential(
       auth.GoogleAuthProvider.credential(idToken),
     );
+  } else if (provider === 'facebook.com' && facebookEnabled) {
+    await user.reauthenticateWithCredential(await requestFacebookCredential());
   } else if (provider === 'password' && user.email && password) {
     await user.reauthenticateWithCredential(
       auth.EmailAuthProvider.credential(user.email, password),
