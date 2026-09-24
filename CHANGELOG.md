@@ -3,7 +3,10 @@
 Notable changes per released version. Store-facing copy for each release lives
 in `store-assets/release-notes/`.
 
-## Unreleased
+## 1.0.6
+
+Sign in with Facebook, one account per email across every sign-in method, and
+sign-in screens that offer only the providers and guest mode.
 
 ### Added
 
